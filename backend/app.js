@@ -8,6 +8,7 @@ import HandleError from "./Utils/handleError.js";
 import catchError from "./Utils/catchError.js";
 
 import userRouter from "./Routes/user.route.js"
+import uploadRouter from "./Routes/upload.route.js"
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,8 +22,11 @@ app.use(cors());
 app.use(express.static("Public"));
 
 // Routes
+app.use('/api/upload', uploadRouter)
 app.use('/api/user', userRouter)
 
+
+// Error Handling
 app.use("*", (req, res, next) => {
   return next(new HandleError("Route not found", 404));
 });
