@@ -13,7 +13,7 @@ const isLogin = catchAsync(async (req, res, next) => {
     return next(
       new HandleError(
         {
-          en: "you don't have a permission",
+          en: "you don't have permission",
           fa: "دسترسی انجام این کار را ندارید",
         },
         401
