@@ -12,6 +12,6 @@ import {
 const router = express.Router();
 
 router.route("/").post(isAdmin, createBrand).get(getAllBrand);
-router.route("/:id").get(getBrand).patch(updateBrand);
+router.route("/:id").get(getBrand).patch(isAdmin, updateBrand);
 
 export default router;

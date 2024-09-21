@@ -12,6 +12,6 @@ import {
 const router = express.Router();
 
 router.route("/").post(isAdmin, createCategory).get(getAllCategory);
-router.route("/:id").get(getCategory).patch(updateCategory);
+router.route("/:id").get(getCategory).patch(isAdmin, updateCategory);
 
 export default router;
