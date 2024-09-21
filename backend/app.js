@@ -13,6 +13,7 @@ import addressRouter from "./Routes/address.route.js";
 import authRouter from "./Routes/auth.route.js";
 import categoryRouter from "./Routes/category.route.js";
 import brandRouter from "./Routes/brand.route.js";
+import sliderRouter from "./Routes/slider.router.js";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
@@ -31,6 +32,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/address", addressRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/brand", brandRouter);
+app.use("/api/slider", sliderRouter);
 
 // Error Handling
 app.use("*", (req, res, next) => {
