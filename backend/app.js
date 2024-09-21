@@ -14,6 +14,7 @@ import authRouter from "./Routes/auth.route.js";
 import categoryRouter from "./Routes/category.route.js";
 import brandRouter from "./Routes/brand.route.js";
 import sliderRouter from "./Routes/slider.router.js";
+import discountRouter from "./Routes/discount.route.js";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
@@ -33,6 +34,7 @@ app.use("/api/address", addressRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/brand", brandRouter);
 app.use("/api/slider", sliderRouter);
+app.use("/api/discount", discountRouter);
 
 // Error Handling
 app.use("*", (req, res, next) => {
