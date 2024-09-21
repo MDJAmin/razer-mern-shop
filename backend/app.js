@@ -9,6 +9,8 @@ import catchError from "./Utils/catchError.js";
 
 import userRouter from "./Routes/user.route.js"
 import uploadRouter from "./Routes/upload.route.js"
+import addressRouter from "./Routes/address.route.js"
+import authRouter from "./Routes/auth.route.js"
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -24,7 +26,8 @@ app.use(express.static("Public"));
 // Routes
 app.use('/api/upload', uploadRouter)
 app.use('/api/user', userRouter)
-
+app.use('/api/auth', authRouter)
+app.use('/api/address',addressRouter)
 
 // Error Handling
 app.use("*", (req, res, next) => {

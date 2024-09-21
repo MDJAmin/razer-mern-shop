@@ -2,7 +2,7 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import catchAsync from "../Utils/catchAsync.js";
 import HandleError from "../Utils/handleError.js";
-import User from "../Models/UserMd.js";
+import User from "../Models/user.model.js";
 import { sendAuthCode, verifyCode } from "../Utils/smsHandler.js";
 
 export const auth = catchAsync(async (req, res, next) => {
