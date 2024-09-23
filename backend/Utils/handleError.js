@@ -1,6 +1,6 @@
 class HandleError extends Error {
   constructor(message, statusCode) {
-    super(message);
+    super(JSON.stringify(message));
     this.statusCode = statusCode;
     this.success = false;
     this.isOperational = true;
