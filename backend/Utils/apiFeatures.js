@@ -45,5 +45,11 @@ class ApiFeatures {
     }
     return this;
   }
+  secondPopulate(p) {
+    if (p) {
+      this.model = this.model.populate(p);
+    }
+    return this;
+  }
 }
 export default ApiFeatures;
