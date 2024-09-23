@@ -249,6 +249,7 @@ export const checkCode = catchAsync(async (req, res, next) => {
           phone: user.phone,
           email: user?.email,
           fullName: user?.fullName,
+          cart: user?.cart
         },
       },
     });
@@ -272,6 +273,7 @@ export const checkCode = catchAsync(async (req, res, next) => {
           phone: newUser.phone,
           email: newUser?.email,
           fullName: newUser?.fullName,
+          cart: user?.cart
         },
       },
     });
