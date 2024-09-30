@@ -16,6 +16,7 @@ import brandRouter from "./Routes/brand.route.js";
 import sliderRouter from "./Routes/slider.router.js";
 import discountRouter from "./Routes/discount.route.js";
 import variantRouter from "./Routes/variant.route.js";
+import commentRouter from "./Routes/comment.route.js";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
@@ -37,6 +38,7 @@ app.use("/api/brand", brandRouter);
 app.use("/api/slider", sliderRouter);
 app.use("/api/discount", discountRouter);
 app.use("/api/variant", variantRouter);
+app.use("/api/comment", commentRouter);
 
 // Error Handling
 app.use("*", (req, res, next) => {
