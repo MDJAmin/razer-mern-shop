@@ -1,6 +1,6 @@
 import catchAsync from "../Utils/catchAsync.js";
 import Product from "../Models/product.model.js";
-import ProductVariant from "../Models/productVariant.js";
+import ProductVariant from "../Models/productVariant.model.js";
 
 export const createProductVariant = catchAsync(async (req, res, next) => {
   const { id } = req.params;

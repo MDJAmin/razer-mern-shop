@@ -19,6 +19,7 @@ import variantRouter from "./Routes/variant.route.js";
 import commentRouter from "./Routes/comment.route.js";
 import cartRouter from "./Routes/cart.route.js";
 import productRouter from "./Routes/product.route.js";
+import productVariantRouter from "./Routes/productVariant.route.js";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
@@ -43,6 +44,7 @@ app.use("/api/variant", variantRouter);
 app.use("/api/comment", commentRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/product", productRouter);
+app.use("/api/product-variant", productVariantRouter);
 
 // Error Handling
 app.use("*", (req, res, next) => {
