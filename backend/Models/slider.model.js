@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const sliderSchema = new mongoose.Schema({
   title: {
-    type: String,
+    type: Map,
+    of: String,
     required: [
       true,
       {

@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 const brandSchema = new mongoose.Schema({
   title: {
-    type: String,
+    type: Map,
+    of: String,
     required: [
       true,
       {
