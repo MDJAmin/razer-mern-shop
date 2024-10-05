@@ -1,7 +1,7 @@
 import { fileURLToPath } from "url";
 import express from "express";
 import morgan from "morgan";
-import cors from "cors";
+import cors from "cors";  
 import path from "path";
 
 import HandleError from "./Utils/handleError.js";
@@ -21,11 +21,16 @@ import cartRouter from "./Routes/cart.route.js";
 import productRouter from "./Routes/product.route.js";
 import productVariantRouter from "./Routes/productVariant.route.js";
 import searchRouter from "./Routes/search.route.js";
+import orderHistoryRouter from "./Routes/orderHistory.route.js";
+
+import { checkOut } from "./Controllers/orderHistory.controller.js";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 
 const app = express();
+
+setInterval(checkOut, 20 * 60 * 1000);
 
 app.use(express.json());
 app.use(morgan("dev"));
@@ -47,6 +52,7 @@ app.use("/api/cart", cartRouter);
 app.use("/api/product", productRouter);
 app.use("/api/product-variant", productVariantRouter);
 app.use("/api/search", searchRouter);
+app.use("/api/order-history", orderHistoryRouter);
 
 // Error Handling
 app.use("*", (req, res, next) => {
