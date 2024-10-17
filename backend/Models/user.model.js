@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema(
     fullName: {
       type: String,
     },
+    password: {
+      type: String
+    },
     idCard: {
       type: String,
       unique: [

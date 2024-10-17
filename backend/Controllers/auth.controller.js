@@ -293,6 +293,17 @@ export const setPassword = catchAsync(async (req, res, next) => {
       )
     );
   }
+  if (password.length < 6) {
+    return next(
+      new HandleError(
+        {
+          en: "Password should be 6 character long",
+          fa: "گذرواژه باید از ۶ حرف بیشتر باشد"
+        },
+        400
+      )
+    );
+  }
   const { id } = jwt.verify(
     req.headers.authorization.split(" ")[1],
     process.env.JWT_SECRET
