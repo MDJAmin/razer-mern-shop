@@ -215,7 +215,7 @@ export const checkCode = catchAsync(async (req, res, next) => {
     );
   }
 
-  const otp = verifyCode(phone, code);
+  const otp = await verifyCode(phone, code);
   if (!otp.success) {
     return next(
       new HandleError(
