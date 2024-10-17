@@ -309,9 +309,11 @@ export const setPassword = catchAsync(async (req, res, next) => {
     process.env.JWT_SECRET
   );
 
+  const hashPassword = bcryptjs.hashSync(password, 10)
+
   const user = await User.findByIdAndUpdate(
     id,
-    { password },
+    { password: hashPassword },
     {
       new: true,
       runValidators: true,
