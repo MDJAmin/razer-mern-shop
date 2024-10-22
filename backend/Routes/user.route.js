@@ -15,8 +15,8 @@ import {
 const router = express.Router();
 
 router.route("/").get(isAdmin, getAllUser);
-router.route("/:id").get(isLogin, getUser).patch(isLogin, updateUser);
 router.route("/admin").get(isSuperAdmin, getAllAdmin);
 router.route("/change-role").patch(isSuperAdmin, changeRole);
+router.route("/:id").get(isLogin, getUser).patch(isLogin, updateUser);
 
-export default router
+export default router;
