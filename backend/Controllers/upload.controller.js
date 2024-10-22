@@ -54,7 +54,7 @@ export const deleteFile = catchAsync(async (req, res, next) => {
       )
     );
   }
-  fs.unlinkSync(`${__dirname}/Public/${deleteFileName}`);
+  fs.unlinkSync(`${__dirname}/../Public/${deleteFileName}`);
 
   return res.status(200).json({
     success: true,
