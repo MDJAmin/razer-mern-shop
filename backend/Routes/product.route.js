@@ -13,6 +13,6 @@ const productRouter = express.Router();
 
 productRouter.route("/").post(isAdmin, createProduct).get(getAllProduct);
 productRouter.route("/:id").get(getProduct).patch(isAdmin, updateProduct);
-productRouter.route("/favorite").post(isLogin, favoriteProduct);
+productRouter.route("/favorite/:id").post(isLogin, favoriteProduct);
 
 export default productRouter;
