@@ -5,7 +5,11 @@ import User from "../Models/user.model.js";
 import jwt from "jsonwebtoken";
 
 export const getAllUser = catchAsync(async (req, res, next) => {
-  const features = new ApiFeatures(User, req.query)
+  const queryString = {
+    ...req.query,
+    filters: { ...req.query.filters, role: "user" },
+  };
+  const features = new ApiFeatures(User, queryString)
     .filters()
     .sort()
     .limitFields()
@@ -13,7 +17,7 @@ export const getAllUser = catchAsync(async (req, res, next) => {
     .populate();
 
   const users = await features.model;
-  const count = await User.countDocuments(req?.query?.filters);
+  const count = await User.countDocuments(queryString?.filters);
 
   return res.status(200).json({
     success: true,
