@@ -110,6 +110,17 @@ export const updateUser = catchAsync(async (req, res, next) => {
 
 export const changeRole = catchAsync(async (req, res, next) => {
   const { id } = req.params;
+  if (!id) {
+    return next(
+      new HandleError(
+        {
+          en: "User not found",
+          fa: "کاربر پیدا نشد",
+        },
+        401
+      )
+    );
+  }
   const { role: newRole } = req.body;
   const user = await User.findByIdAndUpdate(
     id,

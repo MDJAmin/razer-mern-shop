@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.route("/").get(isAdmin, getAllUser);
 router.route("/admin").get(isSuperAdmin, getAllAdmin);
-router.route("/change-role").patch(isSuperAdmin, changeRole);
+router.route("/change-role/:id").patch(isSuperAdmin, changeRole);
 router.route("/:id").get(isLogin, getUser).patch(isLogin, updateUser);
 
 export default router;
