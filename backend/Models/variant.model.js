@@ -21,6 +21,13 @@ const variantSchema = new mongoose.Schema({
         fa: "مقدار الزامی می باشد",
       }),
     ],
+    unique: [
+      true,
+      JSON.stringify({
+        en: "variant is already exist",
+        fa: " ورینت قبلا ثبت شده است",
+      }),
+    ],
   },
 });
 
