@@ -42,7 +42,7 @@ export const getSlider = catchAsync(async (req, res, next) => {
 export const remove = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const slider = await Slider.findByIdAndDelete(id);
-  fs.unlinkSync(`${__dirname}/Public/${slider.image}`);
+  fs.unlinkSync(`${__dirname}/..Public/${slider.image}`);
   return res.status(200).json({
     success: true,
     message: {
