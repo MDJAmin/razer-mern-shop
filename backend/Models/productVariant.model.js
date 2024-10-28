@@ -6,10 +6,10 @@ const productVariantSchema = new mongoose.Schema(
       type: Number,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "quantity is required",
           fa: "تعداد الزامی می باشد",
-        },
+        }),
       ],
       min: 0,
     },
@@ -17,30 +17,30 @@ const productVariantSchema = new mongoose.Schema(
       type: Number,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "price is required",
           fa: "مبلغ الزامی می باشد",
-        },
+        }),
       ],
     },
     finalPrice: {
       type: Number,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "final price is required",
           fa: "قیمت نهایی الزامی می باشد",
-        },
+        }),
       ],
     },
     discount: {
       type: Number,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "discount is required",
           fa: "تخفیف الزامی می باشد",
-        },
+        }),
       ],
       min: 0,
       max: 100,

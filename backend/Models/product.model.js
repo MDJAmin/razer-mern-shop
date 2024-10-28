@@ -7,10 +7,10 @@ const productSchema = new mongoose.Schema(
       of: String,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "name is required",
           fa: "اسم الزامی می باشد",
-        },
+        }),
       ],
     },
     description: {
@@ -18,10 +18,10 @@ const productSchema = new mongoose.Schema(
       of: String,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "description is required",
           fa: "توضیحات الزامی می باشد",
-        },
+        }),
       ],
     },
     information: {

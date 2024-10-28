@@ -6,27 +6,27 @@ const discountSchema = new mongoose.Schema(
       type: String,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "code name is required",
           fa: "اسم کد الزامی می باشد",
-        },
+        }),
       ],
       unique: [
         true,
-        {
+        JSON.stringify({
           en: "code already exists",
           fa: "کد وجود دارد",
-        },
+        }),
       ],
     },
     percent: {
       type: Number,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "code percent is required",
           fa: "درصد کد الزامی می باشد",
-        },
+        }),
       ],
       min: 0,
       max: 100,
@@ -35,20 +35,20 @@ const discountSchema = new mongoose.Schema(
       type: String,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "start time is required",
           fa: "زمان شروع الزامی می باشد",
-        },
+        }),
       ],
     },
     endTime: {
       type: String,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "end time is required",
           fa: "زمان پایان الزامی می باشد",
-        },
+        }),
       ],
     },
     freeShipping: {

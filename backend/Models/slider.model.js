@@ -6,20 +6,20 @@ const sliderSchema = new mongoose.Schema({
     of: String,
     required: [
       true,
-      {
+      JSON.stringify({
         en: "title is required",
         fa: "عنوان الزامی می باشد",
-      },
+      }),
     ],
   },
   image: {
     type: String,
     required: [
       true,
-      {
+      JSON.stringify({
         en: "image is required",
         fa: "تصویر الزامی می باشد",
-      },
+      }),
     ],
   },
   href: {

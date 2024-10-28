@@ -6,10 +6,10 @@ const categorySchema = new mongoose.Schema({
     of: String,
     required: [
       true,
-      {
+      JSON.stringify({
         en: "title is required",
         fa: "عنوان لزامی می باشد",
-      },
+      }),
     ],
   },
   images: {

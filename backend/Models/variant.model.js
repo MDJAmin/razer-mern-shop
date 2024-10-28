@@ -5,21 +5,21 @@ const variantSchema = new mongoose.Schema({
     type: String,
     required: [
       true,
-      {
+      JSON.stringify({
         en: "type is required",
         fa: "نوع الزامی می باشد",
-      },
+      }),
     ],
-    enum: ["size", "اندازه", "color", "رنگ"],
+    enum: ["size", "color"],
   },
   value: {
     type: String,
     required: [
       true,
-      {
+      JSON.stringify({
         en: "value is required",
         fa: "مقدار الزامی می باشد",
-      },
+      }),
     ],
   },
 });

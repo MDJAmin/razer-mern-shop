@@ -7,10 +7,10 @@ const commentSchema = new mongoose.Schema(
       trim: true,
       required: [
         true,
-        {
+        JSON.stringify({
           en: "comment content is required",
           fa: "متن کامنت الزامی می باشد",
-        },
+        }),
       ],
     },
     userId: {
@@ -22,10 +22,10 @@ const commentSchema = new mongoose.Schema(
       ref: "Product",
       required: [
         true,
-        {
+        JSON.stringify({
           en: "productId is required",
           fa: "ایدی محصول الزامی می باشد",
-        },
+        }),
       ],
     },
     isPublish: {
