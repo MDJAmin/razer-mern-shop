@@ -1,0 +1,1 @@
+Redux structure and file logics will be here!
