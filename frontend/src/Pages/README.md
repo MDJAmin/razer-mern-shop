@@ -1,0 +1,1 @@
+All the necessary pages will be create in this folder!

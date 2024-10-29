@@ -1,0 +1,1 @@
+Static images will be replace in this folder!
