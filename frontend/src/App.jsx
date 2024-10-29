@@ -3,14 +3,14 @@ import { Home, Auth, Category, ProductDetails } from "../src/Constants";
 import gsap from "gsap";
 
 export default function App() {
-  
-  useEffect(() => {
+
+  useEffect(()=>{
     gsap.fromTo(
-      ".app-title", 
-      { opacity: 0, y: -50 }, 
-      { opacity: 1, y: 0, duration: 1 }  
-    );
-  }, []);
+      ".app-title",
+      {opacity:0, y:-50,duration:1},
+      {opacity:1,y:0,}
+    )
+  },[])
   
   return (
     <>
@@ -22,3 +22,4 @@ export default function App() {
     </>
   );
 }
+``
