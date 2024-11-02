@@ -71,12 +71,30 @@ export const auth = catchAsync(async (req, res, next) => {
     // user found ==> sign in
     if (user?.password) {
       // user sign in with password
-      return res.status(200).json({
-        success: true,
-        isPass: true,
-        isNew: false,
-        data: { identifier },
-      });
+      const otp = await sendAuthCode(identifier);
+      if (otp.success) {
+        return res.status(200).json({
+          success: true,
+          isPass: ture,
+          isNew: true,
+          data: { identifier },
+          message: {
+            en: "Code has been sent",
+            fa: "کد ورود ارسال شد",
+          },
+        });
+      } else {
+        return res.status(400).json({
+          success: false,
+          isPass: true,
+          isNew: false,
+          data: { identifier },
+          message: {
+            en: "Please try again",
+            fa: "لطفا مجددا تلاش کنید",
+          },
+        });
+      } 
     } else {
       // user sign in with otp
       const otp = await sendAuthCode(user?.phone);
@@ -249,7 +267,7 @@ export const checkCode = catchAsync(async (req, res, next) => {
           phone: user.phone,
           email: user?.email,
           fullName: user?.fullName,
-          cart: user?.cart
+          cart: user?.cart,
         },
       },
     });
@@ -273,7 +291,7 @@ export const checkCode = catchAsync(async (req, res, next) => {
           phone: newUser.phone,
           email: newUser?.email,
           fullName: newUser?.fullName,
-          cart: user?.cart
+          cart: user?.cart,
         },
       },
     });
@@ -298,7 +316,7 @@ export const setPassword = catchAsync(async (req, res, next) => {
       new HandleError(
         {
           en: "Password should be 6 character long",
-          fa: "گذرواژه باید از ۶ حرف بیشتر باشد"
+          fa: "گذرواژه باید از ۶ حرف بیشتر باشد",
         },
         400
       )
@@ -309,7 +327,7 @@ export const setPassword = catchAsync(async (req, res, next) => {
     process.env.JWT_SECRET
   );
 
-  const hashPassword = bcryptjs.hashSync(password, 10)
+  const hashPassword = bcryptjs.hashSync(password, 10);
 
   const user = await User.findByIdAndUpdate(
     id,
