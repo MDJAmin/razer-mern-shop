@@ -75,7 +75,7 @@ export const auth = catchAsync(async (req, res, next) => {
       if (otp.success) {
         return res.status(200).json({
           success: true,
-          isPass: ture,
+          isPass: true,
           isNew: true,
           data: { identifier },
           message: {
