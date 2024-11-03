@@ -71,13 +71,16 @@ export const auth = catchAsync(async (req, res, next) => {
     // user found ==> sign in
     if (user?.password) {
       // user sign in with password
-      const otp = await sendAuthCode(identifier);
+      const otp = await sendAuthCode(user?.phone);
       if (otp.success) {
         return res.status(200).json({
           success: true,
           isPass: true,
           isNew: true,
-          data: { identifier },
+          data: {
+            phone: user?.phone,
+            identifier,
+          },
           message: {
             en: "Code has been sent",
             fa: "کد ورود ارسال شد",
@@ -88,13 +91,16 @@ export const auth = catchAsync(async (req, res, next) => {
           success: false,
           isPass: true,
           isNew: false,
-          data: { identifier },
+          data: {
+            phone: user?.phone,
+            identifier,
+          },
           message: {
             en: "Please try again",
             fa: "لطفا مجددا تلاش کنید",
           },
         });
-      } 
+      }
     } else {
       // user sign in with otp
       const otp = await sendAuthCode(user?.phone);
@@ -103,7 +109,7 @@ export const auth = catchAsync(async (req, res, next) => {
           success: true,
           isPass: false,
           isNew: false,
-          data: { identifier },
+          data: { phone: user?.phone },
           message: {
             en: "Code has been sent",
             fa: "کد ورود ارسال شد",
@@ -114,7 +120,7 @@ export const auth = catchAsync(async (req, res, next) => {
           success: false,
           isPass: false,
           isNew: false,
-          data: { identifier },
+          data: { phone: user?.phone },
           message: {
             en: "Please try again",
             fa: "لطفا مجددا تلاش کنید",
