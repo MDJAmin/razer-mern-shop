@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signInSuccess } from "../../Context/Slices/userSlice";
 
 export default function CheckPassword({ handlePageType }) {
-  const identifier = localStorage.getItem("identifier");
+  const phone = localStorage.getItem("phone");
   const [password, setPassword] = useState(null);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,12 +15,13 @@ export default function CheckPassword({ handlePageType }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ identifier, password }),
+        body: JSON.stringify({ identifier: phone, password }),
       });
-      const data = res.json();
+      const data = await res.json();
       if (data.success) {
-        console.log(data);
-        alert("success");
+        dispatch(
+          signInSuccess({ token: data.data.token, currentUser: data.data.user })
+        );
       }
     } catch (error) {
       console.log(error);

@@ -36,7 +36,9 @@ export const auth = catchAsync(async (req, res, next) => {
           success: true,
           isPass: false,
           isNew: true,
-          data: { identifier },
+          identifier: {
+            phone: identifier,
+          },
           message: {
             en: "Code has been sent",
             fa: "کد ورود ارسال شد",
@@ -47,7 +49,9 @@ export const auth = catchAsync(async (req, res, next) => {
           success: false,
           isPass: false,
           isNew: true,
-          data: { identifier },
+          identifier: {
+            phone: identifier,
+          },
           message: {
             en: "Please try again",
             fa: "لطفا مجددا تلاش کنید",
@@ -60,7 +64,9 @@ export const auth = catchAsync(async (req, res, next) => {
         success: false,
         isPass: false,
         isNew: true,
-        data: { identifier },
+        identifier: {
+          phone: identifier,
+        },
         message: {
           en: "Please enter phone number",
           fa: "لطفا شماره همراه را وارد کنید",
@@ -77,9 +83,9 @@ export const auth = catchAsync(async (req, res, next) => {
           success: true,
           isPass: true,
           isNew: true,
-          data: {
+          identifier: {
             phone: user?.phone,
-            identifier,
+            email: user?.email,
           },
           message: {
             en: "Code has been sent",
@@ -91,9 +97,9 @@ export const auth = catchAsync(async (req, res, next) => {
           success: false,
           isPass: true,
           isNew: false,
-          data: {
+          identifier: {
             phone: user?.phone,
-            identifier,
+            email: user?.email,
           },
           message: {
             en: "Please try again",
@@ -109,7 +115,10 @@ export const auth = catchAsync(async (req, res, next) => {
           success: true,
           isPass: false,
           isNew: false,
-          data: { phone: user?.phone },
+          identifier: {
+            phone: user?.phone,
+            email: user?.email,
+          },
           message: {
             en: "Code has been sent",
             fa: "کد ورود ارسال شد",
@@ -120,7 +129,10 @@ export const auth = catchAsync(async (req, res, next) => {
           success: false,
           isPass: false,
           isNew: false,
-          data: { phone: user?.phone },
+          identifier: {
+            phone: user?.phone,
+            email: user?.email,
+          },
           message: {
             en: "Please try again",
             fa: "لطفا مجددا تلاش کنید",

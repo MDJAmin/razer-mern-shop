@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Identifier({ handlePageType }) {
+export default function Identifier({ handlePageType, handlePass }) {
   const [identifier, setIdentifier] = useState("");
 
   const handleSubmit = async (e) => {
@@ -15,10 +15,10 @@ export default function Identifier({ handlePageType }) {
       });
       const data = await res.json();
       if (data.success) {
-        console.log(data)
-        localStorage.setItem('phone', data.data.phone)
-        localStorage.setItem('identifier', data.data.identifier)
-        handlePageType('checkCode')
+        handlePass(data.isPass);
+        localStorage.setItem("phone", data.identifier.phone);
+        localStorage.setItem("identifier", data.identifier.email);
+        handlePageType("checkCode");
       }
     } catch (error) {
       console.log(error);

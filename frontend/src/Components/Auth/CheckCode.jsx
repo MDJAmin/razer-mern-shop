@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signInSuccess } from "../../Context/Slices/userSlice";
 
-export default function CheckCode({ handlePageType }) {
+export default function CheckCode({ handlePageType, isPass }) {
   const phone = localStorage.getItem("phone");
   const [code, setCode] = useState(null);
+  const [showResend, setShowResend] = useState(false);
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -16,40 +20,50 @@ export default function CheckCode({ handlePageType }) {
       const data = res.json();
       if (data.success) {
         console.log(data);
-        alert("success");
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleResendCode=async()=>{
+  const handleResendCode = async () => {
     try {
-        const res = await fetch("http://localhost:5000/api/auth/send-code", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ phone }),
-          });
-          const data = res.json();
-          if (data.success) {
-            console.log(data);
-            alert("success resend code");
-          }
+      const res = await fetch("http://localhost:5000/api/auth/send-code", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        dispatch(
+          signInSuccess({ token: data.data.token, currentUser: data.data.user })
+        );
+        console.log(data);
+        setShowResend(false);
+      }
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
+  };
+
+  setInterval(() => {
+    setShowResend(true);
+  }, 2 * 60 * 1000);
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={(e) => setCode(e.target.value)} />
         <button type="submit">Check Code</button>
       </form>
-      <p onClick={() => handlePageType("CheckPass")}>Continue with password</p>
-     <p onClick={handleResendCode}>Resend Code</p> 
-     {/*resend code must be appear after first code disabled (2m) */}
+      {isPass && (
+        <p onClick={() => handlePageType("CheckPass")}>
+          Continue with password
+        </p>
+      )}
+      {showResend && <p onClick={handleResendCode}>Resend Code</p>}
     </div>
   );
 }
