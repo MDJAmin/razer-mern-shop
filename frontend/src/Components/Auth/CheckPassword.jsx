@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signInSuccess } from "../../Context/Slices/userSlice";
 
 export default function CheckPassword({ handlePageType }) {
-  const phone = localStorage.getItem("phone");
+//   const phone = localStorage.getItem("phone");
+  const {phone} = useSelector(state=> state.user.currentUser)
   const [password, setPassword] = useState(null);
   const dispatch = useDispatch();
 

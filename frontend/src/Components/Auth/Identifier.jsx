@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { auth } from "../../Context/Slices/authSlice";
 
-export default function Identifier({ handlePageType, handlePass }) {
+export default function Identifier({ handlePageType }) {
   const [identifier, setIdentifier] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,10 +19,16 @@ export default function Identifier({ handlePageType, handlePass }) {
       });
       const data = await res.json();
       if (data.success) {
-        handlePass(data.isPass);
-        localStorage.setItem("phone", data.identifier.phone);
-        localStorage.setItem("identifier", data.identifier.email);
         handlePageType("checkCode");
+        dispatch(
+          auth({
+            isNew: data.isNew,
+            isPass: data.isPass,
+            identifier: data.identifier,
+          })
+        );
+        // localStorage.setItem("phone", data.identifier.phone);
+        // localStorage.setItem("identifier", data.identifier.email);
       }
     } catch (error) {
       console.log(error);

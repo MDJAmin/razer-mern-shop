@@ -82,7 +82,7 @@ export const auth = catchAsync(async (req, res, next) => {
         return res.status(200).json({
           success: true,
           isPass: true,
-          isNew: true,
+          isNew: false,
           identifier: {
             phone: user?.phone,
             email: user?.email,

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signInSuccess } from "../../Context/Slices/userSlice";
 
-export default function CheckCode({ handlePageType, isPass }) {
-  const phone = localStorage.getItem("phone");
+export default function CheckCode({ handlePageType }) {
+  const { phone } = useSelector((state) => state.auth.identifier);
+  const { isPass } = useSelector((state) => state.auth);
+
   const [code, setCode] = useState(null);
   const [showResend, setShowResend] = useState(false);
+
   const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -17,9 +21,12 @@ export default function CheckCode({ handlePageType, isPass }) {
         },
         body: JSON.stringify({ phone, code }),
       });
-      const data = res.json();
+      const data = await res.json();
       if (data.success) {
         console.log(data);
+        dispatch(
+          signInSuccess({ token: data.data.token, currentUser: data.data.user })
+        );
       }
     } catch (error) {
       console.log(error);
@@ -37,11 +44,8 @@ export default function CheckCode({ handlePageType, isPass }) {
       });
       const data = await res.json();
       if (data.success) {
-        dispatch(
-          signInSuccess({ token: data.data.token, currentUser: data.data.user })
-        );
-        console.log(data);
         setShowResend(false);
+        console.log(data);
       }
     } catch (error) {
       console.log(error);
