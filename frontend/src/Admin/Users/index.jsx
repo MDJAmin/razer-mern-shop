@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Users() {
   return (
-    <div>index</div>
+    <div>Users</div>
   )
 }
