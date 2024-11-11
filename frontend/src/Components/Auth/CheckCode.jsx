@@ -25,7 +25,11 @@ export default function CheckCode({ handlePageType }) {
       if (data.success) {
         console.log(data);
         dispatch(
-          signInSuccess({ token: data.data.token, currentUser: data.data.user })
+          signInSuccess({
+            token: data.data.token,
+            currentUser: data.data.user,
+            role: data.data.user.role,
+          })
         );
       }
     } catch (error) {

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { signInSuccess } from "../../Context/Slices/userSlice";
 
 export default function CheckPassword({ handlePageType }) {
-//   const phone = localStorage.getItem("phone");
-  const {phone} = useSelector(state=> state.auth.identifier)
+  //   const phone = localStorage.getItem("phone");
+  const { phone } = useSelector((state) => state.auth.identifier);
   const [password, setPassword] = useState(null);
   const dispatch = useDispatch();
 
@@ -21,7 +21,11 @@ export default function CheckPassword({ handlePageType }) {
       const data = await res.json();
       if (data.success) {
         dispatch(
-          signInSuccess({ token: data.data.token, currentUser: data.data.user })
+          signInSuccess({
+            token: data.data.token,
+            currentUser: data.data.user,
+            role: data.data.user.role,
+          })
         );
       }
     } catch (error) {
