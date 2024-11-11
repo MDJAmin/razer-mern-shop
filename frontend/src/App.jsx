@@ -13,7 +13,7 @@ import {
   Profile,
   Search,
   ContactUs,
-  NotFound
+  NotFound,
 } from "./Constants/client";
 import {
   AddCategory,
