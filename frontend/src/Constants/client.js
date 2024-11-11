@@ -8,6 +8,7 @@ import Profile from "../Pages/Profile";
 import Search from "../Pages/Search";
 import Category from "../Pages/Category";
 import ContactUs from "../Pages/ContactUs";
+import NotFound from "../Pages/NotFound";
 
 export {
   Home,
@@ -20,4 +21,5 @@ export {
   Profile,
   Search,
   ContactUs,
+  NotFound
 };

@@ -13,6 +13,7 @@ import {
   Profile,
   Search,
   ContactUs,
+  NotFound
 } from "./Constants/client";
 import {
   AddCategory,
@@ -44,7 +45,7 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/contact" element={<ContactUs />} />
           </Route>
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route element={<AdminPrivateRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
@@ -57,7 +58,7 @@ export default function App() {
             <Route path="user" element={<Users />} />
             <Route path="discount" element={<AddDiscount />} />
             <Route path="comment" element={<Comments />} />
-            {/* <Route path="*" element={<NotFound />} /> */}
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
       </Routes>

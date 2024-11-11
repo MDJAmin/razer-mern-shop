@@ -4,7 +4,7 @@ import { signInSuccess } from "../../Context/Slices/userSlice";
 
 export default function CheckPassword({ handlePageType }) {
 //   const phone = localStorage.getItem("phone");
-  const {phone} = useSelector(state=> state.user.currentUser)
+  const {phone} = useSelector(state=> state.auth.identifier)
   const [password, setPassword] = useState(null);
   const dispatch = useDispatch();
 
