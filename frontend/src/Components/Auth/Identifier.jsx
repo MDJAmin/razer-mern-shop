@@ -4,11 +4,14 @@ import { auth } from "../../Context/Slices/authSlice";
 
 export default function Identifier({ handlePageType }) {
   const [identifier, setIdentifier] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await fetch("http://localhost:5000/api/auth", {
         method: "POST",
@@ -27,24 +30,29 @@ export default function Identifier({ handlePageType }) {
             identifier: data.identifier,
           })
         );
-        // localStorage.setItem("phone", data.identifier.phone);
-        // localStorage.setItem("identifier", data.identifier.email);
+      } else {
+        setError(data.message);
       }
     } catch (error) {
-      console.log(error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          onChange={(e) => {
-            setIdentifier(e.target.value);
-          }}
-          placeholder="indentifier"
+          value={identifier}
+          onChange={(e) => setIdentifier(e.target.value)}
+          placeholder="identifier"
         />
-        <button type="submit">Sign In</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing in..." : "Sign In"}
+        </button>
       </form>
     </div>
   );

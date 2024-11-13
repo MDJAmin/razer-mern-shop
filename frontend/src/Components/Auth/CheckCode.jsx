@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signInSuccess } from "../../Context/Slices/userSlice";
 
@@ -6,13 +6,18 @@ export default function CheckCode({ handlePageType }) {
   const { phone } = useSelector((state) => state.auth.identifier);
   const { isPass } = useSelector((state) => state.auth);
 
-  const [code, setCode] = useState(null);
+  const [code, setCode] = useState("");
   const [showResend, setShowResend] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [timer, setTimer] = useState(null);
 
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    setLoading(true);
     try {
       const res = await fetch("http://localhost:5000/api/auth/check-code", {
         method: "POST",
@@ -23,7 +28,6 @@ export default function CheckCode({ handlePageType }) {
       });
       const data = await res.json();
       if (data.success) {
-        console.log(data);
         dispatch(
           signInSuccess({
             token: data.data.token,
@@ -31,13 +35,19 @@ export default function CheckCode({ handlePageType }) {
             role: data.data.user.role,
           })
         );
+      } else {
+        setError(data.message);
       }
     } catch (error) {
-      console.log(error);
+      setError("An error occurred");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleResendCode = async () => {
+    if (loading) return;
+    setLoading(true);
     try {
       const res = await fetch("http://localhost:5000/api/auth/send-code", {
         method: "POST",
@@ -49,29 +59,45 @@ export default function CheckCode({ handlePageType }) {
       const data = await res.json();
       if (data.success) {
         setShowResend(false);
-        console.log(data);
+        setTimer(setTimeout(() => setShowResend(true), 2 * 60 * 1000));
+      } else {
+        setError(data.message);
       }
     } catch (error) {
-      console.log(error);
+      setError("An error occurred");
+    } finally {
+      setLoading(false);
     }
   };
 
-  setInterval(() => {
-    setShowResend(true);
-  }, 2 * 60 * 1000);
+  useEffect(() => {
+    return () => clearTimeout(timer);
+  }, [timer]);
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="text" onChange={(e) => setCode(e.target.value)} />
-        <button type="submit">Check Code</button>
+        <input
+          type="text"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          placeholder="Enter code"
+        />
+        <button type="submit" disabled={loading}>
+          {loading ? "Checking..." : "Check Code"}
+        </button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
       {isPass && (
         <p onClick={() => handlePageType("CheckPass")}>
           Continue with password
         </p>
       )}
-      {showResend && <p onClick={handleResendCode}>Resend Code</p>}
+      {showResend && (
+        <p onClick={handleResendCode}>
+          {loading ? "Resending..." : "Resend Code"}
+        </p>
+      )}
     </div>
   );
 }
