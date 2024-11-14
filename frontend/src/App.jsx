@@ -4,6 +4,7 @@ import PrivateRoute from "./Utils/PrivateRoute";
 import AdminPrivateRoute from "./Utils/AdminPrivateRoute";
 import ClientLayout from "./Layouts/ClientLayout";
 import AdminLayout from "./Layouts/AdminLayout";
+
 // Client Pages Lazy Routes
 const Home = lazy(() => import("./Pages/Home"));
 const Auth = lazy(() => import("./Pages/Auth"));
