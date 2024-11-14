@@ -4,28 +4,28 @@ import PrivateRoute from "./Utils/PrivateRoute";
 import AdminPrivateRoute from "./Utils/AdminPrivateRoute";
 import ClientLayout from "./Layouts/ClientLayout";
 import AdminLayout from "./Layouts/AdminLayout";
-
-const Home = lazy(() => import("./Constants/client/Home"));
-const Auth = lazy(() => import("./Constants/client/Auth"));
-const Category = lazy(() => import("./Constants/client/Category"));
-const ProductDetails = lazy(() => import("./Constants/client/ProductDetails"));
-const Products = lazy(() => import("./Constants/client/Products"));
-const Card = lazy(() => import("./Constants/client/Card"));
-const Pockets = lazy(() => import("./Constants/client/Pockets"));
-const Profile = lazy(() => import("./Constants/client/Profile"));
-const Search = lazy(() => import("./Constants/client/Search"));
-const ContactUs = lazy(() => import("./Constants/client/ContactUs"));
-const NotFound = lazy(() => import("./Constants/client/NotFound"));
-
-const AddCategory = lazy(() => import("./Constants/admin/AddCategory"));
-const AddProduct = lazy(() => import("./Constants/admin/AddProduct"));
-const AddSlider = lazy(() => import("./Constants/admin/AddSlider"));
-const AddDiscount = lazy(() => import("./Constants/admin/AddDiscount"));
-const AddProductVariant = lazy(() => import("./Constants/admin/AddProductVariant"));
-const AddVariant = lazy(() => import("./Constants/admin/AddVariant"));
-const AdminPanel = lazy(() => import("./Constants/admin/AdminPanel"));
-const Comments = lazy(() => import("./Constants/admin/Comments"));
-const Users = lazy(() => import("./Constants/admin/Users"));
+// Client Pages Lazy Routes
+const Home = lazy(() => import("./Pages/Home"));
+const Auth = lazy(() => import("./Pages/Auth"));
+const Category = lazy(() => import("./Pages/Category"));
+const ProductDetails = lazy(() => import("./Pages/ProductDetails"));
+const Products = lazy(() => import("./Pages/Products"));
+const Cart = lazy(() => import("./Pages/Cart"));
+const Pockets = lazy(() => import("./Pages/Pockets"));
+const Profile = lazy(() => import("./Pages/Profile"));
+const Search = lazy(() => import("./Pages/Search"));
+const ContactUs = lazy(() => import("./Pages/ContactUs"));
+const NotFound = lazy(() => import("./Pages/NotFound"));
+// Admin Pages Lazy Routes 
+const AddCategory = lazy(() => import("./Admin/AddCategory"));
+const AddProduct = lazy(() => import("./Admin/AddProduct"));
+const AddSlider = lazy(() => import("./Admin/AddSlider"));
+const AddDiscount = lazy(() => import("./Admin/AddDiscount"));
+const AddProductVariant = lazy(() => import("./Admin/AddProductVariant"));
+const AddVariant = lazy(() => import("./Admin/AddVariant"));
+const AdminPanel = lazy(() => import("./Admin/AdminPanel"));
+const Comments = lazy(() => import("./Admin/Comments"));
+const Users = lazy(() => import("./Admin/Users"));
 
 export default function App() {
   return (
@@ -39,7 +39,7 @@ export default function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/categories" element={<Category />} />
           <Route element={<PrivateRoute />}>
-            <Route path="/cart" element={<Card />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/pockets" element={<Pockets />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/contact-us" element={<ContactUs />} />
