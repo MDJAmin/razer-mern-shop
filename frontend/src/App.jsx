@@ -4,6 +4,7 @@ import PrivateRoute from "./Utils/PrivateRoute";
 import AdminPrivateRoute from "./Utils/AdminPrivateRoute";
 import ClientLayout from "./Layouts/ClientLayout";
 import AdminLayout from "./Layouts/AdminLayout";
+import { PagesLoading } from "./Constants/Components";
 
 // Client Pages Lazy Loading
 const Home = lazy(() => import("./Pages/Home"));
@@ -30,7 +31,7 @@ const Users = lazy(() => import("./Admin/Users"));
 
 export default function App() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<PagesLoading/>}>
       <Routes>
         <Route element={<ClientLayout />}>
           <Route index element={<Home />} />
