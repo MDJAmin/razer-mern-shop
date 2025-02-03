@@ -47,7 +47,7 @@ export default function Identifier({ handlePageType }) {
 
         <div className="w-full">
           <div className="text-center text-white">
-            <h1 className="text-3xl mb-5 font-extralight">Welcome Back!</h1>
+            <h1 className="text-3xl sm:text-4xl mb-5 font-extralight">Welcome Back!</h1>
             <p className="text-white-smoke tracking-wide text-sm mb-4">
               Please enter your <span className="text-light-green">email</span>{" "}
               or <span className="text-light-green">phone number</span>
@@ -60,12 +60,12 @@ export default function Identifier({ handlePageType }) {
                 setIdentifier(e.target.value);
               }}
               placeholder="Email or Phone number"
-              className="outline-none bg-transparent border-[1px] border-light-gray rounded-2xl w-full md:w-2/3 p-3 text-xl md:text-2xl text-white focus:border-white duration-200 placeholder-white-smoke"
+              className="authInp"
             />
             <button
               disabled={!identifier}
               type="submit"
-              className="text-2xl text-white bg-gray rounded-2xl py-2 w-full md:w-[62%] mt-10 hover:opacity-90 duration-150 active:scale-[98%] disabled:opacity-50 disabled:pointer-events-none"
+              className="authBtn"
             >
               Sign In
             </button>
