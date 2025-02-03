@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { auth } from "../../Context/Slices/authSlice";
 
+import logoWithText from "../../Assets/logoWithText.png";
+
+import { AiOutlineYoutube } from "react-icons/ai";
+import { FaInstagram } from "react-icons/fa6";
+import { RiTwitterXFill } from "react-icons/ri";
+
 export default function Identifier({ handlePageType }) {
   const [identifier, setIdentifier] = useState("");
 
@@ -35,17 +41,63 @@ export default function Identifier({ handlePageType }) {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          onChange={(e) => {
-            setIdentifier(e.target.value);
-          }}
-          placeholder="indentifier"
-        />
-        <button type="submit">Sign In</button>
-      </form>
+    <div className="bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
+      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-16 px-4 md:px-0">
+        <img src={logoWithText} alt="logoWithText" className="px-6 md:px-0" />
+
+        <div className="w-full">
+          <div className="text-center text-white">
+            <h1 className="text-3xl mb-5 font-extralight">Welcome Back!</h1>
+            <p className="text-white-smoke tracking-wide text-sm mb-4">
+              Please enter your <span className="text-light-green">email</span>{" "}
+              or <span className="text-light-green">phone number</span>
+            </p>
+          </div>
+          <form onSubmit={handleSubmit} className="flex flex-col items-center">
+            <input
+              type="text"
+              onChange={(e) => {
+                setIdentifier(e.target.value);
+              }}
+              placeholder="Email or Phone number"
+              className="outline-none bg-transparent border-[1px] border-light-gray rounded-2xl w-full md:w-2/3 p-3 text-xl md:text-2xl text-white focus:border-white duration-200 placeholder-white-smoke"
+            />
+            <button
+              disabled={!identifier}
+              type="submit"
+              className="text-2xl text-white bg-gray rounded-2xl py-2 w-full md:w-[62%] mt-10 hover:opacity-90 duration-150 active:scale-[98%] disabled:opacity-50 disabled:pointer-events-none"
+            >
+              Sign In
+            </button>
+          </form>
+        </div>
+        <div className="text-center text-white">
+          <p>Razer | All Rights Reserved</p>
+          <div className="flex justify-center items-center mt-2 text-3xl gap-1">
+            <a
+              href="https://www.youtube.com/"
+              target="_blank"
+              className="hover:opacity-60 duration-100"
+            >
+              <AiOutlineYoutube className="text-[40px]" />
+            </a>
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              className="hover:opacity-60 duration-100"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="https://www.x.com/"
+              target="_blank"
+              className="hover:opacity-60 duration-100"
+            >
+              <RiTwitterXFill />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
