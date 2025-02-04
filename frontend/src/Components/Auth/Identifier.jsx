@@ -42,7 +42,7 @@ export default function Identifier({ handlePageType }) {
   };
   return (
     <div className="bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
-      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-16 px-4 md:px-0">
+      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-12 px-4 md:px-0">
         <img src={logoWithText} alt="logoWithText" className="px-6 md:px-0" />
 
         <div className="w-full">
