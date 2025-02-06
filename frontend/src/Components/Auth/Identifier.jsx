@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../Context/Slices/authSlice";
 
 import logoWithText from "../../Assets/logoWithText.png";
@@ -7,15 +7,18 @@ import logoWithText from "../../Assets/logoWithText.png";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa6";
 import { RiTwitterXFill } from "react-icons/ri";
+import { signInFailure, signInStart } from "../../Context/Slices/userSlice";
 
 export default function Identifier({ handlePageType }) {
   const [identifier, setIdentifier] = useState("");
+  const { error, loading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(signInStart());
       const res = await fetch("http://localhost:5000/api/auth", {
         method: "POST",
         headers: {
@@ -33,11 +36,11 @@ export default function Identifier({ handlePageType }) {
             identifier: data.identifier,
           })
         );
-        // localStorage.setItem("phone", data.identifier.phone);
-        // localStorage.setItem("identifier", data.identifier.email);
       }
+      dispatch(signInFailure(data.message.en));
     } catch (error) {
       console.log(error);
+      dispatch(signInFailure("somthing went wrong"));
     }
   };
   return (
@@ -47,13 +50,18 @@ export default function Identifier({ handlePageType }) {
 
         <div className="w-full">
           <div className="text-center text-white">
-            <h1 className="text-3xl sm:text-4xl mb-5 font-extralight">Welcome Back!</h1>
+            <h1 className="text-3xl sm:text-4xl mb-5 font-extralight">
+              Welcome Back!
+            </h1>
             <p className="text-white-smoke tracking-wide text-sm mb-4">
               Please enter your <span className="text-light-green">email</span>{" "}
               or <span className="text-light-green">phone number</span>
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col items-center">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col items-center relative"
+          >
             <input
               type="text"
               onChange={(e) => {
@@ -63,7 +71,7 @@ export default function Identifier({ handlePageType }) {
               className="authInp"
             />
             <button
-              disabled={!identifier}
+              disabled={!identifier || loading}
               type="submit"
               className="authBtn"
             >

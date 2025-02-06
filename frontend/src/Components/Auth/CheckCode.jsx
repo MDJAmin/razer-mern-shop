@@ -1,26 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signInSuccess } from "../../Context/Slices/userSlice";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../../Context/Slices/userSlice";
 
 import logoWithText from "../../Assets/logoWithText.png";
 
 import { AiOutlineYoutube } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa6";
 import { RiTwitterXFill } from "react-icons/ri";
-import CountdownTimer from "./CountDownTimer";
 
 export default function CheckCode({ handlePageType }) {
   const { phone } = useSelector((state) => state.auth.identifier);
   const { isPass } = useSelector((state) => state.auth);
+  const { error, loading } = useSelector((state) => state.user);
 
   const [code, setCode] = useState(null);
   const [showResend, setShowResend] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(120);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      setShowResend(true);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(signInStart());
       const res = await fetch("http://localhost:5000/api/auth/check-code", {
         method: "POST",
         headers: {
@@ -39,8 +58,10 @@ export default function CheckCode({ handlePageType }) {
           })
         );
       }
+      dispatch(signInFailure(data.message.en));
     } catch (error) {
       console.log(error);
+      dispatch(signInFailure("somthing went wrong"));
     }
   };
 
@@ -56,16 +77,13 @@ export default function CheckCode({ handlePageType }) {
       const data = await res.json();
       if (data.success) {
         setShowResend(false);
+        setTimeLeft(120);
         console.log(data);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  setInterval(() => {
-    setShowResend(true);
-  }, 2 * 60 * 1000);
 
   return (
     <div className="bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
@@ -103,13 +121,18 @@ export default function CheckCode({ handlePageType }) {
               ) : (
                 <p className="flex gap-1">
                   Remaining to receive new code
-                  <span className="text-light-green">
-                    <CountdownTimer />
+                  <span className="text-light-green w-12">
+                    {Math.floor(timeLeft / 60)}:
+                    {(timeLeft % 60).toString().padStart(2, "0")}
                   </span>
                 </p>
               )}
             </div>
-            <button disabled={!code} type="submit" className="authBtn mt-3">
+            <button
+              disabled={!code || loading}
+              type="submit"
+              className="authBtn mt-3"
+            >
               Confirm
             </button>
             {isPass && (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signInSuccess } from "../../Context/Slices/userSlice";
+import { signInFailure, signInStart, signInSuccess } from "../../Context/Slices/userSlice";
 
 import logoWithText from "../../Assets/logoWithText.png";
 
@@ -9,14 +9,17 @@ import { FaInstagram } from "react-icons/fa6";
 import { RiTwitterXFill } from "react-icons/ri";
 
 export default function CheckPassword({ handlePageType }) {
-  //   const phone = localStorage.getItem("phone");
   const { phone } = useSelector((state) => state.auth.identifier);
+  const { error, loading } = useSelector((state) => state.user);
+
   const [password, setPassword] = useState(null);
+
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(signInStart())
       const res = await fetch("http://localhost:5000/api/auth/check-password", {
         method: "POST",
         headers: {
@@ -34,8 +37,10 @@ export default function CheckPassword({ handlePageType }) {
           })
         );
       }
+      dispatch(signInFailure(data.message.en))
     } catch (error) {
       console.log(error);
+      dispatch(signInFailure("something went wrong"))
     }
   };
   return (
@@ -60,7 +65,7 @@ export default function CheckPassword({ handlePageType }) {
               placeholder="Enter Your Password"
               className="authInp"
             />
-            <button type="submit" className="authBtn">
+            <button disabled={!password || loading} type="submit" className="authBtn">
               Confirm
             </button>
             <p className="text-white-smoke mt-2">
