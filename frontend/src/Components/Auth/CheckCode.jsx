@@ -11,6 +11,7 @@ import logoWithText from "../../Assets/logoWithText.png";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa6";
 import { RiTwitterXFill } from "react-icons/ri";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function CheckCode({ handlePageType }) {
   const { phone } = useSelector((state) => state.auth.identifier);
@@ -57,7 +58,7 @@ export default function CheckCode({ handlePageType }) {
           })
         );
       } else {
-        const messages = JSON.parse(data.message)
+        const messages = JSON.parse(data.message);
         dispatch(signInFailure(messages.en));
       }
     } catch (error) {
@@ -92,14 +93,25 @@ export default function CheckCode({ handlePageType }) {
         <img src={logoWithText} alt="logoWithText" className="px-6 md:px-0" />
 
         <div className="w-full">
-          <div className="text-center text-white">
+          <div className="text-center text-white relative">
             <h1 className="text-3xl sm:text-4xl mb-5 font-extralight">
               Enter verification code
             </h1>
             <p className="text-white-smoke tracking-wide text-sm mb-4">
               Verification code has been sent to{" "}
-              <span className="text-light-green">{phone}</span>
+              <span
+                className="text-light-green hover:text-red-500 cursor-pointer duration-150"
+                onClick={() => handlePageType("identifier")}
+              >
+                {phone}
+              </span>
             </p>
+            <div
+              className="absolute -top-[107px] left-10 text-2xl text-light-green border-2 border-opacity-20 hover:border-opacity-80 cursor-pointer duration-150 rounded-full border-white-smoke p-2"
+              onClick={() => handlePageType("identifier")}
+            >
+              <FaArrowLeftLong />
+            </div>
           </div>
           <form
             onSubmit={handleSubmit}
