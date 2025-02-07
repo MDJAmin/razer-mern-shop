@@ -17,6 +17,8 @@ export default function CheckCode({ handlePageType }) {
   const { isPass } = useSelector((state) => state.auth);
   const { error, loading } = useSelector((state) => state.user);
 
+  // console.log(error)
+
   const [code, setCode] = useState(null);
   const [showResend, setShowResend] = useState(false);
   const [timeLeft, setTimeLeft] = useState(120);
@@ -49,7 +51,6 @@ export default function CheckCode({ handlePageType }) {
       });
       const data = await res.json();
       if (data.success) {
-        console.log(data);
         dispatch(
           signInSuccess({
             token: data.data.token,
@@ -57,8 +58,10 @@ export default function CheckCode({ handlePageType }) {
             role: data.data.user.role,
           })
         );
+      } else {
+        console.log(JSON.parse(data.message))
+        dispatch(signInFailure(data.message.en));
       }
-      dispatch(signInFailure(data.message.en));
     } catch (error) {
       console.log(error);
       dispatch(signInFailure("somthing went wrong"));
@@ -87,7 +90,7 @@ export default function CheckCode({ handlePageType }) {
 
   return (
     <div className="bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
-      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-12 px-4 md:px-0">
+      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-8 px-4 md:px-0">
         <img src={logoWithText} alt="logoWithText" className="px-6 md:px-0" />
 
         <div className="w-full">
@@ -100,16 +103,24 @@ export default function CheckCode({ handlePageType }) {
               <span className="text-light-green">{phone}</span>
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col items-center">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col items-center relative"
+          >
             <input
               type="number"
               onChange={(e) => setCode(e.target.value)}
               className="authInp hide-number-controls"
               placeholder="Enter The Code"
             />
+            {error && (
+              <p className="text-red-600 absolute top-[60px] left-[115px] text-sm">
+                " {error} "
+              </p>
+            )}
             <div className="text-white-smoke mt-3">
               {showResend ? (
-                <p>
+                <p className="mt-4">
                   <span
                     onClick={handleResendCode}
                     className="text-light-green cursor-pointer"
@@ -119,7 +130,7 @@ export default function CheckCode({ handlePageType }) {
                   to resend code
                 </p>
               ) : (
-                <p className="flex gap-1">
+                <p className="flex gap-1 mt-4">
                   Remaining to receive new code
                   <span className="text-light-green w-12">
                     {Math.floor(timeLeft / 60)}:
@@ -131,7 +142,7 @@ export default function CheckCode({ handlePageType }) {
             <button
               disabled={!code || loading}
               type="submit"
-              className="authBtn mt-3"
+              className="authBtn mt-2"
             >
               Confirm
             </button>

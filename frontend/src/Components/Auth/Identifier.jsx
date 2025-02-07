@@ -7,7 +7,11 @@ import logoWithText from "../../Assets/logoWithText.png";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa6";
 import { RiTwitterXFill } from "react-icons/ri";
-import { signInFailure, signInStart } from "../../Context/Slices/userSlice";
+import {
+  signInFailure,
+  signInStart,
+  signInWaiting,
+} from "../../Context/Slices/userSlice";
 
 export default function Identifier({ handlePageType }) {
   const [identifier, setIdentifier] = useState("");
@@ -36,8 +40,10 @@ export default function Identifier({ handlePageType }) {
             identifier: data.identifier,
           })
         );
+        dispatch(signInWaiting());
+      } else {
+        dispatch(signInFailure(data.message.en));
       }
-      dispatch(signInFailure(data.message.en));
     } catch (error) {
       console.log(error);
       dispatch(signInFailure("somthing went wrong"));
@@ -70,6 +76,11 @@ export default function Identifier({ handlePageType }) {
               placeholder="Email or Phone number"
               className="authInp"
             />
+            {error && (
+              <p className="text-red-600 absolute top-[60px] left-[115px] text-sm">
+                " {error} "
+              </p>
+            )}
             <button
               disabled={!identifier || loading}
               type="submit"

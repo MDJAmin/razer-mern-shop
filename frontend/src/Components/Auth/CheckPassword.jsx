@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signInFailure, signInStart, signInSuccess } from "../../Context/Slices/userSlice";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../../Context/Slices/userSlice";
 
 import logoWithText from "../../Assets/logoWithText.png";
 
@@ -19,7 +23,7 @@ export default function CheckPassword({ handlePageType }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(signInStart())
+      dispatch(signInStart());
       const res = await fetch("http://localhost:5000/api/auth/check-password", {
         method: "POST",
         headers: {
@@ -36,11 +40,12 @@ export default function CheckPassword({ handlePageType }) {
             role: data.data.user.role,
           })
         );
+      } else {
+        dispatch(signInFailure(data.message.en));
       }
-      dispatch(signInFailure(data.message.en))
     } catch (error) {
       console.log(error);
-      dispatch(signInFailure("something went wrong"))
+      dispatch(signInFailure("something went wrong"));
     }
   };
   return (
@@ -65,7 +70,11 @@ export default function CheckPassword({ handlePageType }) {
               placeholder="Enter Your Password"
               className="authInp"
             />
-            <button disabled={!password || loading} type="submit" className="authBtn">
+            <button
+              disabled={!password || loading}
+              type="submit"
+              className="authBtn"
+            >
               Confirm
             </button>
             <p className="text-white-smoke mt-2">
