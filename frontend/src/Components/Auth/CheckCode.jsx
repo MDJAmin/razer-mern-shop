@@ -17,8 +17,6 @@ export default function CheckCode({ handlePageType }) {
   const { isPass } = useSelector((state) => state.auth);
   const { error, loading } = useSelector((state) => state.user);
 
-  // console.log(error)
-
   const [code, setCode] = useState(null);
   const [showResend, setShowResend] = useState(false);
   const [timeLeft, setTimeLeft] = useState(120);
@@ -59,8 +57,8 @@ export default function CheckCode({ handlePageType }) {
           })
         );
       } else {
-        console.log(JSON.parse(data.message))
-        dispatch(signInFailure(data.message.en));
+        const messages = JSON.parse(data.message)
+        dispatch(signInFailure(messages.en));
       }
     } catch (error) {
       console.log(error);

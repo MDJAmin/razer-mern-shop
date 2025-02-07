@@ -11,7 +11,7 @@ export default function Auth() {
   };
   return (
     <>
-      {pageType == "Identifier" ? (
+      {pageType == "identifier" ? (
         <Identifier handlePageType={handlePageType} />
       ) : pageType == "checkCode" ? (
         <CheckCode handlePageType={handlePageType}  />

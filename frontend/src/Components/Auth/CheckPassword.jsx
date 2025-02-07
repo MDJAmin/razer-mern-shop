@@ -41,7 +41,8 @@ export default function CheckPassword({ handlePageType }) {
           })
         );
       } else {
-        dispatch(signInFailure(data.message.en));
+        const messages = JSON.parse(data.message);
+        dispatch(signInFailure(messages.en));
       }
     } catch (error) {
       console.log(error);
@@ -63,13 +64,18 @@ export default function CheckPassword({ handlePageType }) {
               <span className="text-light-green">Password</span>
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col items-center">
+          <form onSubmit={handleSubmit} className="flex flex-col items-center relative">
             <input
               type="text"
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter Your Password"
               className="authInp"
             />
+            {error && (
+              <p className="text-red-600 absolute top-[60px] left-[115px] text-sm">
+                " {error} "
+              </p>
+            )}
             <button
               disabled={!password || loading}
               type="submit"
