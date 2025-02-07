@@ -4,7 +4,7 @@ import CheckCode from "../../Components/Auth/CheckCode";
 import CheckPassword from "../../Components/Auth/CheckPassword";
 
 export default function Auth() {
-  const [pageType, setPageType] = useState("checkCode");
+  const [pageType, setPageType] = useState("identifier");
 
   const handlePageType = (e) => {
     setPageType(e);

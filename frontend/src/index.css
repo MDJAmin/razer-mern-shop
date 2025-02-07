@@ -8,10 +8,10 @@ body {
 
 @layer components {
   .authBtn {
-    @apply text-2xl text-white bg-gray rounded-2xl py-2 w-full md:w-[62%] mt-10 hover:opacity-90 duration-150 active:scale-[98%] disabled:opacity-50 disabled:pointer-events-none;
+    @apply text-2xl text-white bg-gray rounded-2xl py-2 w-full mt-2 hover:opacity-90 duration-150 active:scale-[98%] disabled:opacity-50 disabled:pointer-events-none;
   }
   .authInp {
-    @apply outline-none bg-transparent border-[1px] border-light-gray rounded-2xl w-full md:w-2/3 p-3 text-xl md:text-2xl text-white focus:border-white duration-200 placeholder-white-smoke;
+    @apply outline-none bg-transparent border-[1px] w-full border-light-gray rounded-2xl p-3 text-xl md:text-2xl text-white focus:border-white duration-200 placeholder-white-smoke;
   }
 }
 

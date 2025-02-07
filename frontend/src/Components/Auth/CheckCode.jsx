@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RiArrowGoBackFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import AuthFooter from "./AuthFooter";
+import AuthHeader from "./AuthHeader";
 import {
   signInFailure,
   signInStart,
   signInSuccess,
 } from "../../Context/Slices/userSlice";
-
-import logoWithText from "../../Assets/logoWithText.png";
-
-import { AiOutlineYoutube } from "react-icons/ai";
-import { FaInstagram } from "react-icons/fa6";
-import { RiTwitterXFill } from "react-icons/ri";
-import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function CheckCode({ handlePageType }) {
   const { phone } = useSelector((state) => state.auth.identifier);
@@ -23,6 +20,7 @@ export default function CheckCode({ handlePageType }) {
   const [timeLeft, setTimeLeft] = useState(120);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -57,6 +55,7 @@ export default function CheckCode({ handlePageType }) {
             role: data.data.user.role,
           })
         );
+        navigate("/");
       } else {
         const messages = JSON.parse(data.message);
         dispatch(signInFailure(messages.en));
@@ -80,7 +79,6 @@ export default function CheckCode({ handlePageType }) {
       if (data.success) {
         setShowResend(false);
         setTimeLeft(120);
-        console.log(data);
       }
     } catch (error) {
       console.log(error);
@@ -89,11 +87,10 @@ export default function CheckCode({ handlePageType }) {
 
   return (
     <div className="bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
-      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-8 px-4 md:px-0">
-        <img src={logoWithText} alt="logoWithText" className="px-6 md:px-0" />
-
-        <div className="w-full">
-          <div className="text-center text-white relative">
+      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-8 px-4 md:px-0 ">
+        <AuthHeader />
+        <div className="w-full px-0 sm:px-24">
+          <div className="text-center text-white">
             <h1 className="text-3xl sm:text-4xl mb-5 font-extralight">
               Enter verification code
             </h1>
@@ -106,12 +103,6 @@ export default function CheckCode({ handlePageType }) {
                 {phone}
               </span>
             </p>
-            <div
-              className="absolute -top-[107px] left-10 text-2xl text-light-green border-2 border-opacity-20 hover:border-opacity-80 cursor-pointer duration-150 rounded-full border-white-smoke p-2"
-              onClick={() => handlePageType("identifier")}
-            >
-              <FaArrowLeftLong />
-            </div>
           </div>
           <form
             onSubmit={handleSubmit}
@@ -123,14 +114,14 @@ export default function CheckCode({ handlePageType }) {
               className="authInp hide-number-controls"
               placeholder="Enter The Code"
             />
-            {error && (
-              <p className="text-red-600 absolute top-[60px] left-[115px] text-sm">
-                " {error} "
-              </p>
-            )}
-            <div className="text-white-smoke mt-3">
+            <div className="min-h-6 text-start w-full ml-5">
+              {error && (
+                <p className="text-red-600 text-sm mt-1">" {error} "</p>
+              )}
+            </div>
+            <div className="text-white-smoke mt-1">
               {showResend ? (
-                <p className="mt-4">
+                <p>
                   <span
                     onClick={handleResendCode}
                     className="text-light-green cursor-pointer"
@@ -140,7 +131,7 @@ export default function CheckCode({ handlePageType }) {
                   to resend code
                 </p>
               ) : (
-                <p className="flex gap-1 mt-4">
+                <p className="flex gap-1">
                   Remaining to receive new code
                   <span className="text-light-green w-12">
                     {Math.floor(timeLeft / 60)}:
@@ -149,13 +140,21 @@ export default function CheckCode({ handlePageType }) {
                 </p>
               )}
             </div>
-            <button
-              disabled={!code || loading}
-              type="submit"
-              className="authBtn mt-2"
-            >
-              Confirm
-            </button>
+            <div className="w-full flex gap-1">
+              <button
+                disabled={!code || loading}
+                type="submit"
+                className="authBtn mt-2 rounded-tr-none rounded-br-none"
+              >
+                Confirm
+              </button>
+              <button
+                className="authBtn w-1/5 rounded-tl-none rounded-bl-none flex justify-center items-center hover:bg-red-500"
+                onClick={() => handlePageType("identifier")}
+              >
+                <RiArrowGoBackFill />
+              </button>
+            </div>
             {isPass && (
               <p
                 onClick={() => handlePageType("CheckPass")}
@@ -166,32 +165,7 @@ export default function CheckCode({ handlePageType }) {
             )}
           </form>
         </div>
-        <div className="text-center text-white">
-          <p>Razer | All Rights Reserved</p>
-          <div className="flex justify-center items-center mt-2 text-3xl gap-1">
-            <a
-              href="https://www.youtube.com/"
-              target="_blank"
-              className="hover:opacity-60 duration-100"
-            >
-              <AiOutlineYoutube className="text-[40px]" />
-            </a>
-            <a
-              href="https://www.instagram.com/"
-              target="_blank"
-              className="hover:opacity-60 duration-100"
-            >
-              <FaInstagram />
-            </a>
-            <a
-              href="https://www.x.com/"
-              target="_blank"
-              className="hover:opacity-60 duration-100"
-            >
-              <RiTwitterXFill />
-            </a>
-          </div>
-        </div>
+        <AuthFooter />
       </div>
     </div>
   );
