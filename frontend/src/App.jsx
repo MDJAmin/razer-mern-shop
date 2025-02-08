@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 import PrivateRoute from "./Utils/PrivateRoute";
 import ClientLayout from "./Layouts/ClientLayout";
 import AdminLayout from "./Layouts/AdminLayout";
@@ -28,13 +29,19 @@ import {
 } from "./Constants/admin";
 import AdminPrivateRoute from "./Utils/AdminPrivateRoute";
 
+
 export default function App() {
+  const { token } = useSelector((state) => state.user);
+  
   return (
     <>
       <Routes>
         <Route element={<ClientLayout />}>
           <Route exact path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route
+            path="/auth"
+            element={token ? <Navigate to={"/"} /> : <Auth />}
+          />
           <Route path="/product" element={<Products />} />
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/search" element={<Search />} />
