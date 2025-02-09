@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-export default function ClientLayout() {
+export default function AdminLayout() {
   return (
     <>
       {/* <Navbar /> */}
