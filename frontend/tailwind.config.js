@@ -1,28 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+
   theme: {
     extend: {
       colors: {
         'light-green': '#00FF00',
         'dark-green': '#1B1F1B',
+        'soft-green': '#D2DFD2',
         'gray': '#2C2C2C',
         'light-gray': '#646464',
         'white-smoke': '#CACACA',
         'white': '#FFFFFF',
         'black': '#131313',
       },
-      backgroundColor: {
-        light: '#FFFFFF',
-        dark: '#131313',
-      },
-      textColor: {
-        light: '#000000',
-        dark: '#FFFFFF',
-      },
     },
   },
 
   darkMode: 'class',
+
   plugins: [],
 };

@@ -19,10 +19,6 @@ export default function Auth() {
       ) : (
         <CheckPassword handlePageType={handlePageType} />
       )}
-      <button>
-        {" "}
-        <Link to={"/"}>Go back</Link>
-      </button>
     </>
   );
 }
