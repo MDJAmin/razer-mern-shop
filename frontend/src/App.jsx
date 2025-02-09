@@ -5,6 +5,7 @@ import AdminPrivateRoute from "./Utils/AdminPrivateRoute";
 import ClientLayout from "./Layouts/ClientLayout";
 import AdminLayout from "./Layouts/AdminLayout";
 import { PagesLoading } from "./Constants/Components";
+import { lazy, Suspense } from "react";
 
 // Client Pages Lazy Loading
 const Home = lazy(() => import("./Pages/Home"));
