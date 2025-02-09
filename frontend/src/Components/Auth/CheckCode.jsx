@@ -15,7 +15,7 @@ export default function CheckCode({ handlePageType }) {
   const { isPass } = useSelector((state) => state.auth);
   const { error, loading } = useSelector((state) => state.user);
 
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(null);
   const [showResend, setShowResend] = useState(false);
   const [timeLeft, setTimeLeft] = useState(120);
 
@@ -37,8 +37,6 @@ export default function CheckCode({ handlePageType }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loading) return;
-    setLoading(true);
     try {
       dispatch(signInStart());
       const res = await fetch("http://localhost:5000/api/auth/check-code", {
@@ -64,13 +62,11 @@ export default function CheckCode({ handlePageType }) {
       }
     } catch (error) {
       console.log(error);
-      dispatch(signInFailure("somthing went wrong"));
+      dispatch(signInFailure("Something went wrong"));
     }
   };
 
   const handleResendCode = async () => {
-    if (loading) return;
-    setLoading(true);
     try {
       const res = await fetch("http://localhost:5000/api/auth/send-code", {
         method: "POST",
@@ -85,21 +81,21 @@ export default function CheckCode({ handlePageType }) {
         setTimeLeft(120);
       }
     } catch (error) {
-      setError("An error occurred");
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
+
+
   return (
-    <div className="bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
-      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-8 px-4 md:px-0 ">
+    <div className="bg-white dark:bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
+      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-soft-green dark:bg-dark-green rounded-2xl py-8 px-4 md:px-0 ">
         <AuthHeader />
         <div className="w-full px-0 sm:px-24">
-          <div className="text-center text-white">
-            <h1 className="text-3xl sm:text-4xl mb-5 font-extralight">
+          <div className="text-center">
+            <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-white">
               Enter verification code
             </h1>
-            <p className="text-white-smoke tracking-wide text-sm mb-4">
+            <p className="text-gray dark:text-white-smoke tracking-wide text-sm mb-4">
               Verification code has been sent to{" "}
               <span
                 className="text-light-green hover:text-red-500 cursor-pointer duration-150"
@@ -124,7 +120,7 @@ export default function CheckCode({ handlePageType }) {
                 <p className="text-red-600 text-sm mt-1">" {error} "</p>
               )}
             </div>
-            <div className="text-white-smoke mt-1">
+            <div className="text-gray dark:text-white-smoke mt-1">
               {showResend ? (
                 <p>
                   <span
@@ -163,7 +159,7 @@ export default function CheckCode({ handlePageType }) {
             {isPass && (
               <p
                 onClick={() => handlePageType("CheckPass")}
-                className="text-white-smoke mt-2 cursor-pointer hover:opacity-80 "
+                className="text-gray dark:text-white-smoke mt-2 cursor-pointer hover:opacity-80 "
               >
                 Continue with password
               </p>

@@ -49,15 +49,15 @@ export default function CheckPassword({ handlePageType }) {
     }
   };
   return (
-    <div className="bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
-      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-12 px-4 md:px-0">
+    <div className="bg-white dark:bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
+      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-soft-green dark:bg-dark-green rounded-2xl py-12 px-4 md:px-0">
         <AuthHeader />
         <div className="w-full px-0 sm:px-24">
-          <div className="text-center text-white">
-            <h1 className="text-3xl sm:text-4xl mb-5 font-extralight">
+          <div className="text-center">
+            <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-white">
               Welcome Back!
             </h1>
-            <p className="text-white-smoke tracking-wide text-sm mb-4">
+            <p className="text-gray dark:text-white-smoke tracking-wide text-sm mb-4">
               Please enter your{" "}
               <span className="text-light-green">Password</span>
             </p>
@@ -84,7 +84,7 @@ export default function CheckPassword({ handlePageType }) {
             >
               Confirm
             </button>
-            <p className="text-white-smoke mt-2">
+            <p className="text-gray dark:text-white-smoke mt-2">
               Forget Your Password?{" "}
               <span
                 onClick={() => handlePageType("checkCode")}
