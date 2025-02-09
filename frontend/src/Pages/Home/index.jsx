@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import ThemeToggle from '../../Components/Common/Button/ThemeToggle'
 
 export default function Home() {
   const handleLogin = () => {
@@ -7,12 +7,9 @@ export default function Home() {
   };
 
   return (
-    <div className='home-container'>
-      <h1>Welcome to Home Page</h1>
-      <p>This is the home page content.</p>
-      <button>
-        <Link to={"/auth"}>Login</Link>
-      </button>
-    </div>
-  );
+    <>
+    <ThemeToggle/> 
+    <div className='text-3xl underline bg-light dark:bg-dark text-light dark:text-white'>Home</div>
+    </>
+  )
 }

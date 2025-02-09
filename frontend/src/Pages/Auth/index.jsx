@@ -5,14 +5,14 @@ import CheckPassword from "../../Components/Auth/CheckPassword";
 import { Link } from "react-router-dom";
 
 export default function Auth() {
-  const [pageType, setPageType] = useState("Identifier");
+  const [pageType, setPageType] = useState("identifier");
 
   const handlePageType = (e) => {
     setPageType(e);
   };
   return (
     <>
-      {pageType == "Identifier" ? (
+      {pageType == "identifier" ? (
         <Identifier handlePageType={handlePageType} />
       ) : pageType == "checkCode" ? (
         <CheckCode handlePageType={handlePageType} />

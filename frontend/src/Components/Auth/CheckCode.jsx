@@ -1,24 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signInSuccess } from "../../Context/Slices/userSlice";
+import { RiArrowGoBackFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import AuthFooter from "./AuthFooter";
+import AuthHeader from "./AuthHeader";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../../Context/Slices/userSlice";
 
 export default function CheckCode({ handlePageType }) {
   const { phone } = useSelector((state) => state.auth.identifier);
   const { isPass } = useSelector((state) => state.auth);
+  const { error, loading } = useSelector((state) => state.user);
 
   const [code, setCode] = useState("");
   const [showResend, setShowResend] = useState(false);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [timer, setTimer] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(120);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      setShowResend(true);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
     setLoading(true);
     try {
+      dispatch(signInStart());
       const res = await fetch("http://localhost:5000/api/auth/check-code", {
         method: "POST",
         headers: {
@@ -35,13 +57,14 @@ export default function CheckCode({ handlePageType }) {
             role: data.data.user.role,
           })
         );
+        navigate("/");
       } else {
-        setError(data.message);
+        const messages = JSON.parse(data.message);
+        dispatch(signInFailure(messages.en));
       }
     } catch (error) {
-      setError("An error occurred");
-    } finally {
-      setLoading(false);
+      console.log(error);
+      dispatch(signInFailure("somthing went wrong"));
     }
   };
 
@@ -59,9 +82,7 @@ export default function CheckCode({ handlePageType }) {
       const data = await res.json();
       if (data.success) {
         setShowResend(false);
-        setTimer(setTimeout(() => setShowResend(true), 2 * 60 * 1000));
-      } else {
-        setError(data.message);
+        setTimeLeft(120);
       }
     } catch (error) {
       setError("An error occurred");
@@ -69,35 +90,88 @@ export default function CheckCode({ handlePageType }) {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    return () => clearTimeout(timer);
-  }, [timer]);
-
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          placeholder="Enter code"
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? "Checking..." : "Check Code"}
-        </button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </form>
-      {isPass && (
-        <p onClick={() => handlePageType("CheckPass")}>
-          Continue with password
-        </p>
-      )}
-      {showResend && (
-        <p onClick={handleResendCode}>
-          {loading ? "Resending..." : "Resend Code"}
-        </p>
-      )}
+    <div className="bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
+      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-dark-green rounded-2xl py-8 px-4 md:px-0 ">
+        <AuthHeader />
+        <div className="w-full px-0 sm:px-24">
+          <div className="text-center text-white">
+            <h1 className="text-3xl sm:text-4xl mb-5 font-extralight">
+              Enter verification code
+            </h1>
+            <p className="text-white-smoke tracking-wide text-sm mb-4">
+              Verification code has been sent to{" "}
+              <span
+                className="text-light-green hover:text-red-500 cursor-pointer duration-150"
+                onClick={() => handlePageType("identifier")}
+              >
+                {phone}
+              </span>
+            </p>
+          </div>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col items-center relative"
+          >
+            <input
+              type="number"
+              onChange={(e) => setCode(e.target.value)}
+              className="authInp hide-number-controls"
+              placeholder="Enter The Code"
+            />
+            <div className="min-h-6 text-start w-full ml-5">
+              {error && (
+                <p className="text-red-600 text-sm mt-1">" {error} "</p>
+              )}
+            </div>
+            <div className="text-white-smoke mt-1">
+              {showResend ? (
+                <p>
+                  <span
+                    onClick={handleResendCode}
+                    className="text-light-green cursor-pointer"
+                  >
+                    Click here
+                  </span>{" "}
+                  to resend code
+                </p>
+              ) : (
+                <p className="flex gap-1">
+                  Remaining to receive new code
+                  <span className="text-light-green w-12">
+                    {Math.floor(timeLeft / 60)}:
+                    {(timeLeft % 60).toString().padStart(2, "0")}
+                  </span>
+                </p>
+              )}
+            </div>
+            <div className="w-full flex gap-1">
+              <button
+                disabled={!code || loading}
+                type="submit"
+                className="authBtn mt-2 rounded-tr-none rounded-br-none"
+              >
+                Confirm
+              </button>
+              <button
+                className="authBtn w-1/5 rounded-tl-none rounded-bl-none flex justify-center items-center hover:bg-red-500"
+                onClick={() => handlePageType("identifier")}
+              >
+                <RiArrowGoBackFill />
+              </button>
+            </div>
+            {isPass && (
+              <p
+                onClick={() => handlePageType("CheckPass")}
+                className="text-white-smoke mt-2 cursor-pointer hover:opacity-80 "
+              >
+                Continue with password
+              </p>
+            )}
+          </form>
+        </div>
+        <AuthFooter />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import { Route, Routes } from "react-router-dom";
-import React, { Suspense, lazy } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 import PrivateRoute from "./Utils/PrivateRoute";
 import AdminPrivateRoute from "./Utils/AdminPrivateRoute";
 import ClientLayout from "./Layouts/ClientLayout";
@@ -29,15 +29,21 @@ const AdminPanel = lazy(() => import("./Admin/AdminPanel"));
 const Comments = lazy(() => import("./Admin/Comments"));
 const Users = lazy(() => import("./Admin/Users"));
 
+
 export default function App() {
+  const { token } = useSelector((state) => state.user);
+  
   return (
     <Suspense fallback={<PagesLoading/>}>
       <Routes>
         <Route element={<ClientLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route exact path="/" element={<Home />} />
+          <Route
+            path="/auth"
+            element={token ? <Navigate to={"/"} /> : <Auth />}
+          />
+          <Route path="/product" element={<Products />} />
+          <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/search" element={<Search />} />
           <Route path="/categories" element={<Category />} />
           <Route element={<PrivateRoute />}>
