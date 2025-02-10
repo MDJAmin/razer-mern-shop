@@ -1,4 +1,4 @@
-import PagesLoading from "../../Components/Ui/LoadingSpinner/PagesLoading"
+import PagesLoading from "../../Components/Common/LoadingSpinner/PagesLoading"
 
 export {
     PagesLoading
