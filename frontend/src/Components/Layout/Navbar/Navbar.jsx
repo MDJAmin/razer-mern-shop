@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../../Assets/logoWithText.png";
 import { TbSearch } from "react-icons/tb";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -10,6 +11,7 @@ import ThemeToggle from "../../Common/Button/ThemeToggle";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,15 +34,30 @@ export default function Navbar() {
         />
       </div>
       <ul className="hidden sm:flex items-center gap-6 text-2xl">
-        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"><TbSearch /></li>
-        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"><IoMdNotificationsOutline /></li>
-        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"><FiUser /></li>
-        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"><BsCart2 /></li>
-        <li><ThemeToggle /></li>
+        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+          <TbSearch />
+        </li>
+        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+          <IoMdNotificationsOutline />
+        </li>
+        <li
+          className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"
+          onClick={() => navigate("/auth")}
+        >
+          <FiUser />
+        </li>
+        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+          <BsCart2 />
+        </li>
+        <li>
+          <ThemeToggle />
+        </li>
       </ul>
-      
+
       <div
-        className={`fixed top-0 right-0 h-full w-64 z-10 bg-white dark:bg-dark-green shadow-lg transform transition-transform duration-300 ease-in-out ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed top-0 right-0 h-full w-64 z-10 bg-white dark:bg-dark-green shadow-lg transform transition-transform duration-300 ease-in-out ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <div className="flex justify-end p-4">
           <IoMdClose
@@ -49,11 +66,24 @@ export default function Navbar() {
           />
         </div>
         <ul className="flex flex-col items-center gap-6 text-2xl p-6">
-          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"><TbSearch /></li>
-          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"><IoMdNotificationsOutline /></li>
-          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"><FiUser /></li>
-          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"><BsCart2 /></li>
-          <li><ThemeToggle /></li>
+          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+            <TbSearch />
+          </li>
+          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+            <IoMdNotificationsOutline />
+          </li>
+          <li
+            className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"
+            onClick={() => navigate("/auth")}
+          >
+            <FiUser />
+          </li>
+          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+            <BsCart2 />
+          </li>
+          <li>
+            <ThemeToggle />
+          </li>
         </ul>
       </div>
       {menuOpen && (

@@ -1,10 +1,14 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import Navbar from "../Components/Layout/Navbar/Navbar";
 
 export default function ClientLayout() {
+  const location = useLocation();
+  const hideNavBarOnAuthPage =
+    location.pathname === "/auth";
   return (
     <>
-      {/* <Navbar /> */}
+        {!hideNavBarOnAuthPage && <Navbar />}
       <main>
         <Outlet />
       </main>
