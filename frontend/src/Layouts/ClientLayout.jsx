@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import Navbar from "../Components/Layout/Navbar/Navbar";
+import MainNavBar from "../Constants/Components";
 
 export default function ClientLayout() {
   const location = useLocation();
@@ -8,7 +8,7 @@ export default function ClientLayout() {
     location.pathname === "/auth";
   return (
     <>
-        {!hideNavBarOnAuthPage && <Navbar />}
+        {!hideNavBarOnAuthPage && <MainNavBar isAdmin={false}/>}
       <main>
         <Outlet />
       </main>
