@@ -13,6 +13,7 @@ export default {
         'white-smoke': '#CACACA',
         'white': '#FFFFFF',
         'black': '#131313',
+        'admin-green': '#426E53'
       },
     },
   },
