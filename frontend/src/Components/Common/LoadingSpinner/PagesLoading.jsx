@@ -1,33 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 
-export default function FastSmoothRGBSpinner() {
-  const [rotation, setRotation] = useState(0)
+export default function RGBSpinner() {
+  const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setRotation((prevRotation) => (prevRotation + 3) % 360)
-    }, 16)
+      setRotation((prevRotation) => (prevRotation + 3) % 360);
+    }, 16);
 
-    return () => clearInterval(intervalId)
-  }, [])
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-900">
-      <div 
-        className="relative w-16 h-16" 
-        role="status"
-        aria-label="Loading"
-      >
+    <div className="flex items-center justify-center h-screen w-screen bg-dark-green text-white">
+      <div className="relative w-20 h-20">
         <div
-          className="absolute inset-0 rounded-full animate-[fastSmoothRgb_2s_linear_infinite]"
+          className="absolute inset-0 rounded-full"
           style={{
-            background: `conic-gradient(from ${rotation}deg, #ff0000, #00ff00, #0000ff, #ff0000)`,
-            boxShadow: '0 0 15px rgba(255, 255, 255, 0.3)',
+            background: `conic-gradient(from ${rotation}deg, #00FF00, #D2DFD2, #646464, #00FF00)`,
+            boxShadow: "0 0 25px rgba(0, 255, 0, 0.5)",
           }}
         ></div>
-        <div className="absolute inset-1 bg-gray-900 rounded-full"></div>
+        <div className="absolute inset-2 bg-dark-green rounded-full"></div>
         <div className="sr-only">Loading...</div>
       </div>
     </div>
-  )
+  );
 }
