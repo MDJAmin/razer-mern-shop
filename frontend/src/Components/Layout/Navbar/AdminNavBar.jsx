@@ -9,7 +9,7 @@ import { IoMdClose } from "react-icons/io";
 import ThemeToggle from "../../Common/Button/ThemeToggle";
 import { TfiMenuAlt } from "react-icons/tfi";
 
-export default function AdminNavbar() {
+export default function AdminNavbar({handleShowText}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -28,11 +28,11 @@ export default function AdminNavbar() {
   return (
     <nav className='flex justify-between items-center px-6 py-4 bg-white dark:bg-black text-gray dark:text-white-smoke shadow-md'>
       <ul className='flex items-center gap-4'>
-        <TfiMenuAlt className='text-2xl cursor-pointer hover:text-light-gray dark:hover:text-soft-green' />
+        <TfiMenuAlt className='text-2xl cursor-pointer hover:text-light-gray dark:hover:text-soft-green hidden md:inline-block' onClick={handleShowText} />
         <img
           src={logo}
           alt='Logo'
-          className={"h-10 hidden sm:flex"}
+          className={"h-8 sm:h-10"}
         />
       </ul>
       <ul className='sm:hidden'>
@@ -66,12 +66,7 @@ export default function AdminNavbar() {
             onClick={() => setMenuOpen(false)}
           />
         </div>
-        <img
-          src={logo}
-          alt='Logo'
-          className='h-10 m-auto'
-        />
-        <ul className='flex flex-col items-center gap-6 text-2xl p-6'>
+        <ul className='flex flex-col items-center gap-8 text-2xl p-6'>
           <li className='cursor-pointer hover:text-light-gray dark:hover:text-soft-green'>
             <TbSearch />
           </li>
