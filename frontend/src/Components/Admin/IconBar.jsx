@@ -6,19 +6,23 @@ import { TfiLayoutSliderAlt } from "react-icons/tfi";
 import { Link, useLocation } from "react-router-dom";
 
 export default function IconBar({ showText }) {
-  const [isIconInMobile, setIsIconInMobile] = useState(false);
+  const [isIconInMobile, setIsIconInMobile] = useState(
+    window.innerWidth >= 768
+  );
   const location = useLocation();
   const pathname = location.pathname;
 
   useEffect(() => {
-    const handleReSize = () => {
-      if (window.innerWidth >= 768) {
-        setIsIconInMobile(true);
-      }
+    const handleResize = () => {
+      setIsIconInMobile(window.innerWidth >= 768);
     };
-    window.addEventListener("resize", handleReSize);
 
-    return window.removeEventListener("resize", handleReSize);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const getActiveClass = (path) =>
@@ -26,121 +30,51 @@ export default function IconBar({ showText }) {
 
   return (
     <div className="flex flex-col items-start justify-start gap-8 border-r-[1px] border-light-gray dark:border-admin-green text-2xl sm:text-3xl md:text-4xl h-screen px-2 sm:px-4 pt-4 dark:text-white">
-      <Link
-        to="/admin"
-        className={`flex items-center justify-start gap-2 ${
-          showText ? "md:w-36" : "md:w-10"
-        }`}
-      >
-        <MdDashboard
-          title="Dashboard"
-          className={`hover:opacity-80 duration-150 p-[2px] ${getActiveClass(
-            "/admin"
-          )}`}
-        />
-        {showText && isIconInMobile && (
-          <p className={`text-xl transition-opacity duration-100`}>DASHBOARD</p>
-        )}
-      </Link>
-
-      <Link
-        to="/admin/products"
-        className={`flex items-center justify-start gap-2 ${
-          showText ? "md:w-36" : "md:w-10"
-        }`}
-      >
-        <FiShoppingCart
-          title="Products"
-          className={`hover:opacity-80 duration-150 p-[4px] ${getActiveClass(
-            "/admin/products"
-          )}`}
-        />
-        {showText && isIconInMobile && (
-          <p className={`text-xl transition-opacity duration-100`}>PRODUCTS</p>
-        )}
-      </Link>
-      <Link
-        to="/admin/categories"
-        className={`flex items-center justify-start gap-2 ${
-          showText ? "md:w-36" : "md:w-10"
-        }`}
-      >
-        <MdCategory
-          title="Categories"
-          className={`hover:opacity-80 duration-150 p-[2px] ${getActiveClass(
-            "/admin/categories"
-          )}`}
-        />
-        {showText && isIconInMobile && (
-          <p className={`text-xl transition-opacity duration-100`}>
-            CATEGORIES
-          </p>
-        )}
-      </Link>
-      <Link
-        to="/admin/sliders"
-        className={`flex items-center justify-start gap-2 ${
-          showText ? "md:w-36" : "md:w-10"
-        }`}
-      >
-        <TfiLayoutSliderAlt
-          title="Sliders"
-          className={`hover:opacity-80 duration-150 p-[2.5px] ${getActiveClass(
-            "/admin/sliders"
-          )}`}
-        />
-        {showText && isIconInMobile && (
-          <p className={`text-xl transition-opacity duration-100`}>SLIDERS</p>
-        )}
-      </Link>
-      <Link
-        to="/admin/users"
-        className={`flex items-center justify-start gap-2 ${
-          showText ? "md:w-36" : "md:w-10"
-        }`}
-      >
-        <FiUser
-          title="Users"
-          className={`hover:opacity-80 duration-150 p-[2px] ${getActiveClass(
-            "/admin/users"
-          )}`}
-        />
-        {showText && isIconInMobile && (
-          <p className={`text-xl transition-opacity duration-100`}>USERS</p>
-        )}
-      </Link>
-      <Link
-        to="/admin/comments"
-        className={`flex items-center justify-start gap-2 ${
-          showText ? "md:w-36" : "md:w-10"
-        }`}
-      >
-        <MdComment
-          title="Comments"
-          className={`hover:opacity-80 duration-150 p-[2.5px] ${getActiveClass(
-            "/admin/comments"
-          )}`}
-        />
-        {showText && isIconInMobile && (
-          <p className={`text-xl transition-opacity duration-100`}>COMMENTS</p>
-        )}
-      </Link>
-      <Link
-        to="/admin/discounts"
-        className={`flex items-center justify-start gap-2 ${
-          showText ? "md:w-36" : "md:w-10"
-        }`}
-      >
-        <MdDiscount
-          title="Discounts"
-          className={`hover:opacity-80 duration-150 p-[3px] ${getActiveClass(
-            "/admin/discounts"
-          )}`}
-        />
-        {showText && isIconInMobile && (
-          <p className={`text-xl transition-opacity duration-100`}>DISCOUNTS</p>
-        )}
-      </Link>
+      {[
+        { to: "/admin", icon: <MdDashboard />, text: "DASHBOARD" },
+        {
+          to: "/admin/products",
+          icon: <FiShoppingCart className="p-[2px]" />,
+          text: "PRODUCTS",
+        },
+        { to: "/admin/categories", icon: <MdCategory />, text: "CATEGORIES" },
+        {
+          to: "/admin/sliders",
+          icon: <TfiLayoutSliderAlt className="p-[1px]" />,
+          text: "SLIDERS",
+        },
+        { to: "/admin/users", icon: <FiUser />, text: "USERS" },
+        {
+          to: "/admin/comments",
+          icon: <MdComment className="p-[1px]" />,
+          text: "COMMENTS",
+        },
+        {
+          to: "/admin/discounts",
+          icon: <MdDiscount className="p-[1px]" />,
+          text: "DISCOUNTS",
+        },
+      ].map(({ to, icon, text }) => (
+        <Link
+          key={to}
+          to={to}
+          className={`flex items-center justify-start gap-1 lg:gap-2 ${
+            showText ? "md:w-[125px] lg:w-36" : "md:w-10"
+          }`}
+        >
+          <div
+            className={`hover:opacity-80 duration-150 p-[2px] ${getActiveClass(
+              to
+            )}`}
+            title={text}
+          >
+            {icon}
+          </div>
+          {showText && isIconInMobile && (
+            <p className="text-lg lg:text-xl transition-opacity duration-100">{text}</p>
+          )}
+        </Link>
+      ))}
     </div>
   );
 }
