@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-
 export default function NotFound() {
   const navigate = useNavigate();
 
@@ -17,7 +16,8 @@ export default function NotFound() {
               Oops! The page you are looking for does not exist.
             </p>
             <p className="text-sm sm:text-base text-gray dark:text-white-smoke mb-6">
-              It seems like you've followed a broken link or typed the wrong URL.
+              It seems like you've followed a broken link or typed the wrong
+              URL.
             </p>
           </div>
 
