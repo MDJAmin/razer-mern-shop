@@ -25,7 +25,7 @@ export default function IconBar() {
       <Link to="/admin/products">
         <FiShoppingCart
           title="Products"
-          className={`hover:opacity-80 duration-150 p-[2px] ${getActiveClass(
+          className={`hover:opacity-80 duration-150 p-[4px] ${getActiveClass(
             "/admin/products"
           )}`}
         />
@@ -41,7 +41,7 @@ export default function IconBar() {
       <Link to="/admin/sliders">
         <TfiLayoutSliderAlt
           title="Sliders"
-          className={`hover:opacity-80 duration-150 p-[2px] ${getActiveClass(
+          className={`hover:opacity-80 duration-150 p-[2.5px] ${getActiveClass(
             "/admin/sliders"
           )}`}
         />
@@ -57,7 +57,7 @@ export default function IconBar() {
       <Link to="/admin/comments">
         <MdComment
           title="Comments"
-          className={`hover:opacity-80 duration-150 p-[2px] ${getActiveClass(
+          className={`hover:opacity-80 duration-150 p-[2.5px] ${getActiveClass(
             "/admin/comments"
           )}`}
         />
@@ -65,7 +65,7 @@ export default function IconBar() {
       <Link to="/admin/discounts">
         <MdDiscount
           title="Discounts"
-          className={`hover:opacity-80 duration-150 p-[2px] ${getActiveClass(
+          className={`hover:opacity-80 duration-150 p-[3px] ${getActiveClass(
             "/admin/discounts"
           )}`}
         />
