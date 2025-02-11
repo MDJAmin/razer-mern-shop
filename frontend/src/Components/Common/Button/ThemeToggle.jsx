@@ -15,7 +15,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={handleToggle}
-      className="p-2 rounded-md transition-colors duration-300"
+      className="sm:pt-2 hover:text-light-gray dark:hover:text-soft-green transition-colors duration-300"
       aria-label="Toggle theme"
     >
       {theme === "light" ? (

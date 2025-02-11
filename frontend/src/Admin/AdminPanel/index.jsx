@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../../Components/Layout/Navbar/Navbar";
 import IconBar from "../../Components/Admin/IconBar";
 import CurrentDate from "../../Components/Common/Date";
 import { useSelector } from "react-redux";
+import AdminNavbar from "../../Components/Layout/Navbar/AdminNavBar";
 
 export default function AdminPanel() {
   const { email } = useSelector((state) => state.user.currentUser);
@@ -10,7 +10,7 @@ export default function AdminPanel() {
   return (
     <div className="bg-white dark:bg-black min-h-screen">
       <div className="border-b-[1px] border-light-gray dark:border-admin-green">
-        <Navbar />
+        <AdminNavbar />
       </div>
       <div className="flex justify-start items-start">
         <IconBar />
