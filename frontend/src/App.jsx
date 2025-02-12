@@ -4,7 +4,7 @@ import PrivateRoute from "./Utils/PrivateRoute";
 import AdminPrivateRoute from "./Utils/AdminPrivateRoute";
 import ClientLayout from "./Layouts/ClientLayout";
 import AdminLayout from "./Layouts/AdminLayout";
-import PagesLoading from "../src/Components/Common/LoadingSpinner/PagesLoading"
+import PagesLoading from "../src/Components/Common/LoadingSpinner/PagesLoading";
 import { lazy, Suspense } from "react";
 
 // Client Pages Lazy Loading
@@ -19,7 +19,7 @@ const Profile = lazy(() => import("./Pages/Profile"));
 const Search = lazy(() => import("./Pages/Search"));
 const ContactUs = lazy(() => import("./Pages/ContactUs"));
 const NotFound = lazy(() => import("./Pages/NotFound"));
-// Admin Pages Lazy Loading 
+// Admin Pages Lazy Loading
 const AddCategory = lazy(() => import("./Admin/AddCategory"));
 const AddProduct = lazy(() => import("./Admin/AddProduct"));
 const AddSlider = lazy(() => import("./Admin/AddSlider"));
@@ -30,12 +30,11 @@ const AdminPanel = lazy(() => import("./Admin/AdminPanel"));
 const Comments = lazy(() => import("./Admin/Comments"));
 const Users = lazy(() => import("./Admin/Users"));
 
-
 export default function App() {
   const { token } = useSelector((state) => state.user);
   
   return (
-    <Suspense fallback={<PagesLoading/>}>
+    <Suspense fallback={<PagesLoading />}>
       <Routes>
         <Route element={<ClientLayout />}>
           <Route exact path="/" element={<Home />} />
@@ -53,7 +52,8 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/contact-us" element={<ContactUs />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
+          <Route path="/not-found" element={<NotFound />} />
+          <Route path="*" element={<Navigate to={"/not-found"} />} />
         </Route>
         <Route element={<AdminPrivateRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
@@ -66,7 +66,7 @@ export default function App() {
             <Route path="users" element={<Users />} />
             <Route path="discounts" element={<AddDiscount />} />
             <Route path="comments" element={<Comments />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<Navigate to={"/not-found"} />} />
           </Route>
         </Route>
       </Routes>

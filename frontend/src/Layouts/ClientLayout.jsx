@@ -4,7 +4,9 @@ import MainNavBar from "../Constants/Components/MainNavbar";
 
 export default function ClientLayout() {
   const location = useLocation();
-  const hideNavBarOnAuthPage = location.pathname === "/auth";
+  const hideNavBarOnAuthPage =
+    location.pathname === "/auth" || location.pathname === "/not-found";
+    
   return (
     <>
       {!hideNavBarOnAuthPage && <MainNavBar isAdmin={false} />}
