@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import AuthFooter from "./AuthFooter";
-import AuthHeader from "./AuthHeader";
 import {
   signInFailure,
   signInStart,
@@ -85,89 +83,80 @@ export default function CheckCode({ handlePageType }) {
     }
   };
 
-
   return (
-    <div className="bg-white dark:bg-black flex justify-center items-center w-full h-screen px-4 md:px-0">
-      <div className="w-[650px] h-[600px] flex flex-col items-center justify-between border-[1px] border-light-green bg-soft-green dark:bg-dark-green rounded-2xl py-8 px-4 md:px-0 ">
-        <AuthHeader />
-        <div className="w-full px-0 sm:px-24">
-          <div className="text-center">
-            <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-white">
-              Enter verification code
-            </h1>
-            <p className="text-gray dark:text-white-smoke tracking-wide text-sm mb-4">
-              Verification code has been sent to{" "}
+    <>
+      <div className="text-center">
+        <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-white">
+          Enter verification code
+        </h1>
+        <p className="text-gray dark:text-white-smoke tracking-wide text-sm mb-4">
+          Verification code has been sent to{" "}
+          <span
+            className="text-light-green hover:text-red-500 cursor-pointer duration-150"
+            onClick={() => handlePageType("identifier")}
+          >
+            {phone}
+          </span>
+        </p>
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center relative"
+      >
+        <input
+          type="number"
+          onChange={(e) => setCode(e.target.value)}
+          className="authInp hide-number-controls"
+          placeholder="Enter The Code"
+        />
+        <div className="min-h-6 text-start w-full ml-5">
+          {error && <p className="text-red-600 text-sm mt-1">" {error} "</p>}
+        </div>
+        <div className="text-gray dark:text-white-smoke mt-1">
+          {showResend ? (
+            <p>
               <span
-                className="text-light-green hover:text-red-500 cursor-pointer duration-150"
-                onClick={() => handlePageType("identifier")}
+                onClick={handleResendCode}
+                className="text-light-green cursor-pointer"
               >
-                {phone}
+                Click here
+              </span>{" "}
+              to resend code
+            </p>
+          ) : (
+            <p className="flex gap-1">
+              Remaining to receive new code
+              <span className="text-light-green w-12">
+                {Math.floor(timeLeft / 60)}:
+                {(timeLeft % 60).toString().padStart(2, "0")}
               </span>
             </p>
-          </div>
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col items-center relative"
-          >
-            <input
-              type="number"
-              onChange={(e) => setCode(e.target.value)}
-              className="authInp hide-number-controls"
-              placeholder="Enter The Code"
-            />
-            <div className="min-h-6 text-start w-full ml-5">
-              {error && (
-                <p className="text-red-600 text-sm mt-1">" {error} "</p>
-              )}
-            </div>
-            <div className="text-gray dark:text-white-smoke mt-1">
-              {showResend ? (
-                <p>
-                  <span
-                    onClick={handleResendCode}
-                    className="text-light-green cursor-pointer"
-                  >
-                    Click here
-                  </span>{" "}
-                  to resend code
-                </p>
-              ) : (
-                <p className="flex gap-1">
-                  Remaining to receive new code
-                  <span className="text-light-green w-12">
-                    {Math.floor(timeLeft / 60)}:
-                    {(timeLeft % 60).toString().padStart(2, "0")}
-                  </span>
-                </p>
-              )}
-            </div>
-            <div className="w-full flex gap-1">
-              <button
-                disabled={!code || loading}
-                type="submit"
-                className="authBtn mt-2 rounded-tr-none rounded-br-none"
-              >
-                Confirm
-              </button>
-              <button
-                className="authBtn w-1/5 rounded-tl-none rounded-bl-none flex justify-center items-center hover:bg-red-500"
-                onClick={() => handlePageType("identifier")}
-              >
-                <RiArrowGoBackFill />
-              </button>
-            </div>
-            {isPass && (
-              <p
-                onClick={() => handlePageType("CheckPass")}
-                className="text-gray dark:text-white-smoke mt-2 cursor-pointer hover:opacity-80 "
-              >
-                Continue with password
-              </p>
-            )}
-          </form>
+          )}
         </div>
-        <AuthFooter />
-      </div>
-    </div>
+        <div className="w-full flex gap-1">
+          <button
+            disabled={!code || loading}
+            type="submit"
+            className="authBtn mt-2 rounded-tr-none rounded-br-none"
+          >
+            Confirm
+          </button>
+          <button
+            className="authBtn w-1/5 rounded-tl-none rounded-bl-none flex justify-center items-center hover:bg-red-500"
+            onClick={() => handlePageType("identifier")}
+          >
+            <RiArrowGoBackFill />
+          </button>
+        </div>
+        {isPass && (
+          <p
+            onClick={() => handlePageType("CheckPass")}
+            className="text-gray dark:text-white-smoke mt-2 cursor-pointer hover:opacity-80 "
+          >
+            Continue with password
+          </p>
+        )}
+      </form>
+    </>
   );
 }
