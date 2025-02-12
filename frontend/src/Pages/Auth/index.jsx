@@ -6,7 +6,7 @@ import AuthHeader from "../../Components/Auth/AuthHeader";
 import AuthFooter from "../../Components/Auth/AuthFooter";
 
 export default function Auth() {
-  const [pageType, setPageType] = useState("checkCode");
+  const [pageType, setPageType] = useState("identifier");
 
   const handlePageType = (e) => {
     setPageType(e);
