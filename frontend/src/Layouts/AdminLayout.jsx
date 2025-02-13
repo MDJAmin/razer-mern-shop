@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import IconBar from "../Components/Admin/IconBar";
 import MainNavBar from "../Constants/Components/MainNavbar";
+import PagesLoading from "../Components/Common/LoadingSpinner/PagesLoading";
 
 const MemoizedMainNavBar = React.memo(MainNavBar);
 const MemoizedIconBar = React.memo(IconBar);
@@ -20,7 +21,9 @@ export default function AdminLayout() {
       </div>
       <div className="flex justify-start items-start xl:min-h-[calc(100vh-73px)]">
         <MemoizedIconBar showText={showText} />
-        <Outlet /> 
+        <Suspense fallback={<PagesLoading />}>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );
