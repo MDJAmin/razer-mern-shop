@@ -11,11 +11,11 @@ export default function AdminLayout() {
   }
   return (
     <>
-      <div className="bg-white dark:bg-black min-h-screen">
-        <div className="border-b-[1px] border-light-gray dark:border-admin-green">
+      <div className="bg-light-bg dark:bg-black-bg min-h-screen">
+        <div className="border-b-[1px] border-gray border-opacity-50 dark:border-admin-green">
           <MainNavBar handleShowText={handleShowText} isAdmin={true} />
         </div>
-        <div className="flex justify-start items-start">
+        <div className="flex justify-start items-start xl:min-h-[calc(100vh-73px)]">
           <IconBar showText={showText} />
           <Outlet />
         </div>

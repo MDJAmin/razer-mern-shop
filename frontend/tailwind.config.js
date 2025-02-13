@@ -18,6 +18,7 @@ export default {
         "soft-green":"#20D668",
         "info-green":"#5DBF28",
         "admin-green":"#0F5229",
+        "admin-gray": "#DDDDDD",
         // Slider
         "green":"#16BE0F",
         "yellow":"#D9AD0B",
@@ -27,7 +28,8 @@ export default {
         "blue":"#063465",
         // Details
         "placeHolder":"#ACADAC",
-        "error":"#FF0000"
+        "error":"#FF0000",
+        "stars":"F8CE00"
       },
     },
   },

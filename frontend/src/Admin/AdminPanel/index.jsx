@@ -7,7 +7,7 @@ export default function AdminPanel() {
   const shortMail = email.split("@")[0];
 
   const containerClass =
-    "bg-white-smoke bg-opacity-50 dark:bg-admin-green dark:text-white text-xl py-24 text-center rounded-lg";
+    "bg-admin-gray dark:bg-admin-green text-dark dark:text-light text-xl py-24 text-center rounded-lg";
   const gridItem1Class =
     "col-span-12 md:col-span-12 lg:col-span-9 xl:col-span-5";
   const gridItem2Class =
@@ -15,8 +15,8 @@ export default function AdminPanel() {
 
   return (
     <div className="flex flex-col items-start justify-start gap-2 w-full px-6 py-4">
-      <div className="bg-white-smoke bg-opacity-50 dark:bg-admin-green py-4 px-6 flex flex-wrap gap-x-12 justify-between w-full text-xl rounded-lg">
-        <h2 className="text-xl sm:text-2xl dark:text-white">
+      <div className="bg-admin-gray dark:bg-admin-green py-4 px-6 flex flex-wrap gap-x-12 justify-between w-full text-xl rounded-lg">
+        <h2 className="text-xl sm:text-2xl text-dark dark:text-light">
           Welcome Dear "{shortMail}"
         </h2>
         <CurrentDate />
