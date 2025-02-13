@@ -11,7 +11,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={() => dispatch(toggleTheme())}
-      className="sm:pt-2 text-2xl cursor-pointer hover:text-placeHolder dark:hover:text-white transition-colors duration-300"
+      className="sm:pt-2 text-2xl cursor-pointer hover:text-placeHolder dark:hover:text-placeHolder transition-colors duration-300"
       aria-label={theme === "light" ? "Enable dark mode" : "Enable light mode"}
     >
       {theme === "light" ? <RiMoonFill /> : <PiSunFill />}
