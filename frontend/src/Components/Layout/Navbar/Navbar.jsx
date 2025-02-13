@@ -29,24 +29,24 @@ export default function NavBar() {
       <img src={logo} alt="Logo" className="h-10" />
       <div className="sm:hidden">
         <GiHamburgerMenu
-          className="text-2xl cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75"
+          className="text-2xl cursor-pointer hover:opacity-80"
           onClick={() => setMenuOpen(true)}
         />
       </div>
       <ul className="hidden sm:flex items-center gap-6 text-2xl">
-        <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
+        <li className="cursor-pointer hover:opacity-80">
           <TbSearch />
         </li>
-        <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
+        <li className="cursor-pointer hover:opacity-80">
           <IoMdNotificationsOutline />
         </li>
         <li
-          className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75"
+          className="cursor-pointer hover:opacity-80"
           onClick={() => navigate("/auth")}
         >
           <FiUser />
         </li>
-        <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
+        <li className="cursor-pointer hover:opacity-80">
           <BsCart2 />
         </li>
         <li>
@@ -61,24 +61,24 @@ export default function NavBar() {
       >
         <div className="flex justify-end p-4">
           <IoMdClose
-            className="text-3xl cursordark:hover:text-white hover:opacity-75"
+            className="text-3xl cursor-pointer hover:opacity-80"
             onClick={() => setMenuOpen(false)}
           />
         </div>
         <ul className="flex flex-col items-center gap-6 text-2xl p-6">
-          <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
+          <li className="cursor-pointer hover:opacity-80">
             <TbSearch />
           </li>
-          <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
+          <li className="cursor-pointer hover:opacity-80">
             <IoMdNotificationsOutline />
           </li>
           <li
-            className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75"
+            className="cursor-pointer hover:opacity-80"
             onClick={() => navigate("/auth")}
           >
             <FiUser />
           </li>
-          <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
+          <li className="cursor-pointer hover:opacity-80">
             <BsCart2 />
           </li>
           <li>
