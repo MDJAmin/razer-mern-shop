@@ -25,28 +25,28 @@ export default function NavBar() {
   }, []);
 
   return (
-    <nav className="flex justify-between items-center px-6 py-4 bg-white dark:bg-black text-gray dark:text-white-smoke shadow-md">
+    <nav className="flex justify-between items-center px-6 py-4 bg-light dark:bg-dark text-gray dark:text-light shadow-md">
       <img src={logo} alt="Logo" className="h-10" />
       <div className="sm:hidden">
         <GiHamburgerMenu
-          className="text-2xl cursor-pointer hover:text-light-gray dark:hover:text-soft-green"
+          className="text-2xl cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75"
           onClick={() => setMenuOpen(true)}
         />
       </div>
       <ul className="hidden sm:flex items-center gap-6 text-2xl">
-        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+        <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
           <TbSearch />
         </li>
-        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+        <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
           <IoMdNotificationsOutline />
         </li>
         <li
-          className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"
+          className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75"
           onClick={() => navigate("/auth")}
         >
           <FiUser />
         </li>
-        <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+        <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
           <BsCart2 />
         </li>
         <li>
@@ -55,30 +55,30 @@ export default function NavBar() {
       </ul>
 
       <div
-        className={`fixed top-0 right-0 h-full w-64 z-10 bg-white dark:bg-dark-green shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-64 z-10 bg-light dark:bg-dark shadow-lg transform transition-transform duration-300 ease-in-out ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex justify-end p-4">
           <IoMdClose
-            className="text-3xl cursor-pointer hover:text-light-green"
+            className="text-3xl cursordark:hover:text-white hover:opacity-75"
             onClick={() => setMenuOpen(false)}
           />
         </div>
         <ul className="flex flex-col items-center gap-6 text-2xl p-6">
-          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+          <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
             <TbSearch />
           </li>
-          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+          <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
             <IoMdNotificationsOutline />
           </li>
           <li
-            className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green"
+            className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75"
             onClick={() => navigate("/auth")}
           >
             <FiUser />
           </li>
-          <li className="cursor-pointer hover:text-light-gray dark:hover:text-soft-green">
+          <li className="cursor-pointer hover:text-placeHolder dark:hover:text-white hover:opacity-75">
             <BsCart2 />
           </li>
           <li>
@@ -88,7 +88,7 @@ export default function NavBar() {
       </div>
       {menuOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-9"
+          className="fixed inset-0 bg-dark bg-opacity-50 z-9"
           onClick={() => setMenuOpen(false)}
         ></div>
       )}
