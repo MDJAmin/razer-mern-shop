@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import MainNavBar from "../Constants/Components/MainNavbar";
+import MainNavBar from "../Constants/Components/MainNavBar";
 
 export default function ClientLayout() {
   const location = useLocation();
