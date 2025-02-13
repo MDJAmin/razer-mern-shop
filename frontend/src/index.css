@@ -24,4 +24,13 @@ body {
   .hide-number-controls {
     -moz-appearance: textfield;
   }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* Hide scrollbar in IE & Edge */
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+  }
 }
