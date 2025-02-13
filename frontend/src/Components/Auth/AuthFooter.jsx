@@ -4,7 +4,7 @@ import { RiTwitterXFill } from "react-icons/ri";
 
 export default function AuthFooter() {
   return (
-    <div className="text-center dark:text-white text-gray">
+    <div className="text-center dark:text-light text-gray">
       <p>Razer | All Rights Reserved</p>
       <div className="flex justify-center items-center mt-2 text-3xl gap-1">
         <a

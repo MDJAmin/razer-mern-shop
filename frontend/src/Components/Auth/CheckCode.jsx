@@ -86,13 +86,13 @@ export default function CheckCode({ handlePageType }) {
   return (
     <>
       <div className="text-center">
-        <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-white">
+        <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-light">
           Enter verification code
         </h1>
-        <p className="text-gray dark:text-white-smoke tracking-wide text-sm mb-4">
+        <p className="text-dark dark:text-placeHolder tracking-wide text-sm mb-4">
           Verification code has been sent to{" "}
           <span
-            className="text-light-green hover:text-red-500 cursor-pointer duration-150"
+            className="text-info-green hover:text-error cursor-pointer duration-200"
             onClick={() => handlePageType("identifier")}
           >
             {phone}
@@ -110,14 +110,14 @@ export default function CheckCode({ handlePageType }) {
           placeholder="Enter The Code"
         />
         <div className="min-h-6 text-start w-full ml-5">
-          {error && <p className="text-red-600 text-sm mt-1">" {error} "</p>}
+          {error && <p className="text-error tracking-wide text-sm mt-1">" {error} "</p>}
         </div>
-        <div className="text-gray dark:text-white-smoke mt-1">
+        <div className="text-dark dark:text-placeHolder mt-1">
           {showResend ? (
             <p>
               <span
                 onClick={handleResendCode}
-                className="text-light-green cursor-pointer"
+                className="text-info-green cursor-pointer"
               >
                 Click here
               </span>{" "}
@@ -126,7 +126,7 @@ export default function CheckCode({ handlePageType }) {
           ) : (
             <p className="flex gap-1">
               Remaining to receive new code
-              <span className="text-light-green w-12">
+              <span className="text-info-green w-12">
                 {Math.floor(timeLeft / 60)}:
                 {(timeLeft % 60).toString().padStart(2, "0")}
               </span>
@@ -142,7 +142,7 @@ export default function CheckCode({ handlePageType }) {
             Confirm
           </button>
           <button
-            className="authBtn w-1/5 rounded-tl-none rounded-bl-none flex justify-center items-center hover:bg-red-500"
+            className="authBtn w-1/5 rounded-tl-none rounded-bl-none flex justify-center items-center hover:bg-error"
             onClick={() => handlePageType("identifier")}
           >
             <RiArrowGoBackFill />
@@ -151,7 +151,7 @@ export default function CheckCode({ handlePageType }) {
         {isPass && (
           <p
             onClick={() => handlePageType("CheckPass")}
-            className="text-gray dark:text-white-smoke mt-2 cursor-pointer hover:opacity-80 "
+            className="text-dark dark:text-placeHolder mt-2 cursor-pointer hover:opacity-85 dark:hover:opacity-85"
           >
             Continue with password
           </p>

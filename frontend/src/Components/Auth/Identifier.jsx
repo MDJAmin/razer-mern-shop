@@ -46,12 +46,12 @@ export default function Identifier({ handlePageType }) {
   return (
     <>
       <div className="text-center">
-        <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-white">
+        <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-light">
           Welcome Back!
         </h1>
-        <p className="text-gray dark:text-white-smoke tracking-wide text-sm mb-4">
-          Please enter your <span className="text-light-green">email</span> or{" "}
-          <span className="text-light-green">phone number</span>
+        <p className="text-dark dark:text-placeHolder tracking-wide text-sm mb-4">
+          Please enter your <span className="text-info-green">email</span> or{" "}
+          <span className="text-info-green">phone number</span>
         </p>
       </div>
       <form
@@ -67,7 +67,7 @@ export default function Identifier({ handlePageType }) {
           className="authInp"
         />
         <div className="min-h-6 text-start w-full ml-5">
-          {error && <p className="text-red-600 text-sm mt-1">" {error} "</p>}
+          {error && <p className="text-error tracking-wide text-sm mt-1">" {error} "</p>}
         </div>
         <button
           disabled={!identifier || loading}
