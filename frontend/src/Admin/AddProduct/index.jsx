@@ -69,7 +69,7 @@ export default function AddProduct() {
         <tbody>
           {data.map((item, index) => (
             <tr key={index} className="border-t border-gray dark:border-light">
-              <td className={`p-3 text-dark dark:text-light ${!item.isActive && 'line-through'}`}>{item.name}</td>
+              <td className={`p-3 text-dark dark:text-light tracking-wider ${!item.isActive && 'line-through'}`}>{item.name}</td>
               <td className="p-3 text-gray opacity-60 dark:text-light  dark:opacity-80">{item.date}</td>
               <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">{item.category}</td>
               <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">{item.amount}</td>
