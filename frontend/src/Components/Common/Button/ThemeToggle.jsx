@@ -8,25 +8,13 @@ const ThemeToggle = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme.theme);
 
-  const handleToggle = () => {
-    dispatch(toggleTheme());
-  };
-
   return (
     <button
-      onClick={handleToggle}
-      className="sm:pt-2 hover:text-light-gray dark:hover:text-soft-green transition-colors duration-300"
-      aria-label="Toggle theme"
+      onClick={() => dispatch(toggleTheme())}
+      className="sm:pt-2 text-2xl cursor-pointer hover:text-placeHolder dark:hover:text-white transition-colors duration-300"
+      aria-label={theme === "light" ? "Enable dark mode" : "Enable light mode"}
     >
-      {theme === "light" ? (
-        <span role="img" aria-label="moon">
-          <RiMoonFill />
-        </span>
-      ) : (
-        <span role="img" aria-label="sun">
-          <PiSunFill />
-        </span>
-      )}
+      {theme === "light" ? <RiMoonFill /> : <PiSunFill />}
     </button>
   );
 };
