@@ -17,6 +17,7 @@ export default {
         "dark-green":"#16BE0F",
         "soft-green":"#20D668",
         "info-green":"#5DBF28",
+        "admin-green":"#0F5229",
         // Slider
         "green":"#16BE0F",
         "yellow":"#D9AD0B",
@@ -26,7 +27,7 @@ export default {
         "blue":"#063465",
         // Details
         "placeHolder":"#ACADAC",
-        "error":"#2C2C2C"
+        "error":"#FF0000"
       },
     },
   },
