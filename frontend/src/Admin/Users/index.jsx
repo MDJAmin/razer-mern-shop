@@ -5,7 +5,9 @@ export default function Users() {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null); 
+  
   const { token } = useSelector((state) => state.user);
   const { role } = useSelector((state) => state.user.currentUser);
 
@@ -61,6 +63,40 @@ export default function Users() {
     user._id.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const changeRole = async (userId, newRole) => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/user/change-role/${userId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ role: newRole }),
+        }
+      );
+      const result = await res.json();
+      if (result.success) {
+        setData((prevData) =>
+          prevData.map((user) =>
+            user._id === userId ? { ...user, role: newRole } : user
+          )
+        );
+      } else {
+        console.log("Failed to change role.");
+      }
+    } catch (err) {
+      console.error("Error changing role:", err);
+    }
+    setModalVisible(false);
+  };
+
+  const openModal = (user) => {
+    setSelectedUser(user); 
+    setModalVisible(true); 
+  };
+
   return (
     <div className="overflow-x-auto scrollbar-hide p-4 w-full text-[16px] relative">
       <form className="mb-2 ">
@@ -72,6 +108,54 @@ export default function Users() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </form>
+
+      {/* Modal for role change confirmation */}
+      {modalVisible && selectedUser && (
+        <div className="fixed inset-0 px-2 bg-light dark:bg-dark dark:bg-opacity-60 bg-opacity-70 flex justify-center items-center z-50">
+          <div className="bg-light-bg dark:bg-black-bg p-5 rounded-lg drop-shadow-lg">
+            <h3 className="text-xl dark:text-light tracking-wide flex flex-col">
+              <span className="mb-2">
+                Change role for this user to{" "}
+                <span className="text-info-green">
+                  {selectedUser.role === "admin" ? "User" : "Admin"}?
+                </span>
+              </span>
+              <span className="opacity-70 text-[16px]">
+                Id: {selectedUser._id}
+              </span>
+              <span className="opacity-70 text-[16px]">
+                Phone: {selectedUser?.phone}
+              </span>
+              <span className="opacity-70 tracking-wider text-[16px]">
+                Name: {selectedUser?.fullName}
+              </span>
+              <span className="opacity-70 text-[16px]">
+                Id Card: {selectedUser?.idCard}
+              </span>
+            </h3>
+            <div className="mt-4 flex justify-center gap-2">
+              <button
+                className="authBtn bg-error dark:bg-error"
+                onClick={() => setModalVisible(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="authBtn"
+                onClick={() =>
+                  changeRole(
+                    selectedUser._id,
+                    selectedUser.role === "admin" ? "user" : "admin"
+                  )
+                }
+              >
+                Change
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
         <thead>
           <tr className="text-left text-dark dark:text-light text-lg border-b">
@@ -112,7 +196,8 @@ export default function Users() {
                     user?.role === "admin" &&
                     "text-dark-green dark:text-light-green"
                   }`}
-                  title="Change Role"
+                  title="Click to change role"
+                  onClick={() => openModal(user)}
                 >
                   {user.role ? user.role : "Null"}
                 </td>
