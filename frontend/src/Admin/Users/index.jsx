@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export default function Users() {
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
@@ -63,6 +65,7 @@ export default function Users() {
 
   return (
     <div className="overflow-x-auto scrollbar-hide p-4 w-full text-[16px] relative">
+        <p>{t("Hi")}</p>
       <form className="mb-2 ">
         <input
           type="text"
