@@ -26,10 +26,10 @@ export default function IconBar({ showText }) {
   }, []);
 
   const getActiveClass = (path) =>
-    pathname === path && "bg-white-smoke rounded-lg dark:bg-green-800";
+    pathname === path && "bg-admin-gray rounded-lg dark:bg-admin-green";
 
   return (
-    <div className="flex flex-col items-start justify-start gap-8 border-r-[1px] border-light-gray dark:border-admin-green text-2xl sm:text-3xl md:text-4xl h-screen px-2 sm:px-4 pt-4 dark:text-white">
+    <div className="xl:relative flex flex-col items-start justify-start gap-8 border-r-[1px] border-gray border-opacity-50 dark:border-admin-green text-2xl sm:text-3xl md:text-4xl pb-4 xl:pb-0 xl:min-h-[calc(100vh-73px)] px-2 sm:px-4 pt-4 dark:text-light">
       {[
         { to: "/admin", icon: <MdDashboard />, text: "DASHBOARD" },
         {
@@ -71,7 +71,7 @@ export default function IconBar({ showText }) {
             {icon}
           </div>
           {showText && isIconInMobile && (
-            <p className="text-lg lg:text-xl transition-opacity duration-100">{text}</p>
+            <p className="text-lg lg:text-xl">{text}</p>
           )}
         </Link>
       ))}

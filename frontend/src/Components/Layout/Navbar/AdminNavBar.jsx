@@ -24,7 +24,7 @@ export default function AdminNavbar({ handleShowText }) {
       {/* Left Side */}
       <div className="flex items-center gap-4">
         <GiHamburgerMenu
-          className="text-2xl cursor-pointer hover:text-placeholder dark:hover:text-white hover:opacity-75 hidden md:inline-block"
+          className="text-2xl select-none cursor-pointer hover:opacity-80 dark:hover:text-white hidden md:inline-block"
           onClick={handleShowText}
         />
         <img src={logo} alt="Logo" className="h-10" />
@@ -32,14 +32,14 @@ export default function AdminNavbar({ handleShowText }) {
 
       {/* Desktop Icons */}
       <ul className="hidden sm:flex items-center gap-6 text-2xl">
-        <li className="cursor-pointer hover:text-placeholder dark:hover:text-white hover:opacity-75">
+        <li className="cursor-pointer hover:opacity-80 dark:hover:text-white">
           <TbSearch />
         </li>
-        <li className="cursor-pointer hover:text-placeholder dark:hover:text-white hover:opacity-75">
+        <li className="cursor-pointer hover:opacity-80 dark:hover:text-white">
           <IoMdNotificationsOutline />
         </li>
         <li
-          className="cursor-pointer hover:text-placeholder dark:hover:text-white hover:opacity-75"
+          className="cursor-pointer hover:opacity-80 dark:hover:text-white"
           onClick={() => navigate("/auth")}
         >
           <FiUser />
@@ -52,7 +52,7 @@ export default function AdminNavbar({ handleShowText }) {
       {/* Mobile Menu Button */}
       <div className="sm:hidden">
         <GiHamburgerMenu
-          className="text-2xl cursor-pointer hover:text-placeholder dark:hover:text-white hover:opacity-75"
+          className="text-2xl cursor-pointer hover:opacity-80 dark:hover:text-white"
           onClick={() => setMenuOpen(true)}
         />
       </div>
@@ -63,19 +63,19 @@ export default function AdminNavbar({ handleShowText }) {
       >
         <div className="flex justify-end p-4">
           <IoMdClose
-            className="text-3xl cursor-pointer hover:text-placeholder dark:hover:text-white hover:opacity-75"
+            className="text-3xl cursor-pointer hover:opacity-80 dark:hover:text-white"
             onClick={() => setMenuOpen(false)}
           />
         </div>
         <ul className="flex flex-col items-center gap-6 text-2xl p-6">
-          <li className="cursor-pointer hover:text-placeholder dark:hover:text-white hover:opacity-75">
+          <li className="cursor-pointer hover:opacity-80 dark:hover:text-white">
             <TbSearch />
           </li>
-          <li className="cursor-pointer hover:text-placeholder dark:hover:text-white hover:opacity-75">
+          <li className="cursor-pointer hover:opacity-80 dark:hover:text-white">
             <IoMdNotificationsOutline />
           </li>
           <li
-            className="cursor-pointer hover:text-placeholder dark:hover:text-white hover:opacity-75"
+            className="cursor-pointer hover:opacity-80 dark:hover:text-white"
             onClick={() => navigate("/auth")}
           >
             <FiUser />
