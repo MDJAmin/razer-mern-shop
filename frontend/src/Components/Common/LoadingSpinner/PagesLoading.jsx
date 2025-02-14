@@ -17,7 +17,7 @@ export default function RGBSpinner() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen w-screen bg-white dark:bg-black text-white">
+    <div className="flex items-center justify-center h-screen w-screen bg-light-bg dark:bg-black-bg text-white">
       <div className="relative w-20 h-20">
         {/* Outer spinning ring */}
         <div
