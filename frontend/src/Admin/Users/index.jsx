@@ -11,6 +11,8 @@ export default function Users() {
   const { token } = useSelector((state) => state.user);
   const { role } = useSelector((state) => state.user.currentUser);
 
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
@@ -18,7 +20,7 @@ export default function Users() {
         let adminData = [];
 
         if (role === "superAdmin") {
-          const res = await fetch("http://localhost:5000/api/user/admin", {
+          const res = await fetch(`${baseUrl}user/admin`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -31,7 +33,7 @@ export default function Users() {
           }
         }
 
-        const res = await fetch("http://localhost:5000/api/user", {
+        const res = await fetch(`${baseUrl}user`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -70,17 +72,14 @@ export default function Users() {
 
   const changeRole = async (userId, newRole) => {
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/user/change-role/${userId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ role: newRole }),
-        }
-      );
+      const res = await fetch(`${baseUrl}user/change-role/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ role: newRole }),
+      });
       const result = await res.json();
       if (result.success) {
         setData((prevData) =>

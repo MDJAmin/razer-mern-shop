@@ -20,6 +20,8 @@ export default function CheckCode({ handlePageType }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
   useEffect(() => {
     if (timeLeft <= 0) {
       setShowResend(true);
@@ -37,7 +39,7 @@ export default function CheckCode({ handlePageType }) {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch("http://localhost:5000/api/auth/check-code", {
+      const res = await fetch(`${baseUrl}auth/check-code`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +68,7 @@ export default function CheckCode({ handlePageType }) {
 
   const handleResendCode = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/send-code", {
+      const res = await fetch(`${baseUrl}auth/send-code`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +112,9 @@ export default function CheckCode({ handlePageType }) {
           placeholder="Enter The Code"
         />
         <div className="min-h-6 text-start w-full ml-5">
-          {error && <p className="text-error tracking-wide text-sm mt-1">" {error} "</p>}
+          {error && (
+            <p className="text-error tracking-wide text-sm mt-1">" {error} "</p>
+          )}
         </div>
         <div className="text-dark dark:text-placeHolder mt-1">
           {showResend ? (
