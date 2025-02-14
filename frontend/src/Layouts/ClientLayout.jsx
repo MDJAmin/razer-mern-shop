@@ -12,7 +12,7 @@ export default function ClientLayout() {
     <>
       {!hideNavBarOnAuthPage && <MainNavBar isAdmin={false} />}
       <main>
-        <Suspense fallback={<PagesLoading />}>
+        <Suspense fallback={<PagesLoading type={"client"} />}>
           <Outlet />
         </Suspense>
       </main>

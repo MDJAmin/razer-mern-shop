@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function RGBSpinner() {
+export default function RGBSpinner({ type = "client" }) {
   const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
@@ -17,7 +17,11 @@ export default function RGBSpinner() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen w-screen bg-white dark:bg-black text-white">
+    <div
+      className={`flex items-center justify-center h-screen ${
+        type === "admin" ? "w-screen" : "w-100"
+      } bg-white dark:bg-black text-white`}
+    >
       <div className="relative w-20 h-20">
         {/* Outer spinning ring */}
         <div
