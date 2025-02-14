@@ -21,7 +21,7 @@ export default function AdminLayout() {
       </div>
       <div className="flex justify-start items-start xl:min-h-[calc(100vh-73px)]">
         <MemoizedIconBar showText={showText} />
-        <Suspense fallback={<PagesLoading />}>
+        <Suspense fallback={<PagesLoading type="admin" />}>
           <Outlet />
         </Suspense>
       </div>
