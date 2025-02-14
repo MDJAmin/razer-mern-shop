@@ -25,7 +25,7 @@ export default function NavBar() {
   }, []);
 
   return (
-    <nav className="flex justify-between items-center px-6 py-4 bg-light dark:bg-dark text-gray dark:text-light shadow-md">
+    <nav className="flex justify-between items-center px-6 py-4 bg-light dark:bg-black-bg text-gray dark:text-light shadow-md">
       <img src={logo} alt="Logo" className="h-10" />
       <div className="sm:hidden">
         <GiHamburgerMenu
@@ -55,7 +55,7 @@ export default function NavBar() {
       </ul>
 
       <div
-        className={`fixed top-0 right-0 h-full w-64 z-10 bg-light dark:bg-dark shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-64 z-10 bg-light dark:bg-black-bg shadow-lg transform transition-transform duration-300 ease-in-out ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
