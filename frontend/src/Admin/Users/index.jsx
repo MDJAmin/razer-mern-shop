@@ -6,8 +6,8 @@ export default function Users() {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null); 
-  
+  const [selectedUser, setSelectedUser] = useState(null);
+
   const { token } = useSelector((state) => state.user);
   const { role } = useSelector((state) => state.user.currentUser);
 
@@ -59,8 +59,13 @@ export default function Users() {
     }
   };
 
-  const filteredData = data.filter((user) =>
-    user._id.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredData = data.filter(
+    (user) =>
+      user._id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.role.includes(searchQuery.toLowerCase()) ||
+      user.phone.includes(searchQuery.toLowerCase()) ||
+      user?.fullName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user?.idCard?.includes(searchQuery.toLowerCase())
   );
 
   const changeRole = async (userId, newRole) => {
@@ -93,20 +98,28 @@ export default function Users() {
   };
 
   const openModal = (user) => {
-    setSelectedUser(user); 
-    setModalVisible(true); 
+    setSelectedUser(user);
+    setModalVisible(true);
   };
 
   return (
     <div className="overflow-x-auto scrollbar-hide p-4 w-full text-[16px] relative">
-      <form className="mb-2 ">
+      <form className="mb-2 relative">
         <input
           type="text"
-          className="authInp text-lg py-2"
-          placeholder="Search For User: UserId"
+          className="authInp text-lg py-2 "
+          placeholder="Search For User:"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        {searchQuery && (
+          <span
+            className="top-1 right-4 text-4xl rotate-45 absolute hover:opacity-80 cursor-pointer"
+            onClick={() => setSearchQuery("")}
+          >
+            +
+          </span>
+        )}
       </form>
 
       {/* Modal for role change confirmation */}
