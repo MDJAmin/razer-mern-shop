@@ -114,7 +114,7 @@ export default function Users() {
         />
         {searchQuery && (
           <span
-            className="top-1 right-4 text-4xl rotate-45 absolute hover:opacity-80 cursor-pointer"
+            className="top-1 right-4 text-4xl dark:text-light rotate-45 absolute hover:opacity-80 cursor-pointer"
             onClick={() => setSearchQuery("")}
           >
             +

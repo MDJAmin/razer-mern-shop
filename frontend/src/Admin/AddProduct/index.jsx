@@ -61,7 +61,10 @@ export default function AddProduct() {
             <td className="p-3 pr-16 whitespace-nowrap">Price</td>
             <td className="p-3 pr-12">Images</td>
             <td className="p-3 pr-8 whitespace-nowrap">Is Active</td>
-            <td className="py-3 pr-2 text-3xl hover:opacity-80 cursor-pointer" title="Add New Product">
+            <td
+              className="pr-2 text-3xl hover:text-dark-green dark:hover:text-light-green cursor-pointer duration-100"
+              title="Add New Category"
+            >
               <GoPlusCircle />
             </td>
           </tr>
@@ -69,10 +72,22 @@ export default function AddProduct() {
         <tbody>
           {data.map((item, index) => (
             <tr key={index} className="border-t border-gray dark:border-light">
-              <td className={`p-3 text-dark dark:text-light tracking-wider ${!item.isActive && 'line-through'}`}>{item.name}</td>
-              <td className="p-3 text-gray opacity-60 dark:text-light  dark:opacity-80">{item.date}</td>
-              <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">{item.category}</td>
-              <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">{item.amount}</td>
+              <td
+                className={`p-3 text-dark dark:text-light tracking-wider ${
+                  !item.isActive && "line-through"
+                }`}
+              >
+                {item.name}
+              </td>
+              <td className="p-3 text-gray opacity-60 dark:text-light  dark:opacity-80">
+                {item.date}
+              </td>
+              <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
+                {item.category}
+              </td>
+              <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
+                {item.amount}
+              </td>
               <td className="p-3">
                 <img
                   src={item.image}
@@ -82,7 +97,9 @@ export default function AddProduct() {
               </td>
               <td
                 className={`p-3 tracking-wide whitespace-nowrap ${
-                  item.isActive ? "text-gray opacity-60 dark:text-light dark:opacity-80" : "text-error"
+                  item.isActive
+                    ? "text-gray opacity-60 dark:text-light dark:opacity-80"
+                    : "text-error"
                 }`}
               >
                 {item.isActive ? "Active" : "Not Active"}

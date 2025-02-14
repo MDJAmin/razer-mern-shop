@@ -56,7 +56,7 @@ export default function AddCategory() {
             <td className="p-3 pr-12">Images</td>
             <td className="p-3 pr-8 whitespace-nowrap">Is Active</td>
             <td
-              className="pr-2 text-3xl hover:opacity-80 cursor-pointer"
+              className="pr-2 text-3xl hover:text-dark-green dark:hover:text-light-green cursor-pointer duration-100"
               title="Add New Category"
             >
               <GoPlusCircle />
