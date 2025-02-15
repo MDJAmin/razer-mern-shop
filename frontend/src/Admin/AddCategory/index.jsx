@@ -1,62 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GoPlusCircle } from "react-icons/go";
-
-const data = [
-  {
-    name: "Merch's",
-    date: "23/09/2022",
-    category: "Merch's",
-    image:
-      "https://images.unsplash.com/photo-1629121291243-7b5e885cce9b?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Replace with actual URLs
-    isActive: true,
-  },
-  {
-    name: "Boys Collection",
-    date: "23/09/2022",
-    category: "Boys Collection",
-    image:
-      "https://images.unsplash.com/photo-1629121291243-7b5e885cce9b?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    isActive: true,
-  },
-  {
-    name: "Gear & Setups",
-    date: "23/09/2022",
-    category: "Gear & Setups",
-    image:
-      "https://images.unsplash.com/photo-1629121291243-7b5e885cce9b?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    isActive: false,
-  },
-  {
-    name: "Girls Collection",
-    date: "23/09/2022",
-    category: "Girls Collection",
-    image:
-      "https://images.unsplash.com/photo-1629121291243-7b5e885cce9b?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    isActive: true,
-  },
-  {
-    name: "Keyboard’s",
-    date: "23/09/2022",
-    category: "Keyboard’s",
-    image:
-      "https://images.unsplash.com/photo-1629121291243-7b5e885cce9b?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    isActive: true,
-  },
-];
+import { useSelector } from "react-redux";
+import ConfirmationModal from "../../Components/Admin/ConfirmationModal";
 
 export default function AddCategory() {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [categoryIdToToggle, setCategoryIdToToggle] = useState(null);
+  const [currentStatus, setCurrentStatus] = useState(null);
+
+  const { token } = useSelector((state) => state.user);
+
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
+  const fetchCategory = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${baseUrl}category?populate=subCategory`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      if (data.success) {
+        setData(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching category:", error);
+    }
+    setLoading(false);
+  };
+
+  const toggleActiveStatus = async () => {
+    try {
+      const res = await fetch(`${baseUrl}category/${categoryIdToToggle}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          isActive: !currentStatus,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        fetchCategory();
+        closeModal();
+      } else {
+        console.error("Error fetching category:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching category:", error);
+    }
+  };
+
+  const openModal = (categoryId, isActive) => {
+    setCategoryIdToToggle(categoryId);
+    setCurrentStatus(isActive);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setCategoryIdToToggle(null);
+    setCurrentStatus(null);
+  };
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
   return (
     <div className="overflow-x-auto scrollbar-hide bar p-4 w-full text-[16px]">
       <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
         <thead>
-          <tr className="text-left text-dark dark:text-light text-lg">
-            <td className="p-3 pr-32 py-8">Name</td>
-            <td className="p-3 pr-20">Date</td>
-            <td className="p-3 pr-10 whitespace-nowrap">Sub Category</td>
-            <td className="p-3 pr-12">Images</td>
-            <td className="p-3 pr-8 whitespace-nowrap">Is Active</td>
+          <tr className="text-left text-dark dark:text-light text-lg border-b select-none">
+            <td className="p-3 py-8">Name</td>
+            <td className="p-3 whitespace-nowrap">Sub Category</td>
+            <td className="p-3 pr-8">Images</td>
+            <td className="p-3 whitespace-nowrap pr-8">Is Active</td>
             <td
-              className="pr-2 text-3xl hover:text-dark-green dark:hover:text-light-green cursor-pointer duration-100"
+              className="pr-4 text-3xl hover:text-dark-green dark:hover:text-light-green cursor-pointer duration-100"
               title="Add New Category"
             >
               <GoPlusCircle />
@@ -64,41 +93,62 @@ export default function AddCategory() {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <tr key={index} className="border-t border-gray dark:border-light">
-              <td
-                className={`p-3 text-dark dark:text-light tracking-wider ${
-                  !item.isActive && "line-through"
-                }`}
-              >
-                {item.name}
-              </td>
-              <td className="p-3 text-gray opacity-60 dark:text-light  dark:opacity-80">
-                {item.date}
-              </td>
-              <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
-                {item.category}
-              </td>
-              <td className="p-3">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-14 h-14 rounded-md"
-                />
-              </td>
-              <td
-                className={`p-3 tracking-wide whitespace-nowrap ${
-                  item.isActive
-                    ? "text-gray opacity-60 dark:text-light dark:opacity-80"
-                    : "text-error"
-                }`}
-              >
-                {item.isActive ? "Active" : "Not Active"}
+          {loading ? (
+            <tr>
+              <td className="text-start pl-3 text-xl dark:text-light py-10">
+                Loading...
               </td>
             </tr>
-          ))}
+          ) : (
+            data?.map((item, index) => (
+              <tr
+                key={index}
+                className="border-t border-gray dark:border-light hover:opacity-80 select-none"
+              >
+                <td className="p-3 text-dark dark:text-light tracking-wider whitespace-nowrap pr-6">
+                  {item?.title?.en}
+                </td>
+                <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap pr-12">
+                  {item?.subCategory?.title?.en}
+                </td>
+                <td className="p-3">
+                  <img
+                    src={item?.images[0]}
+                    alt={item?.title.en}
+                    className="w-14 h-14 object-cover rounded-md"
+                  />
+                </td>
+                <td
+                  className={`p-3 tracking-wide whitespace-nowrap cursor-pointer ${
+                    item?.isActive
+                      ? "text-gray opacity-60 dark:text-light dark:opacity-80"
+                      : "text-error"
+                  }`}
+                  onClick={() => openModal(item?._id, item?.isActive)}
+                >
+                  {item?.isActive ? "Active" : "Not Active"}
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
+      <ConfirmationModal
+        isVisible={showModal}
+        onClose={closeModal}
+        onConfirm={toggleActiveStatus}
+        message={
+          currentStatus ? (
+            <span>
+              change status to <span className="text-error">Not Active</span>
+            </span>
+          ) : (
+            <span>
+              change status to <span className="text-dark-green">Active</span>
+            </span>
+          )
+        }
+      />
     </div>
   );
 }
