@@ -181,17 +181,21 @@ export default function Users() {
             <td className="p-3 whitespace-nowrap">Is Active</td>
           </tr>
         </thead>
-        {loading ? (
-          <td className="flex justify-start pl-3 text-xl dark:text-light py-10">
-            Loading...
-          </td>
-        ) : filteredData.length === 0 ? (
-          <td className="flex justify-start pl-3 text-xl dark:text-light py-10 whitespace-nowrap ">
-            No Users found!
-          </td>
-        ) : (
-          <tbody>
-            {filteredData?.map((user, index) => (
+        <tbody>
+          {loading ? (
+            <tr>
+              <td className="justify-start pl-3 text-xl dark:text-light py-10">
+                Loading...
+              </td>
+            </tr>
+          ) : filteredData.length === 0 ? (
+            <tr>
+              <td className="justify-start pl-3 text-xl dark:text-light py-10 whitespace-nowrap ">
+                No Users found!
+              </td>
+            </tr>
+          ) : (
+            filteredData?.map((user, index) => (
               <tr
                 key={index}
                 className="border-t border-gray dark:border-light hover:opacity-80"
@@ -244,9 +248,9 @@ export default function Users() {
                   {user.isActive ? "Active" : "Not Active"}
                 </td>
               </tr>
-            ))}
-          </tbody>
-        )}
+            ))
+          )}
+        </tbody>
       </table>
     </div>
   );
