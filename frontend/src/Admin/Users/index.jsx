@@ -184,13 +184,13 @@ export default function Users() {
         <tbody>
           {loading ? (
             <tr>
-              <td className="justify-start pl-3 text-xl dark:text-light py-10">
+              <td className="text-start pl-3 text-xl dark:text-light py-10">
                 Loading...
               </td>
             </tr>
           ) : filteredData.length === 0 ? (
             <tr>
-              <td className="justify-start pl-3 text-xl dark:text-light py-10 whitespace-nowrap ">
+              <td className="text-start pl-3 text-xl dark:text-light py-10 whitespace-nowrap ">
                 No Users found!
               </td>
             </tr>
