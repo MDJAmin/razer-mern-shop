@@ -6,6 +6,7 @@ import { IoMdNotificationsOutline, IoMdClose } from "react-icons/io";
 import { FiUser } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import ThemeToggle from "../../Common/Button/ThemeToggle";
+import LanguageSwitcher from "../../Common/Selector/LanguageSwitcher";
 
 export default function AdminNavbar({ handleShowText }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,6 +22,7 @@ export default function AdminNavbar({ handleShowText }) {
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 bg-light dark:bg-black-bg text-gray dark:text-light shadow-md">
+            <LanguageSwitcher/>
       {/* Left Side */}
       <div className="flex items-center gap-4">
         <GiHamburgerMenu
