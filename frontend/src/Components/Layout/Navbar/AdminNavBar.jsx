@@ -22,7 +22,6 @@ export default function AdminNavbar({ handleShowText }) {
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 bg-light dark:bg-black-bg text-gray dark:text-light shadow-md">
-            <LanguageSwitcher/>
       {/* Left Side */}
       <div className="flex items-center gap-4">
         <GiHamburgerMenu
@@ -61,7 +60,9 @@ export default function AdminNavbar({ handleShowText }) {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 z-50 bg-light dark:bg-black-bg shadow-lg transform transition-transform duration-300 ease-in-out ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed top-0 right-0 h-full w-64 z-50 bg-light dark:bg-black-bg shadow-lg transform transition-transform duration-300 ease-in-out ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <div className="flex justify-end p-4">
           <IoMdClose

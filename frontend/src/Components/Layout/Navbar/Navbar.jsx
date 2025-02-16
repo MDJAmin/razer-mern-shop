@@ -8,11 +8,8 @@ import { BsCart2 } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import ThemeToggle from "../../Common/Button/ThemeToggle";
-import LanguageSwitcher from "../../Common/Selector/LanguageSwitcher";
-import { useTranslation } from "react-i18next";
 
 export default function NavBar() {
-  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -29,8 +26,6 @@ export default function NavBar() {
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 bg-light dark:bg-black-bg text-gray dark:text-light shadow-md">
-            <LanguageSwitcher/>
-            <p>{t("Hi")}</p>
       <img src={logo} alt="Logo" className="h-10" />
       <div className="sm:hidden">
         <GiHamburgerMenu
