@@ -174,11 +174,11 @@ export default function AddCategory() {
         message={
           currentStatus ? (
             <span>
-              change status to <span className="text-error">Not Active</span>
+              {t("changStatusTo")} <span className="text-error">{t("notActive")}</span>
             </span>
           ) : (
             <span>
-              change status to <span className="text-dark-green">Active</span>
+              {t("changStatusTo")} <span className="text-dark-green">{t("active")}</span>
             </span>
           )
         }
