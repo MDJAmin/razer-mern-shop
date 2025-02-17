@@ -10,6 +10,7 @@ import { IoMdClose } from "react-icons/io";
 import ThemeToggle from "../../Common/Button/ThemeToggle";
 import LanguageSwitcher from "../../Common/Selector/LanguageSwitcher";
 
+
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();

@@ -13,6 +13,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
     "atropos": "^2.0.2",
+    "dotenv": "^16.4.7",
     "gsap": "^3.12.5",
     "i18next": "^23.15.1",
     "react": "^18.3.1",

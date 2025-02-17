@@ -6,7 +6,7 @@ import ClientLayout from "./Layouts/ClientLayout";
 import AdminLayout from "./Layouts/AdminLayout";
 import PagesLoading from "../src/Components/Common/LoadingSpinner/PagesLoading";
 import { lazy, Suspense } from "react";
-import LanguageSwitcher from "./Components/Common/Selector/LanguageSwitcher";
+import DirectionHandler from "./i18/DirectionHandler";
 
 // Client Pages Lazy Loading
 const Home = lazy(() => import("./Pages/Home"));
@@ -33,9 +33,10 @@ const Users = lazy(() => import("./Admin/Users"));
 
 export default function App() {
   const { token } = useSelector((state) => state.user);
-  
+
   return (
     <Suspense fallback={<PagesLoading />}>
+      <DirectionHandler />
       <Routes>
         <Route element={<ClientLayout />}>
           <Route exact path="/" element={<Home />} />

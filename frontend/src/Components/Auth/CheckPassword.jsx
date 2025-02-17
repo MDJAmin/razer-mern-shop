@@ -16,11 +16,13 @@ export default function CheckPassword({ handlePageType }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch("http://localhost:5000/api/auth/check-password", {
+      const res = await fetch(`${baseUrl}auth/check-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
