@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { GoPlusCircle } from "react-icons/go";
 import { useSelector } from "react-redux";
 import ConfirmationModal from "../../Components/Admin/ConfirmationModal";
+import { useTranslation } from "react-i18next";
 
 export default function AddProduct() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -11,6 +13,7 @@ export default function AddProduct() {
   const [currentStatus, setCurrentStatus] = useState(null);
 
   const { token } = useSelector((state) => state.user);
+  const { lang } = useSelector((state) => state.i18n);
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -74,19 +77,37 @@ export default function AddProduct() {
   }, []);
 
   return (
-    <div className="overflow-x-auto scrollbar-hide bar p-4 w-full text-[16px]">
+    <div className="overflow-x-auto scrollbar-hide p-4 w-full text-[16px]">
       <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
         <thead>
-          <tr className="text-left text-dark dark:text-light text-lg border-b">
-            <td className="p-3 py-8">Name</td>
-            <td className="p-3 ">Date</td>
-            <td className="p-3 ">Category</td>
-            <td className="p-3 pr-8">Price</td>
-            <td className="p-3 pr-8">Images</td>
-            <td className="p-3 pr-8 whitespace-nowrap">Is Active</td>
+          <tr
+            className={` ${
+              lang == "en" ? "text-left" : "text-right"
+            } text-dark dark:text-light text-lg border-b`}
+          >
+            <td className={`p-3 py-8`}>{t("name")}</td>
+            <td className="p-3">{t("date")}</td>
+            <td className="p-3">{t("category")}</td>
+            <td className={`p-3 ${lang == "en" ? "pr-8" : "pl-8"}`}>
+              {t("price")}
+            </td>
             <td
-              className="pr-4 text-3xl hover:text-dark-green dark:hover:text-light-green cursor-pointer duration-100"
-              title="Add New Product"
+              className={`p-3 whitespace-nowrap ${
+                lang == "en" ? "pr-8" : "pl-8"
+              }`}
+            >
+              {t("images")}
+            </td>
+            <td
+              className={`p-3 whitespace-nowrap ${
+                lang == "en" ? "pr-8" : "pl-8"
+              }`}
+            >
+              {t("isActive")}
+            </td>
+            <td
+              className={`${lang == 'en'? "pr-4" : "pl-4"} text-3xl hover:text-dark-green dark:hover:text-light-green cursor-pointer duration-100"
+              title="Add New Product`}
             >
               <GoPlusCircle />
             </td>
@@ -95,8 +116,8 @@ export default function AddProduct() {
         <tbody>
           {loading ? (
             <tr>
-              <td className="text-start pl-3 text-xl dark:text-light py-10">
-                Loading...
+              <td className="text-start px-3 text-xl dark:text-light py-10">
+                {t("loading")}
               </td>
             </tr>
           ) : (
@@ -105,14 +126,14 @@ export default function AddProduct() {
                 key={index}
                 className="border-t border-gray dark:border-light hover:opacity-80 select-none"
               >
-                <td className="p-3 text-dark dark:text-light tracking-wider whitespace-nowrap pr-10">
-                  {item?.name.en}
+                <td className={`p-3 text-dark dark:text-light tracking-wider whitespace-nowrap ${lang == 'en'? "pr-10" : "pl-10"}`}>
+                  {item?.name[lang]}
                 </td>
-                <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 pr-4">
+                <td className={`p-3 text-gray opacity-60 dark:text-light dark:opacity-80 ${lang == 'en'? "pr-4" : "pl-4"}`}>
                   {new Date(item?.updatedAt).toLocaleDateString()}
                 </td>
-                <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap pr-4">
-                  {item?.categoryId?.title.en}
+                <td className={`p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap ${lang == 'en'? "pr-4" : "pl-4"}`}>
+                  {item?.categoryId?.title[lang]}
                 </td>
                 <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
                   {item.price ? item.price : "Null"}
@@ -120,7 +141,7 @@ export default function AddProduct() {
                 <td className="p-3">
                   <img
                     src={item?.images[0]}
-                    alt={item?.name.en}
+                    alt={item?.name[lang]}
                     className="w-14 h-14 object-cover rounded-md "
                   />
                 </td>
@@ -132,7 +153,7 @@ export default function AddProduct() {
                   }`}
                   onClick={() => openModal(item?._id, item?.isActive)}
                 >
-                  {item?.isActive ? "Active" : "Not Active"}
+                  {item?.isActive ? t("active") : t("notActive")}
                 </td>
               </tr>
             ))
@@ -146,11 +167,11 @@ export default function AddProduct() {
         message={
           currentStatus ? (
             <span>
-              Change status to <span className="text-error">Not Active</span>
+              {t("changStatusTo")} <span className="text-error">{t("notActive")}</span>
             </span>
           ) : (
             <span>
-              Change status to <span className="text-dark-green">Active</span>
+              {t("changStatusTo")} <span className="text-dark-green">{t("active")}</span>
             </span>
           )
         }
