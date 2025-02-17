@@ -10,9 +10,19 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <select value={lang} onChange={changeLanguage}>
-      <option value="en">English</option>
-      <option value="pr">فارسی</option>
-    </select>
+    <div className="relative">
+      <select
+        value={lang}
+        onChange={changeLanguage}
+        className="bg-light dark:bg-dark text-dark dark:text-light px-4 py-2 rounded-lg focus:outline-none text-lg cursor-pointer"
+      >
+        <option value="en" className="text-dark dark:text-light">
+          English
+        </option>
+        <option value="fa" className="text-dark dark:text-light">
+          فارسی
+        </option>
+      </select>
+    </div>
   );
 }

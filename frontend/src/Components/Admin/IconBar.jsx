@@ -4,8 +4,10 @@ import { FiShoppingCart, FiUser } from "react-icons/fi";
 import { MdComment, MdDiscount, MdCategory } from "react-icons/md";
 import { TfiLayoutSliderAlt } from "react-icons/tfi";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function IconBar({ showText }) {
+  const { t } = useTranslation();
   const [isIconInMobile, setIsIconInMobile] = useState(
     window.innerWidth >= 768
   );
@@ -31,28 +33,32 @@ export default function IconBar({ showText }) {
   return (
     <div className="xl:relative flex flex-col items-start justify-start gap-8 border-r-[1px] border-gray border-opacity-50 dark:border-admin-green text-2xl sm:text-3xl md:text-4xl pb-4 xl:pb-0 xl:min-h-[calc(100vh-73px)] px-2 sm:px-4 pt-4 dark:text-light">
       {[
-        { to: "/admin", icon: <MdDashboard />, text: "DASHBOARD" },
+        { to: "/admin", icon: <MdDashboard />, text: `${t("dashboard")}` },
         {
           to: "/admin/products",
           icon: <FiShoppingCart className="p-[2px]" />,
-          text: "PRODUCTS",
+          text: `${t("products")}`,
         },
-        { to: "/admin/categories", icon: <MdCategory />, text: "CATEGORIES" },
+        {
+          to: "/admin/categories",
+          icon: <MdCategory />,
+          text: `${t("categories")}`,
+        },
         {
           to: "/admin/sliders",
           icon: <TfiLayoutSliderAlt className="p-[1px]" />,
-          text: "SLIDERS",
+          text: `${t("sliders")}`,
         },
-        { to: "/admin/users", icon: <FiUser />, text: "USERS" },
+        { to: "/admin/users", icon: <FiUser />, text: `${t("users")}` },
         {
           to: "/admin/comments",
           icon: <MdComment className="p-[1px]" />,
-          text: "COMMENTS",
+          text: `${t("comments")}`,
         },
         {
           to: "/admin/discounts",
           icon: <MdDiscount className="p-[1px]" />,
-          text: "DISCOUNTS",
+          text: `${t("discounts")}`,
         },
       ].map(({ to, icon, text }) => (
         <Link
@@ -71,7 +77,7 @@ export default function IconBar({ showText }) {
             {icon}
           </div>
           {showText && isIconInMobile && (
-            <p className="text-lg lg:text-xl">{text}</p>
+            <p className="text-lg lg:text-xl uppercase">{text}</p>
           )}
         </Link>
       ))}

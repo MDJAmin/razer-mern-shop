@@ -2,8 +2,30 @@ import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const resources = {
-  en: { translation: { Hi: "Hello" } },
-  pr: { translation: { Hi: "سلام" } },
+  en: {
+    translation: {
+      home: "This is home page to english",
+      dashboard: "dashboard",
+      categories: "categories",
+      products: "products",
+      sliders: "sliders",
+      users: "users",
+      comments: "comments",
+      discounts: "discounts",
+    },
+  },
+  fa: {
+    translation: {
+      home: "این صحفه خانه می باشد به زبان فارسی",
+      dashboard: "پنل ادمین",
+      categories: "دسته بندی ها",
+      products: "محصولات",
+      sliders: "اسلایدر ها",
+      users: "کاربر ها",
+      comments: "نظرات",
+      discounts: "تخفیف ها",
+    },
+  },
 };
 
 i18next
@@ -15,7 +37,7 @@ i18next
     interpolation: { escapeValue: false },
   })
   .then(() => {
-    i18next.isInitialized = true; 
+    i18next.isInitialized = true;
   });
 
 export default i18next;
