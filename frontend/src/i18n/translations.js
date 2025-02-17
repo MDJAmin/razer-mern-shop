@@ -22,9 +22,11 @@ const resources = {
       loading: "Loading...",
       active: "Active",
       notActive: "Not Avtive",
-      changStatusTo: "Change status to",
-      change: "change",
-      cancel: "cancel"
+      changStatusTo: "Change Status To",
+      change: "Change",
+      cancel: "Cancel",
+      categoryName : "Name",
+      subCategory: "Sub Category"
     },
   },
   fa: {
@@ -49,7 +51,9 @@ const resources = {
       notActive: "غیرفعال",
       changStatusTo: "تغییر وضعیت به",
       change: "تغییر",
-      cancel: "لغو"
+      cancel: "لغو",
+      categoryName: "نام دسته بندی",
+      subCategory: "زیر دسته بندی"
     },
   },
 };
