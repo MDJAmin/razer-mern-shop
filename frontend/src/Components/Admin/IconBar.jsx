@@ -37,7 +37,7 @@ export default function IconBar({ showText }) {
     <div
       className={`flex flex-col items-start justify-start gap-8 ${
         lang === "en" ? "border-r-[1px]" : "border-l-[1px]"
-      } border-gray border-opacity-50 dark:border-admin-green text-2xl sm:text-3xl md:text-4xl pb-4 min-h-[calc(100vh-73px)] px-2 sm:px-4 pt-4 dark:text-light`}
+      } border-gray border-opacity-50 dark:border-admin-green text-2xl sm:text-3xl md:text-4xl pb-4 px-2 sm:px-4 pt-4 dark:text-light sticky top-0 h-screen`}
     >
       {[
         {
