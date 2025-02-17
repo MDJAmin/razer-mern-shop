@@ -30,19 +30,24 @@ export default function IconBar({ showText }) {
   }, []);
 
   const getActiveClass = (path) =>
-    pathname === path && "bg-admin-gray rounded-lg dark:bg-admin-green";
+    pathname === path &&
+    "bg-admin-gray rounded-lg dark:bg-admin-green";
 
   return (
     <div
-      className={`xl:relative flex flex-col items-start justify-start gap-8 ${
-        lang == "en" ? "border-r-[1px]" : "border-l-[1px]"
-      } border-gray border-opacity-50 dark:border-admin-green text-2xl sm:text-3xl md:text-4xl pb-4 xl:pb-0 xl:min-h-[calc(100vh-73px)] px-2 sm:px-4 pt-4 dark:text-light`}
+      className={`flex flex-col items-start justify-start gap-8 ${
+        lang === "en" ? "border-r-[1px]" : "border-l-[1px]"
+      } border-gray border-opacity-50 dark:border-admin-green text-2xl sm:text-3xl md:text-4xl pb-4 min-h-[calc(100vh-73px)] px-2 sm:px-4 pt-4 dark:text-light`}
     >
       {[
-        { to: "/admin", icon: <MdDashboard />, text: `${t("dashboard")}` },
+        {
+          to: "/admin",
+          icon: <MdDashboard />,
+          text: `${t("dashboard")}`,
+        },
         {
           to: "/admin/products",
-          icon: <FiShoppingCart className="p-[2px]" />,
+          icon: <FiShoppingCart className='p-[2px]' />,
           text: `${t("products")}`,
         },
         {
@@ -52,18 +57,22 @@ export default function IconBar({ showText }) {
         },
         {
           to: "/admin/sliders",
-          icon: <TfiLayoutSliderAlt className="p-[1px]" />,
+          icon: <TfiLayoutSliderAlt className='p-[1px]' />,
           text: `${t("sliders")}`,
         },
-        { to: "/admin/users", icon: <FiUser />, text: `${t("users")}` },
+        {
+          to: "/admin/users",
+          icon: <FiUser />,
+          text: `${t("users")}`,
+        },
         {
           to: "/admin/comments",
-          icon: <MdComment className="p-[1px]" />,
+          icon: <MdComment className='p-[1px]' />,
           text: `${t("comments")}`,
         },
         {
           to: "/admin/discounts",
-          icon: <MdDiscount className="p-[1px]" />,
+          icon: <MdDiscount className='p-[1px]' />,
           text: `${t("discounts")}`,
         },
       ].map(({ to, icon, text }) => (
@@ -83,7 +92,7 @@ export default function IconBar({ showText }) {
             {icon}
           </div>
           {showText && isIconInMobile && (
-            <p className="text-lg lg:text-xl uppercase">{text}</p>
+            <p className='text-lg lg:text-xl uppercase'>{text}</p>
           )}
         </Link>
       ))}
