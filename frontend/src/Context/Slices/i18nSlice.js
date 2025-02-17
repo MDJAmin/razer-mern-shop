@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import i18next from "i18next";
-import "../../i18/translations"; 
+import "../../i18n/translations";
 
 const initialState = {
   lang: localStorage.getItem("lang") || "en",
