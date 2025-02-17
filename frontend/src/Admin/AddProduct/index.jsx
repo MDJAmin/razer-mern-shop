@@ -3,6 +3,7 @@ import { GoPlusCircle } from "react-icons/go";
 import { useSelector } from "react-redux";
 import ConfirmationModal from "../../Components/Admin/ConfirmationModal";
 import { useTranslation } from "react-i18next";
+import Search from "../../Components/Admin/Search";
 
 export default function AddProduct() {
   const { t } = useTranslation();
@@ -11,6 +12,7 @@ export default function AddProduct() {
   const [showModal, setShowModal] = useState(false);
   const [productIdToToggle, setProductIdToToggle] = useState(null);
   const [currentStatus, setCurrentStatus] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { token } = useSelector((state) => state.user);
   const { lang } = useSelector((state) => state.i18n);
@@ -30,7 +32,6 @@ export default function AddProduct() {
       const data = await res.json();
       if (data.success) {
         setData(data.data);
-        console.log(data.data);
       }
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -60,6 +61,10 @@ export default function AddProduct() {
     }
   };
 
+  const filteredData = data?.filter((item) =>
+    item?.name[lang].toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const openModal = (productId, isActive) => {
     setProductIdToToggle(productId);
     setCurrentStatus(isActive);
@@ -78,6 +83,12 @@ export default function AddProduct() {
 
   return (
     <div className="overflow-x-auto scrollbar-hide p-4 w-full text-[16px]">
+      <Search
+        placeholder={t("searchForProduct")}
+        searchQuery={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onClear={() => setSearchQuery("")}
+      />
       <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
         <thead>
           <tr
@@ -106,7 +117,9 @@ export default function AddProduct() {
               {t("isActive")}
             </td>
             <td
-              className={`${lang == 'en'? "pr-4" : "pl-4"} text-3xl hover:text-dark-green dark:hover:text-light-green cursor-pointer duration-100"
+              className={`${
+                lang == "en" ? "pr-4" : "pl-4"
+              } text-3xl hover:text-dark-green dark:hover:text-light-green cursor-pointer duration-100"
               title="Add New Product`}
             >
               <GoPlusCircle />
@@ -120,19 +133,37 @@ export default function AddProduct() {
                 {t("loading")}
               </td>
             </tr>
+          ) : filteredData?.length === 0 ? (
+            <tr>
+              <td className="text-start px-3 text-xl dark:text-light py-10 whitespace-nowrap ">
+                {t("noProductFound")}
+              </td>
+            </tr>
           ) : (
-            data?.map((item, index) => (
+            filteredData?.map((item, index) => (
               <tr
                 key={index}
                 className="border-t border-gray dark:border-light hover:opacity-80 select-none"
               >
-                <td className={`p-3 text-dark dark:text-light tracking-wider whitespace-nowrap ${lang == 'en'? "pr-10" : "pl-10"}`}>
+                <td
+                  className={`p-3 text-dark dark:text-light tracking-wider whitespace-nowrap ${
+                    lang == "en" ? "pr-10" : "pl-10"
+                  }`}
+                >
                   {item?.name[lang]}
                 </td>
-                <td className={`p-3 text-gray opacity-60 dark:text-light dark:opacity-80 ${lang == 'en'? "pr-4" : "pl-4"}`}>
+                <td
+                  className={`p-3 text-gray opacity-60 dark:text-light dark:opacity-80 ${
+                    lang == "en" ? "pr-4" : "pl-4"
+                  }`}
+                >
                   {new Date(item?.updatedAt).toLocaleDateString()}
                 </td>
-                <td className={`p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap ${lang == 'en'? "pr-4" : "pl-4"}`}>
+                <td
+                  className={`p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap ${
+                    lang == "en" ? "pr-4" : "pl-4"
+                  }`}
+                >
                   {item?.categoryId?.title[lang]}
                 </td>
                 <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
@@ -167,11 +198,13 @@ export default function AddProduct() {
         message={
           currentStatus ? (
             <span>
-              {t("changStatusTo")} <span className="text-error">{t("notActive")}</span>
+              {t("changStatusTo")}{" "}
+              <span className="text-error">{t("notActive")}</span>
             </span>
           ) : (
             <span>
-              {t("changStatusTo")} <span className="text-dark-green">{t("active")}</span>
+              {t("changStatusTo")}{" "}
+              <span className="text-dark-green">{t("active")}</span>
             </span>
           )
         }
