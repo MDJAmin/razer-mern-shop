@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import Search from "../../Components/Admin/Search";
 
 export default function Users() {
   const { t } = useTranslation();
@@ -106,25 +107,12 @@ export default function Users() {
 
   return (
     <div className="overflow-x-auto scrollbar-hide p-4 w-full text-[16px] relative">
-      <form className="mb-2 relative">
-        <input
-          type="text"
-          className="authInp text-lg py-2 "
-          placeholder={t("searchForUser")}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        {searchQuery && (
-          <span
-            className={`top-1 ${
-              lang == "en" ? "right-4" : "left-4"
-            } text-4xl dark:text-light rotate-45 absolute hover:opacity-80 cursor-pointer`}
-            onClick={() => setSearchQuery("")}
-          >
-            +
-          </span>
-        )}
-      </form>
+      <Search
+        placeholder={t("searchForUser")}
+        searchQuery={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onClear={() => setSearchQuery("")}
+      />
 
       {/* Modal for role change confirmation */}
       {modalVisible && selectedUser && (

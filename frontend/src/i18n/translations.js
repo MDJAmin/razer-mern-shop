@@ -41,9 +41,11 @@ const resources = {
       clickToCopy: "Click to copy",
       null: "Null",
       searchForUser: "Search For User:",
+      searchForCategory: "Search For Category:",
       noUserFound: "No Users found!",
       changeRoleForThisUserTo: "Change role for this user to",
       id: "ID",
+      noCategoryFound: "No Category Found!",
     },
   },
   fa: {
@@ -85,9 +87,11 @@ const resources = {
       clickToCopy: "برای کپی شدن کلیک کنید",
       null: "خالی",
       searchForUser: "کاربر را جستوجو کنید:",
+      searchForCategory: "دسته بندی را جستوجو کنید:",
       noUserFound: "کاربری یافت نشد",
       changeRoleForThisUserTo: "تغییر نقش برای این کاربر به",
       id: "شناسه",
+      noCategoryFound: "دسته بندی یافت نشد",
     },
   },
 };
