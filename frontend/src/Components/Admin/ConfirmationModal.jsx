@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const ConfirmationModal = ({ isVisible, onClose, onConfirm, message }) => {
+  const { t } = useTranslation();
+
   if (!isVisible) return null;
 
   return (
@@ -9,10 +12,10 @@ const ConfirmationModal = ({ isVisible, onClose, onConfirm, message }) => {
         <h2 className="text-2xl mb-6 dark:text-light">{message}</h2>
         <div className="flex gap-2">
           <button onClick={onClose} className="authBtn bg-error dark:bg-error">
-            Cancel
+            {t("cancel")}
           </button>
           <button onClick={onConfirm} className="authBtn">
-            Change
+            {t("change")}
           </button>
         </div>
       </div>

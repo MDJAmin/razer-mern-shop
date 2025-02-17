@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 export default function Users() {
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
@@ -10,6 +12,7 @@ export default function Users() {
 
   const { token } = useSelector((state) => state.user);
   const { role } = useSelector((state) => state.user.currentUser);
+  const { lang } = useSelector((state) => state.i18n);
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -107,13 +110,15 @@ export default function Users() {
         <input
           type="text"
           className="authInp text-lg py-2 "
-          placeholder="Search For User:"
+          placeholder={t("searchForUser")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         {searchQuery && (
           <span
-            className="top-1 right-4 text-4xl dark:text-light rotate-45 absolute hover:opacity-80 cursor-pointer"
+            className={`top-1 ${
+              lang == "en" ? "right-4" : "left-4"
+            } text-4xl dark:text-light rotate-45 absolute hover:opacity-80 cursor-pointer`}
             onClick={() => setSearchQuery("")}
           >
             +
@@ -127,22 +132,23 @@ export default function Users() {
           <div className="bg-light-bg dark:bg-black-bg p-5 rounded-lg drop-shadow-lg">
             <h3 className="text-xl dark:text-light tracking-wide flex flex-col">
               <span className="mb-2">
-                Change role for this user to{" "}
+                {t("changeRoleForThisUserTo")}{" "}
                 <span className="text-info-green">
-                  {selectedUser.role === "admin" ? "User" : "Admin"}?
+                  {selectedUser.role === "admin" ? t("user") : t("admin")}
+                  {lang == "en" ? "?" : "؟"}
                 </span>
               </span>
               <span className="opacity-70 text-[16px]">
-                Id: {selectedUser._id}
+                {t("id")}: {selectedUser._id}
               </span>
               <span className="opacity-70 text-[16px]">
-                Phone: {selectedUser?.phone}
+                {t("phone")}: {selectedUser?.phone}
               </span>
-              <span className="opacity-70 tracking-wider text-[16px]">
-                Name: {selectedUser?.fullName}
+              <span className="opacity-70 tracking-wider text-[16px] ">
+                {t("fullName")}: {selectedUser?.fullName}
               </span>
               <span className="opacity-70 text-[16px]">
-                Id Card: {selectedUser?.idCard}
+                {t("idCard")}: {selectedUser?.idCard}
               </span>
             </h3>
             <div className="mt-4 flex justify-center gap-2">
@@ -150,7 +156,7 @@ export default function Users() {
                 className="authBtn bg-error dark:bg-error"
                 onClick={() => setModalVisible(false)}
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button
                 className="authBtn"
@@ -161,7 +167,7 @@ export default function Users() {
                   )
                 }
               >
-                Change
+                {t("change")}
               </button>
             </div>
           </div>
@@ -170,28 +176,32 @@ export default function Users() {
 
       <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
         <thead>
-          <tr className="text-left text-dark dark:text-light text-lg border-b">
-            <td className="p-3 py-6 whitespace-nowrap">User ID</td>
-            <td className="p-3 whitespace-nowrap">Role</td>
-            <td className="p-3 whitespace-nowrap">Full Name</td>
-            <td className="p-3">Email</td>
-            <td className="p-3 whitespace-nowrap">ID Card</td>
-            <td className="p-3">Phone</td>
-            <td className="p-3">Complete</td>
-            <td className="p-3 whitespace-nowrap">Is Active</td>
+          <tr
+            className={`${
+              lang == "en" ? "text-left" : "text-right"
+            } text-dark dark:text-light text-lg border-b`}
+          >
+            <td className="p-3 py-6 whitespace-nowrap">{t("userId")}</td>
+            <td className="p-3 whitespace-nowrap">{t("role")}</td>
+            <td className="p-3 whitespace-nowrap">{t("fullName")}</td>
+            <td className="p-3">{t("email")}</td>
+            <td className="p-3 whitespace-nowrap">{t("idCard")}</td>
+            <td className="p-3 whitespace-nowrap">{t("phone")}</td>
+            <td className="p-3 whitespace-nowrap">{t("complete")}</td>
+            <td className="p-3 whitespace-nowrap">{t("isActive")}</td>
           </tr>
         </thead>
         <tbody>
           {loading ? (
             <tr>
-              <td className="text-start pl-3 text-xl dark:text-light py-10">
-                Loading...
+              <td className="text-start px-3 text-xl dark:text-light py-10">
+                {t("loading")}
               </td>
             </tr>
           ) : filteredData.length === 0 ? (
             <tr>
-              <td className="text-start pl-3 text-xl dark:text-light py-10 whitespace-nowrap ">
-                No Users found!
+              <td className="text-start px-3 text-xl dark:text-light py-10 whitespace-nowrap ">
+                {t("noUserFound")}
               </td>
             </tr>
           ) : (
@@ -203,7 +213,7 @@ export default function Users() {
                 <td
                   className="p-3 text-dark dark:text-light cursor-pointer hover:underline flex items-center gap-2 relative"
                   onClick={() => copyToClipboard(user._id)}
-                  title="Click to copy"
+                  title={t("clickToCopy")}
                 >
                   {user._id?.slice(0, 8)}...
                 </td>
@@ -212,22 +222,26 @@ export default function Users() {
                     user?.role === "admin" &&
                     "text-dark-green dark:text-light-green"
                   }`}
-                  title="Click to change role"
+                  title={t("clickToChangeRole")}
                   onClick={() => openModal(user)}
                 >
-                  {user.role ? user.role : "Null"}
+                  {user.role
+                    ? user.role == "admin"
+                      ? t("admin")
+                      : t("user")
+                    : t("null")}
                 </td>
                 <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap">
-                  {user.fullName ? user.fullName : "Null"}
+                  {user.fullName ? user.fullName : t("null")}
                 </td>
                 <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap">
-                  {user.email ? user.email : "Null"}
+                  {user.email ? user.email : t("null")}
                 </td>
                 <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
-                  {user.idCard ? user.idCard : "Null"}
+                  {user.idCard ? user.idCard : t("null")}
                 </td>
                 <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
-                  {user.phone ? user.phone : "Null"}
+                  {user.phone ? user.phone : t("null")}
                 </td>
                 <td
                   className={`p-3 tracking-wide whitespace-nowrap ${
@@ -236,7 +250,7 @@ export default function Users() {
                       : "text-error"
                   }`}
                 >
-                  {user.isComplete ? "Complete" : "Not Complete"}
+                  {user.isComplete ? t("complete") : t("notComplete")}
                 </td>
                 <td
                   className={`p-3 tracking-wide whitespace-nowrap ${
@@ -245,7 +259,7 @@ export default function Users() {
                       : "text-error"
                   }`}
                 >
-                  {user.isActive ? "Active" : "Not Active"}
+                  {user?.isActive ? t("active") : t("notActive")}
                 </td>
               </tr>
             ))
