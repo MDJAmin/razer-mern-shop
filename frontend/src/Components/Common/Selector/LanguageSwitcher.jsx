@@ -12,7 +12,7 @@ export default function LanguageSwitcher() {
   return (
     <select value={lang} onChange={changeLanguage}>
       <option value="en">English</option>
-      <option value="pr">فارسی</option>
+      <option value="pr">Persian</option>
     </select>
   );
 }

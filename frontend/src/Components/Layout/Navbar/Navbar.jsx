@@ -27,8 +27,7 @@ export default function NavBar() {
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 bg-light dark:bg-black-bg text-gray dark:text-light shadow-md">
-            <LanguageSwitcher/>
-      <img src={logo} alt="Logo" className="h-10" />
+      <img src={logo} alt="Logo" className="h-10 select-none"/>
       <div className="sm:hidden">
         <GiHamburgerMenu
           className="text-2xl cursor-pointer hover:opacity-80"
@@ -85,6 +84,9 @@ export default function NavBar() {
           </li>
           <li>
             <ThemeToggle />
+          </li>
+          <li>
+          <LanguageSwitcher/>
           </li>
         </ul>
       </div>
