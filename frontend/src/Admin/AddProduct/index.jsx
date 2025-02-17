@@ -82,13 +82,14 @@ export default function AddProduct() {
   }, []);
 
   return (
-    <div className="overflow-x-auto scrollbar-hide p-4 w-full text-[16px]">
+    <div className="scrollbar-hide overflow-auto p-4 w-full text-[16px]">
       <Search
         placeholder={t("searchForProduct")}
         searchQuery={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         onClear={() => setSearchQuery("")}
       />
+      <div className="overflow-x-auto">
       <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
         <thead>
           <tr
@@ -191,6 +192,7 @@ export default function AddProduct() {
           )}
         </tbody>
       </table>
+      </div>
       <ConfirmationModal
         isVisible={showModal}
         onClose={closeModal}

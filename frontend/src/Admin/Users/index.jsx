@@ -70,20 +70,25 @@ export default function Users() {
       user._id.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.role.includes(searchQuery.toLowerCase()) ||
       user.phone.includes(searchQuery.toLowerCase()) ||
-      user?.fullName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user?.fullName
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
       user?.idCard?.includes(searchQuery.toLowerCase())
   );
 
   const changeRole = async (userId, newRole) => {
     try {
-      const res = await fetch(`${baseUrl}user/change-role/${userId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ role: newRole }),
-      });
+      const res = await fetch(
+        `${baseUrl}user/change-role/${userId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ role: newRole }),
+        }
+      );
       const result = await res.json();
       if (result.success) {
         setData((prevData) =>
@@ -106,7 +111,7 @@ export default function Users() {
   };
 
   return (
-    <div className="overflow-x-auto scrollbar-hide p-4 w-full text-[16px] relative">
+    <div className='scrollbar-hide overflow-x-auto p-4 w-full text-[16px] relative'>
       <Search
         placeholder={t("searchForUser")}
         searchQuery={searchQuery}
@@ -116,38 +121,40 @@ export default function Users() {
 
       {/* Modal for role change confirmation */}
       {modalVisible && selectedUser && (
-        <div className="fixed inset-0 px-2 bg-light dark:bg-dark dark:bg-opacity-60 bg-opacity-70 flex justify-center items-center z-50">
-          <div className="bg-light-bg dark:bg-black-bg p-5 rounded-lg drop-shadow-lg">
-            <h3 className="text-xl dark:text-light tracking-wide flex flex-col">
-              <span className="mb-2">
+        <div className='fixed inset-0 px-2 bg-light dark:bg-dark dark:bg-opacity-60 bg-opacity-70 flex justify-center items-center z-50'>
+          <div className='bg-light-bg dark:bg-black-bg p-5 rounded-lg drop-shadow-lg'>
+            <h3 className='text-xl dark:text-light tracking-wide flex flex-col'>
+              <span className='mb-2'>
                 {t("changeRoleForThisUserTo")}{" "}
-                <span className="text-info-green">
-                  {selectedUser.role === "admin" ? t("user") : t("admin")}
+                <span className='text-info-green'>
+                  {selectedUser.role === "admin"
+                    ? t("user")
+                    : t("admin")}
                   {lang == "en" ? "?" : "؟"}
                 </span>
               </span>
-              <span className="opacity-70 text-[16px]">
+              <span className='opacity-70 text-[16px]'>
                 {t("id")}: {selectedUser._id}
               </span>
-              <span className="opacity-70 text-[16px]">
+              <span className='opacity-70 text-[16px]'>
                 {t("phone")}: {selectedUser?.phone}
               </span>
-              <span className="opacity-70 tracking-wider text-[16px] ">
+              <span className='opacity-70 tracking-wider text-[16px] '>
                 {t("fullName")}: {selectedUser?.fullName}
               </span>
-              <span className="opacity-70 text-[16px]">
+              <span className='opacity-70 text-[16px]'>
                 {t("idCard")}: {selectedUser?.idCard}
               </span>
             </h3>
-            <div className="mt-4 flex justify-center gap-2">
+            <div className='mt-4 flex justify-center gap-2'>
               <button
-                className="authBtn bg-error dark:bg-error"
+                className='authBtn bg-error dark:bg-error'
                 onClick={() => setModalVisible(false)}
               >
                 {t("cancel")}
               </button>
               <button
-                className="authBtn"
+                className='authBtn'
                 onClick={() =>
                   changeRole(
                     selectedUser._id,
@@ -161,99 +168,110 @@ export default function Users() {
           </div>
         </div>
       )}
-
-      <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
-        <thead>
-          <tr
-            className={`${
-              lang == "en" ? "text-left" : "text-right"
-            } text-dark dark:text-light text-lg border-b`}
-          >
-            <td className="p-3 py-6 whitespace-nowrap">{t("userId")}</td>
-            <td className="p-3 whitespace-nowrap">{t("role")}</td>
-            <td className="p-3 whitespace-nowrap">{t("fullName")}</td>
-            <td className="p-3">{t("email")}</td>
-            <td className="p-3 whitespace-nowrap">{t("idCard")}</td>
-            <td className="p-3 whitespace-nowrap">{t("phone")}</td>
-            <td className="p-3 whitespace-nowrap">{t("complete")}</td>
-            <td className="p-3 whitespace-nowrap">{t("isActive")}</td>
-          </tr>
-        </thead>
-        <tbody>
-          {loading ? (
-            <tr>
-              <td className="text-start px-3 text-xl dark:text-light py-10">
-                {t("loading")}
+      <div className='overflow-x-auto'>
+        <table className='w-full border-collapse dark:bg-admin-green rounded-lg'>
+          <thead>
+            <tr
+              className={`${
+                lang == "en" ? "text-left" : "text-right"
+              } text-dark dark:text-light text-lg border-b`}
+            >
+              <td className='p-3 py-6 whitespace-nowrap'>
+                {t("userId")}
+              </td>
+              <td className='p-3 whitespace-nowrap'>{t("role")}</td>
+              <td className='p-3 whitespace-nowrap'>
+                {t("fullName")}
+              </td>
+              <td className='p-3'>{t("email")}</td>
+              <td className='p-3 whitespace-nowrap'>{t("idCard")}</td>
+              <td className='p-3 whitespace-nowrap'>{t("phone")}</td>
+              <td className='p-3 whitespace-nowrap'>
+                {t("complete")}
+              </td>
+              <td className='p-3 whitespace-nowrap'>
+                {t("isActive")}
               </td>
             </tr>
-          ) : filteredData.length === 0 ? (
-            <tr>
-              <td className="text-start px-3 text-xl dark:text-light py-10 whitespace-nowrap ">
-                {t("noUserFound")}
-              </td>
-            </tr>
-          ) : (
-            filteredData?.map((user, index) => (
-              <tr
-                key={index}
-                className="border-t border-gray dark:border-light hover:opacity-80"
-              >
-                <td
-                  className="p-3 text-dark dark:text-light cursor-pointer hover:underline flex items-center gap-2 relative"
-                  onClick={() => copyToClipboard(user._id)}
-                  title={t("clickToCopy")}
-                >
-                  {user._id?.slice(0, 8)}...
-                </td>
-                <td
-                  className={`p-3 text-dark opacity-90 dark:text-light tracking-wide cursor-pointer hover:underline ${
-                    user?.role === "admin" &&
-                    "text-dark-green dark:text-light-green"
-                  }`}
-                  title={t("clickToChangeRole")}
-                  onClick={() => openModal(user)}
-                >
-                  {user.role
-                    ? user.role == "admin"
-                      ? t("admin")
-                      : t("user")
-                    : t("null")}
-                </td>
-                <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap">
-                  {user.fullName ? user.fullName : t("null")}
-                </td>
-                <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap">
-                  {user.email ? user.email : t("null")}
-                </td>
-                <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
-                  {user.idCard ? user.idCard : t("null")}
-                </td>
-                <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
-                  {user.phone ? user.phone : t("null")}
-                </td>
-                <td
-                  className={`p-3 tracking-wide whitespace-nowrap ${
-                    user.isComplete
-                      ? "text-gray opacity-60 dark:text-light dark:opacity-80"
-                      : "text-error"
-                  }`}
-                >
-                  {user.isComplete ? t("complete") : t("notComplete")}
-                </td>
-                <td
-                  className={`p-3 tracking-wide whitespace-nowrap ${
-                    user.isActive
-                      ? "text-gray opacity-60 dark:text-light dark:opacity-80"
-                      : "text-error"
-                  }`}
-                >
-                  {user?.isActive ? t("active") : t("notActive")}
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr>
+                <td className='text-start px-3 text-xl dark:text-light py-10'>
+                  {t("loading")}
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : filteredData.length === 0 ? (
+              <tr>
+                <td className='text-start px-3 text-xl dark:text-light py-10 whitespace-nowrap '>
+                  {t("noUserFound")}
+                </td>
+              </tr>
+            ) : (
+              filteredData?.map((user, index) => (
+                <tr
+                  key={index}
+                  className='border-t border-gray dark:border-light hover:opacity-80'
+                >
+                  <td
+                    className='p-3 text-dark dark:text-light cursor-pointer hover:underline flex items-center gap-2 relative'
+                    onClick={() => copyToClipboard(user._id)}
+                    title={t("clickToCopy")}
+                  >
+                    {user._id?.slice(0, 8)}...
+                  </td>
+                  <td
+                    className={`p-3 text-dark opacity-90 dark:text-light tracking-wide cursor-pointer hover:underline ${
+                      user?.role === "admin" &&
+                      "text-dark-green dark:text-light-green"
+                    }`}
+                    title={t("clickToChangeRole")}
+                    onClick={() => openModal(user)}
+                  >
+                    {user.role
+                      ? user.role == "admin"
+                        ? t("admin")
+                        : t("user")
+                      : t("null")}
+                  </td>
+                  <td className='p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap'>
+                    {user.fullName ? user.fullName : t("null")}
+                  </td>
+                  <td className='p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap'>
+                    {user.email ? user.email : t("null")}
+                  </td>
+                  <td className='p-3 text-gray opacity-60 dark:text-light dark:opacity-80'>
+                    {user.idCard ? user.idCard : t("null")}
+                  </td>
+                  <td className='p-3 text-gray opacity-60 dark:text-light dark:opacity-80'>
+                    {user.phone ? user.phone : t("null")}
+                  </td>
+                  <td
+                    className={`p-3 tracking-wide whitespace-nowrap ${
+                      user.isComplete
+                        ? "text-gray opacity-60 dark:text-light dark:opacity-80"
+                        : "text-error"
+                    }`}
+                  >
+                    {user.isComplete
+                      ? t("complete")
+                      : t("notComplete")}
+                  </td>
+                  <td
+                    className={`p-3 tracking-wide whitespace-nowrap ${
+                      user.isActive
+                        ? "text-gray opacity-60 dark:text-light dark:opacity-80"
+                        : "text-error"
+                    }`}
+                  >
+                    {user?.isActive ? t("active") : t("notActive")}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

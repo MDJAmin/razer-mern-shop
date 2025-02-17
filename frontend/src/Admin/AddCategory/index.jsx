@@ -92,6 +92,7 @@ export default function AddCategory() {
         onChange={(e) => setSearchQuery(e.target.value)}
         onClear={() => setSearchQuery("")}
       />
+      <div className="overflow-x-auto">
       <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
         <thead>
           <tr
@@ -185,6 +186,7 @@ export default function AddCategory() {
           )}
         </tbody>
       </table>
+      </div>
       <ConfirmationModal
         isVisible={showModal}
         onClose={closeModal}
