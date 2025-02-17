@@ -3,6 +3,7 @@ import { GoPlusCircle } from "react-icons/go";
 import { useSelector } from "react-redux";
 import ConfirmationModal from "../../Components/Admin/ConfirmationModal";
 import { useTranslation } from "react-i18next";
+import Search from "../../Components/Admin/Search";
 
 export default function AddCategory() {
   const { t } = useTranslation();
@@ -11,6 +12,7 @@ export default function AddCategory() {
   const [showModal, setShowModal] = useState(false);
   const [categoryIdToToggle, setCategoryIdToToggle] = useState(null);
   const [currentStatus, setCurrentStatus] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { token } = useSelector((state) => state.user);
   const { lang } = useSelector((state) => state.i18n);
@@ -62,6 +64,10 @@ export default function AddCategory() {
     }
   };
 
+  const filteredData = data?.filter((item) =>
+    item?.title[lang].toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const openModal = (categoryId, isActive) => {
     setCategoryIdToToggle(categoryId);
     setCurrentStatus(isActive);
@@ -80,6 +86,12 @@ export default function AddCategory() {
 
   return (
     <div className="overflow-x-auto scrollbar-hide bar p-4 w-full text-[16px]">
+      <Search
+        placeholder={t("searchForCategory")}
+        searchQuery={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onClear={() => setSearchQuery("")}
+      />
       <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
         <thead>
           <tr
@@ -125,8 +137,14 @@ export default function AddCategory() {
                 {t("loading")}
               </td>
             </tr>
+          ) : filteredData?.length === 0 ? (
+            <tr>
+              <td className="text-start px-3 text-xl dark:text-light py-10 whitespace-nowrap ">
+                {t("noCategoryFound")}
+              </td>
+            </tr>
           ) : (
-            data?.map((item, index) => (
+            filteredData?.map((item, index) => (
               <tr
                 key={index}
                 className="border-t border-gray dark:border-light hover:opacity-80 select-none"
@@ -174,11 +192,13 @@ export default function AddCategory() {
         message={
           currentStatus ? (
             <span>
-              {t("changStatusTo")} <span className="text-error">{t("notActive")}</span>
+              {t("changStatusTo")}{" "}
+              <span className="text-error">{t("notActive")}</span>
             </span>
           ) : (
             <span>
-              {t("changStatusTo")} <span className="text-dark-green">{t("active")}</span>
+              {t("changStatusTo")}{" "}
+              <span className="text-dark-green">{t("active")}</span>
             </span>
           )
         }
