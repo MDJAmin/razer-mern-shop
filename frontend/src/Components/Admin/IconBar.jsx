@@ -5,9 +5,11 @@ import { MdComment, MdDiscount, MdCategory } from "react-icons/md";
 import { TfiLayoutSliderAlt } from "react-icons/tfi";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export default function IconBar({ showText }) {
   const { t } = useTranslation();
+  const { lang } = useSelector((state) => state.i18n);
   const [isIconInMobile, setIsIconInMobile] = useState(
     window.innerWidth >= 768
   );
@@ -31,7 +33,11 @@ export default function IconBar({ showText }) {
     pathname === path && "bg-admin-gray rounded-lg dark:bg-admin-green";
 
   return (
-    <div className="xl:relative flex flex-col items-start justify-start gap-8 border-r-[1px] border-gray border-opacity-50 dark:border-admin-green text-2xl sm:text-3xl md:text-4xl pb-4 xl:pb-0 xl:min-h-[calc(100vh-73px)] px-2 sm:px-4 pt-4 dark:text-light">
+    <div
+      className={`xl:relative flex flex-col items-start justify-start gap-8 ${
+        lang == "en" ? "border-r-[1px]" : "border-l-[1px]"
+      } border-gray border-opacity-50 dark:border-admin-green text-2xl sm:text-3xl md:text-4xl pb-4 xl:pb-0 xl:min-h-[calc(100vh-73px)] px-2 sm:px-4 pt-4 dark:text-light`}
+    >
       {[
         { to: "/admin", icon: <MdDashboard />, text: `${t("dashboard")}` },
         {

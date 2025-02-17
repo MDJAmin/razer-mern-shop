@@ -12,6 +12,7 @@ const resources = {
       users: "users",
       comments: "comments",
       discounts: "discounts",
+      welcomeDear: "Welcome Dear",
     },
   },
   fa: {
@@ -24,6 +25,7 @@ const resources = {
       users: "کاربر ها",
       comments: "نظرات",
       discounts: "تخفیف ها",
+      welcomeDear: "خوش آمدید",
     },
   },
 };

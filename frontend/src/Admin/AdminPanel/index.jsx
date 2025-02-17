@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import CurrentDate from "../../Components/Common/Date";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export default function AdminPanel() {
+  const { t } = useTranslation();
   const { email } = useSelector((state) => state.user.currentUser);
   const shortMail = email.split("@")[0];
 
@@ -17,7 +19,7 @@ export default function AdminPanel() {
     <div className="flex flex-col items-start justify-start gap-2 w-full px-6 py-4">
       <div className="bg-admin-gray dark:bg-admin-green py-4 px-6 flex flex-wrap gap-x-12 justify-between w-full text-xl rounded-lg">
         <h2 className="text-xl sm:text-2xl text-dark dark:text-light">
-          Welcome Dear "{shortMail}"
+          {t("welcomeDear")} "{shortMail}"
         </h2>
         <CurrentDate />
       </div>
