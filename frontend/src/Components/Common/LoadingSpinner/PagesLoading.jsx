@@ -20,7 +20,7 @@ export default function RGBSpinner({ type = "client" }) {
     <div
       className={`flex items-center justify-center h-screen ${
         type === "admin" ? "w-screen" : "w-100"
-      } bg-white dark:bg-black text-white`}
+      } bg-light dark:bg-black-bg text-white`}
     >
       <div className="relative w-20 h-20">
         {/* Outer spinning ring */}

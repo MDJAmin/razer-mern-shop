@@ -6,7 +6,7 @@ import ClientLayout from "./Layouts/ClientLayout";
 import AdminLayout from "./Layouts/AdminLayout";
 import PagesLoading from "../src/Components/Common/LoadingSpinner/PagesLoading";
 import { lazy, Suspense } from "react";
-import DirectionHandler from "./i18/DirectionHandler";
+import DirectionHandler from "./i18n/DirectionHandler";
 
 // Client Pages Lazy Loading
 const Home = lazy(() => import("./Pages/Home"));

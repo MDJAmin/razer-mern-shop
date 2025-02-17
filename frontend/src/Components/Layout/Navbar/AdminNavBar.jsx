@@ -37,6 +37,9 @@ export default function AdminNavbar({ handleShowText }) {
 
       {/* Desktop Icons */}
       <ul className='hidden sm:flex items-center gap-6 text-2xl'>
+                <li>
+                  <LanguageSwitcher />
+                </li>
         <li className='cursor-pointer hover:opacity-80 dark:hover:text-white'>
           <TbSearch />
         </li>
