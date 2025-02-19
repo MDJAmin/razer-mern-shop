@@ -66,6 +66,39 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    quantity: {
+      type: Number,
+      required: [
+        true,
+        JSON.stringify({
+          en: "quantity is required",
+          fa: "تعداد الزامی می باشد",
+        }),
+      ],
+      min: 0,
+    },
+    price: {
+      type: Number,
+      required: [
+        true,
+        JSON.stringify({
+          en: "price is required",
+          fa: "مبلغ الزامی می باشد",
+        }),
+      ],
+    },
+    discount: {
+      type: Number,
+      required: [
+        true,
+        JSON.stringify({
+          en: "discount is required",
+          fa: "تخفیف الزامی می باشد",
+        }),
+      ],
+      min: 0,
+      max: 100,
+    },
   },
   { timestamps: true }
 );
