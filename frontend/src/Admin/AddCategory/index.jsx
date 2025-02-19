@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import ConfirmationModal from "../../Components/Admin/ConfirmationModal";
 import { useTranslation } from "react-i18next";
 import Search from "../../Components/Admin/Search";
+import AddBtn from "../../Components/Admin/AddBtn";
 
 export default function AddCategory() {
   const { t } = useTranslation();
@@ -93,100 +94,94 @@ export default function AddCategory() {
         onClear={() => setSearchQuery("")}
       />
       <div className="overflow-x-auto">
-      <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
-        <thead>
-          <tr
-            className={` ${
-              lang == "en" ? "text-left" : "text-right"
-            } text-dark dark:text-light text-lg border-b select-none`}
-          >
-            <td
-              className={`p-3 ${
-                lang == "en" ? "pr-8" : "pl-8"
-              } whitespace-nowrap`}
+        <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
+          <thead>
+            <tr
+              className={` ${
+                lang == "en" ? "text-left" : "text-right"
+              } text-dark dark:text-light text-lg border-b select-none`}
             >
-              {t("categoryName")}
-            </td>
-            <td className="p-3 whitespace-nowrap">{t("subCategory")}</td>
-            <td
-              className={`p-3 ${
-                lang == "en" ? "pr-8" : "pl-8"
-              } whitespace-nowrap`}
-            >
-              {t("images")}
-            </td>
-            <td
-              className={`p-3 whitespace-nowrap ${
-                lang == "en" ? "pr-8" : "pl-8"
-              }`}
-            >
-              {t("isActive")}
-            </td>
-            <td
-              className={`${
-                lang == "en" ? "pr-4" : "pl-4"
-              } text-3xl hover:text-dark-green dark:hover:text-light-green cursor-pointer duration-100" title="Add New Product`}
-            >
-              <GoPlusCircle />
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          {loading ? (
-            <tr>
-              <td className="text-start px-3 text-xl dark:text-light py-10">
-                {t("loading")}
-              </td>
-            </tr>
-          ) : filteredData?.length === 0 ? (
-            <tr>
-              <td className="text-start px-3 text-xl dark:text-light py-10 whitespace-nowrap ">
-                {t("noCategoryFound")}
-              </td>
-            </tr>
-          ) : (
-            filteredData?.map((item, index) => (
-              <tr
-                key={index}
-                className="border-t border-gray dark:border-light hover:opacity-80 select-none"
+              <td
+                className={`p-3 ${
+                  lang == "en" ? "pr-8" : "pl-8"
+                } whitespace-nowrap`}
               >
-                <td
-                  className={`p-3 text-dark dark:text-light tracking-wider whitespace-nowrap ${
-                    lang == "en" ? "pr-6" : "pl-6"
-                  }`}
-                >
-                  {item?.title[lang]}
-                </td>
-                <td
-                  className={`p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap ${
-                    lang == "en" ? "pr-8" : "pl-8"
-                  }`}
-                >
-                  {item?.subCategory?.title[lang]}
-                </td>
-                <td className="p-3">
-                  <img
-                    src={item?.images[0]}
-                    alt={item?.title[lang]}
-                    className="w-14 h-14 object-cover rounded-md"
-                  />
-                </td>
-                <td
-                  className={`p-3 tracking-wide whitespace-nowrap cursor-pointer ${
-                    item?.isActive
-                      ? "text-gray opacity-60 dark:text-light dark:opacity-80"
-                      : "text-error"
-                  }`}
-                  onClick={() => openModal(item?._id, item?.isActive)}
-                >
-                  {item?.isActive ? t("active") : t("notActive")}
+                {t("categoryName")}
+              </td>
+              <td className="p-3 whitespace-nowrap">{t("subCategory")}</td>
+              <td
+                className={`p-3 ${
+                  lang == "en" ? "pr-8" : "pl-8"
+                } whitespace-nowrap`}
+              >
+                {t("images")}
+              </td>
+              <td
+                className={`p-3 whitespace-nowrap ${
+                  lang == "en" ? "pr-8" : "pl-8"
+                }`}
+              >
+                {t("isActive")}
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr>
+                <td className="text-start px-3 text-xl dark:text-light py-10">
+                  {t("loading")}
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : filteredData?.length === 0 ? (
+              <tr>
+                <td className="text-start px-3 text-xl dark:text-light py-10 whitespace-nowrap ">
+                  {t("noCategoryFound")}
+                </td>
+              </tr>
+            ) : (
+              filteredData?.map((item, index) => (
+                <tr
+                  key={index}
+                  className="border-t border-gray dark:border-light hover:opacity-80 select-none"
+                >
+                  <td
+                    className={`p-3 text-dark dark:text-light tracking-wider whitespace-nowrap ${
+                      lang == "en" ? "pr-6" : "pl-6"
+                    }`}
+                  >
+                    {item?.title[lang]}
+                  </td>
+                  <td
+                    className={`p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap ${
+                      lang == "en" ? "pr-8" : "pl-8"
+                    }`}
+                  >
+                    {item?.subCategory?.title[lang]}
+                  </td>
+                  <td className="p-3">
+                    <img
+                      src={item?.images[0]}
+                      alt={item?.title[lang]}
+                      className="w-14 h-14 object-cover rounded-md"
+                    />
+                  </td>
+                  <td
+                    className={`p-3 tracking-wide whitespace-nowrap cursor-pointer ${
+                      item?.isActive
+                        ? "text-gray opacity-60 dark:text-light dark:opacity-80"
+                        : "text-error"
+                    }`}
+                    onClick={() => openModal(item?._id, item?.isActive)}
+                  >
+                    {item?.isActive ? t("active") : t("notActive")}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
+      <AddBtn content={t("addNewCategory")} />
       <ConfirmationModal
         isVisible={showModal}
         onClose={closeModal}
