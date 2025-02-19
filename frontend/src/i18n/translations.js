@@ -48,6 +48,7 @@ const resources = {
       id: "ID",
       noCategoryFound: "No Category Found!",
       noProductFound: "No Product Found!",
+      addNewProduct: "Add New Product"
     },
   },
   fa: {
@@ -96,6 +97,7 @@ const resources = {
       id: "شناسه",
       noCategoryFound: "دسته بندی یافت نشد",
       noProductFound: "محصولی یافت نشد",
+      addNewProduct: "افزودن محصول جدید"
     },
   },
 };
