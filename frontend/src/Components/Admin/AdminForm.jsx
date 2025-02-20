@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const TextInput = ({ label, name, formik, rtl }) => (
+const formatPrice = (value) => {
+  return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+const TextInput = ({ label, name, formik, rtl, isPrice }) => (
   <div>
     <label
       className={`text-black dark:text-light block text-sm font-medium ${
@@ -14,17 +18,19 @@ const TextInput = ({ label, name, formik, rtl }) => (
     <input
       type='text'
       name={name}
-      className={`w-full border border-gray-300 p-2 rounded ${
-        rtl ? "text-right rtl" : ""
-      }`}
+      className={`w-full border border-gray-300 p-2 rounded ${rtl ? "text-right rtl" : ""}`}
       dir={rtl ? "rtl" : "ltr"}
-      {...formik.getFieldProps(name)}
+      value={isPrice ? formatPrice(formik.values[name]) : formik.values[name]}
+      onChange={(e) => {
+        const formattedValue = isPrice ? formatPrice(e.target.value) : e.target.value;
+        formik.handleChange(e);
+        formik.setFieldValue(name, formattedValue);
+      }}
+      onBlur={formik.handleBlur}
     />
     <div className='min-h-5'>
       {formik.touched[name] && formik.errors[name] && (
-        <p className={`text-error text-sm ${rtl ? "text-end" : ""}`}>
-          {formik.errors[name]}
-        </p>
+        <p className={`text-error text-sm ${rtl ? "text-end" : ""}`}>{formik.errors[name]}</p>
       )}
     </div>
   </div>
@@ -41,17 +47,13 @@ const TextArea = ({ label, name, formik, rtl }) => (
     </label>
     <textarea
       name={name}
-      className={`w-full border border-gray-300 p-2 rounded ${
-        rtl ? "text-right rtl" : ""
-      }`}
+      className={`w-full border border-gray-300 p-2 rounded ${rtl ? "text-right rtl" : ""}`}
       dir={rtl ? "rtl" : "ltr"}
       {...formik.getFieldProps(name)}
     />
     <div className='min-h-5'>
       {formik.touched[name] && formik.errors[name] && (
-        <p className={`text-error text-sm ${rtl ? "text-end" : ""}`}>
-          {formik.errors[name]}
-        </p>
+        <p className={`text-error text-sm ${rtl ? "text-end" : ""}`}>{formik.errors[name]}</p>
       )}
     </div>
   </div>
@@ -59,12 +61,13 @@ const TextArea = ({ label, name, formik, rtl }) => (
 
 const SelectInput = ({ label, name, options, formik }) => (
   <div>
-    <label className='text-black dark:text-light block text-sm font-medium'>
-      {label}
-    </label>
+    <label className='text-black dark:text-light block text-sm font-medium'>{label}</label>
     <select
       name={name}
       className='w-full border border-gray-300 p-2 rounded'
+      onChange={formik.handleChange}
+      onBlur={formik.handleBlur}
+      value={formik.values[name]}
       {...formik.getFieldProps(name)}
     >
       <option value=''>Select {label}</option>
@@ -87,16 +90,13 @@ const SelectInput = ({ label, name, options, formik }) => (
 
 const FileInput = ({ label, name, formik }) => (
   <div>
-    <label className='text-black dark:text-light block text-sm font-medium'>
-      {label}
-    </label>
+    <label className='text-black dark:text-light block text-sm font-medium'>{label}</label>
     <input
       type='file'
       name={name}
       className='w-full border border-gray-300 p-2 rounded bg-light'
-      onChange={(event) =>
-        formik.setFieldValue(name, event.currentTarget.files[0])
-      }
+      onChange={(event) => formik.setFieldValue(name, event.currentTarget.files[0])}
+      onBlur={formik.handleBlur}
     />
     <div className='min-h-5'>
       {formik.touched[name] && formik.errors[name] && (
@@ -116,11 +116,11 @@ const AdminForm = () => {
     description_fa: Yup.string().required("توضیحات الزامی است"),
     information_en: Yup.string().required("Information is required"),
     information_fa: Yup.string().required("اطلاعات الزامی است"),
-    price_en: Yup.number()
-      .typeError("Price must be a number")
+    price_en: Yup.string()
+      .matches(/^\d{1,3}(,\d{3})*$/, "Price must be a valid number")
       .required("Price is required"),
-    price_fa: Yup.number()
-      .typeError("قیمت باید عدد باشد")
+    price_fa: Yup.string()
+      .matches(/^\d{1,3}(,\d{3})*$/, "قیمت باید عدد معتبر باشد")
       .required("قیمت محصول الزامی است"),
     category: Yup.string().required("Category is required"),
     image: Yup.mixed().required("Product image is required"),
@@ -198,12 +198,14 @@ const AdminForm = () => {
             label='Enter The Price'
             name='price_en'
             formik={formik}
+            isPrice
           />
           <TextInput
             label='قیمت را وارد کنید '
             name='price_fa'
             formik={formik}
             rtl
+            isPrice
           />
         </div>
         <SelectInput
