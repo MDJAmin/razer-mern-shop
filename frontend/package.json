@@ -14,6 +14,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "atropos": "^2.0.2",
     "dotenv": "^16.4.7",
+    "formik": "^2.4.6",
     "gsap": "^3.12.5",
     "i18next": "^23.15.1",
     "react": "^18.3.1",
@@ -26,7 +27,8 @@
     "react-spinners": "^0.15.0",
     "redux-persist": "^6.0.0",
     "swiper": "^11.1.14",
-    "three": "^0.169.0"
+    "three": "^0.169.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
