@@ -49,7 +49,19 @@ const resources = {
       noCategoryFound: "No Category Found!",
       noProductFound: "No Product Found!",
       addNewProduct: "Add New Product",
-      addNewCategory: "Add New Category"
+      addNewCategory: "Add New Category",
+      searchForComment: "Search For Comment:",
+      content: "Content",
+      productId: "Product ID",
+      rating: "Rating",
+      reply: "Reply",
+      isCustomer: "Is Customer",
+      isPublish: "Is Publish",
+      noCommentFound: "No Comment Found!",
+      publish:"Publish",
+      notPublish: "Not Publish",
+      yes: "Yes",
+      no: "No"
     },
   },
   fa: {
@@ -99,7 +111,19 @@ const resources = {
       noCategoryFound: "دسته بندی یافت نشد",
       noProductFound: "محصولی یافت نشد",
       addNewProduct: "افزودن محصول جدید",
-      addNewCategory: "افزودن دسته بندی جدید"
+      addNewCategory: "افزودن دسته بندی جدید",
+      searchForComment: "نظر را جستوجو کنید:",
+      content: "محتوا",
+      productId: "شناسه محصول",
+      rating: "رتبه بندی",
+      reply: "پاسخ ها",
+      isCustomer: "از فروشنده",
+      isPublish: "وضعیت انتشار",
+      noCommentFound: "نظری یافت نشد",
+      publish: "منتشر شده",
+      notPublish: "منتشر نشده",
+      yes: "بلی",
+      no: "خیر"
     },
   },
 };
