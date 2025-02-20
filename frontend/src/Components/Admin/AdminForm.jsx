@@ -1,18 +1,127 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+const TextInput = ({ label, name, formik, rtl }) => (
+  <div>
+    <label
+      className={`text-black dark:text-light block text-sm font-medium ${
+        rtl ? "text-end" : ""
+      }`}
+    >
+      {label}
+    </label>
+    <input
+      type='text'
+      name={name}
+      className={`w-full border border-gray-300 p-2 rounded ${
+        rtl ? "text-right rtl" : ""
+      }`}
+      dir={rtl ? "rtl" : "ltr"}
+      {...formik.getFieldProps(name)}
+    />
+    <div className='min-h-5'>
+      {formik.touched[name] && formik.errors[name] && (
+        <p className={`text-error text-sm ${rtl ? "text-end" : ""}`}>
+          {formik.errors[name]}
+        </p>
+      )}
+    </div>
+  </div>
+);
+
+const TextArea = ({ label, name, formik, rtl }) => (
+  <div>
+    <label
+      className={`text-black dark:text-light block text-sm font-medium ${
+        rtl ? "text-end" : ""
+      }`}
+    >
+      {label}
+    </label>
+    <textarea
+      name={name}
+      className={`w-full border border-gray-300 p-2 rounded ${
+        rtl ? "text-right rtl" : ""
+      }`}
+      dir={rtl ? "rtl" : "ltr"}
+      {...formik.getFieldProps(name)}
+    />
+    <div className='min-h-5'>
+      {formik.touched[name] && formik.errors[name] && (
+        <p className={`text-error text-sm ${rtl ? "text-end" : ""}`}>
+          {formik.errors[name]}
+        </p>
+      )}
+    </div>
+  </div>
+);
+
+const SelectInput = ({ label, name, options, formik }) => (
+  <div>
+    <label className='text-black dark:text-light block text-sm font-medium'>
+      {label}
+    </label>
+    <select
+      name={name}
+      className='w-full border border-gray-300 p-2 rounded'
+      {...formik.getFieldProps(name)}
+    >
+      <option value=''>Select {label}</option>
+      {options.map((option) => (
+        <option
+          key={option.value}
+          value={option.value}
+        >
+          {option.label}
+        </option>
+      ))}
+    </select>
+    <div className='min-h-5'>
+      {formik.touched[name] && formik.errors[name] && (
+        <p className='text-error text-sm'>{formik.errors[name]}</p>
+      )}
+    </div>
+  </div>
+);
+
+const FileInput = ({ label, name, formik }) => (
+  <div>
+    <label className='text-black dark:text-light block text-sm font-medium'>
+      {label}
+    </label>
+    <input
+      type='file'
+      name={name}
+      className='w-full border border-gray-300 p-2 rounded bg-light'
+      onChange={(event) =>
+        formik.setFieldValue(name, event.currentTarget.files[0])
+      }
+    />
+    <div className='min-h-5'>
+      {formik.touched[name] && formik.errors[name] && (
+        <p className='text-error text-sm'>{formik.errors[name]}</p>
+      )}
+    </div>
+  </div>
+);
+
 const AdminForm = () => {
+  const [isInactive, setIsInactive] = useState(false);
+
   const validationSchema = Yup.object().shape({
-    name_en: Yup.string().required("Product name (EN) is required"),
-    name_fa: Yup.string().required("نام محصول (FA) الزامی است"),
-    description_en: Yup.string().required("Description (EN) is required"),
-    description_fa: Yup.string().required("توضیحات (FA) الزامی است"),
-    information_en: Yup.string().required("Information (EN) is required"),
-    information_fa: Yup.string().required("اطلاعات (FA) الزامی است"),
-    price: Yup.number()
+    name_en: Yup.string().required("Product name is required"),
+    name_fa: Yup.string().required("نام محصول الزامی است"),
+    description_en: Yup.string().required("Description is required"),
+    description_fa: Yup.string().required("توضیحات الزامی است"),
+    information_en: Yup.string().required("Information is required"),
+    information_fa: Yup.string().required("اطلاعات الزامی است"),
+    price_en: Yup.number()
       .typeError("Price must be a number")
       .required("Price is required"),
+    price_fa: Yup.number()
+      .typeError("قیمت باید عدد باشد")
+      .required("قیمت محصول الزامی است"),
     category: Yup.string().required("Category is required"),
     image: Yup.mixed().required("Product image is required"),
   });
@@ -25,155 +134,120 @@ const AdminForm = () => {
       description_fa: "",
       information_en: "",
       information_fa: "",
-      price: "",
+      price_en: "",
+      price_fa: "",
       category: "",
       image: null,
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("Submitted Values:", values);
+      console.log("Submitted Values:", { ...values, isInactive });
     },
   });
 
   return (
-    <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-4">Add New Product</h2>
-      <form onSubmit={formik.handleSubmit} className="space-y-4">
-        {/* Product Name */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium">Product Name (EN)</label>
-            <input
-              type="text"
-              name="name_en"
-              className="w-full border border-gray-300 p-2 rounded"
-              {...formik.getFieldProps("name_en")}
-            />
-            {formik.touched.name_en && formik.errors.name_en && (
-              <p className="text-red-500 text-sm">{formik.errors.name_en}</p>
-            )}
-          </div>
-          <div>
-            <label className="block text-sm font-medium">نام محصول (FA)</label>
-            <input
-              type="text"
-              name="name_fa"
-              className="w-full border border-gray-300 p-2 rounded"
-              {...formik.getFieldProps("name_fa")}
-            />
-            {formik.touched.name_fa && formik.errors.name_fa && (
-              <p className="text-red-500 text-sm">{formik.errors.name_fa}</p>
-            )}
-          </div>
-        </div>
-
-        {/* Description */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium">Description (EN)</label>
-            <textarea
-              name="description_en"
-              className="w-full border border-gray-300 p-2 rounded"
-              {...formik.getFieldProps("description_en")}
-            />
-            {formik.touched.description_en && formik.errors.description_en && (
-              <p className="text-red-500 text-sm">{formik.errors.description_en}</p>
-            )}
-          </div>
-          <div>
-            <label className="block text-sm font-medium">توضیحات (FA)</label>
-            <textarea
-              name="description_fa"
-              className="w-full border border-gray-300 p-2 rounded"
-              {...formik.getFieldProps("description_fa")}
-            />
-            {formik.touched.description_fa && formik.errors.description_fa && (
-              <p className="text-red-500 text-sm">{formik.errors.description_fa}</p>
-            )}
-          </div>
-        </div>
-
-        {/* Information */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium">Information (EN)</label>
-            <textarea
-              name="information_en"
-              className="w-full border border-gray-300 p-2 rounded"
-              {...formik.getFieldProps("information_en")}
-            />
-            {formik.touched.information_en && formik.errors.information_en && (
-              <p className="text-red-500 text-sm">{formik.errors.information_en}</p>
-            )}
-          </div>
-          <div>
-            <label className="block text-sm font-medium">اطلاعات (FA)</label>
-            <textarea
-              name="information_fa"
-              className="w-full border border-gray-300 p-2 rounded"
-              {...formik.getFieldProps("information_fa")}
-            />
-            {formik.touched.information_fa && formik.errors.information_fa && (
-              <p className="text-red-500 text-sm">{formik.errors.information_fa}</p>
-            )}
-          </div>
-        </div>
-
-        {/* Price */}
-        <div>
-          <label className="block text-sm font-medium">Enter The Price</label>
-          <input
-            type="text"
-            name="price"
-            className="w-full border border-gray-300 p-2 rounded"
-            {...formik.getFieldProps("price")}
+    <div className='max-w-3xl mx-auto bg-light dark:bg-dark text-dark p-6 rounded-lg shadow-lg'>
+      <h2 className='text-2xl font-semibold mb-4 text-dark dark:text-light'>
+        Add New Product
+      </h2>
+      <form
+        onSubmit={formik.handleSubmit}
+        className='space-y-4'
+      >
+        <div className='grid grid-cols-2 gap-4'>
+          <TextInput
+            label='Product Name'
+            name='name_en'
+            formik={formik}
           />
-          {formik.touched.price && formik.errors.price && (
-            <p className="text-red-500 text-sm">{formik.errors.price}</p>
-          )}
-        </div>
-
-        {/* Category */}
-        <div>
-          <label className="block text-sm font-medium">Category</label>
-          <select
-            name="category"
-            className="w-full border border-gray-300 p-2 rounded"
-            {...formik.getFieldProps("category")}
-          >
-            <option value="">Select Category</option>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="furniture">Furniture</option>
-          </select>
-          {formik.touched.category && formik.errors.category && (
-            <p className="text-red-500 text-sm">{formik.errors.category}</p>
-          )}
-        </div>
-
-        {/* Image Upload */}
-        <div>
-          <label className="block text-sm font-medium">Product Image</label>
-          <input
-            type="file"
-            name="image"
-            className="w-full border border-gray-300 p-2 rounded"
-            onChange={(event) =>
-              formik.setFieldValue("image", event.currentTarget.files[0])
-            }
+          <TextInput
+            label='نام محصول'
+            name='name_fa'
+            formik={formik}
+            rtl
           />
-          {formik.touched.image && formik.errors.image && (
-            <p className="text-red-500 text-sm">{formik.errors.image}</p>
-          )}
         </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        >
-          Add Product
-        </button>
+        <div className='grid grid-cols-2 gap-4'>
+          <TextArea
+            label='Description'
+            name='description_en'
+            formik={formik}
+          />
+          <TextArea
+            label='توضیحات محصول'
+            name='description_fa'
+            formik={formik}
+            rtl
+          />
+        </div>
+        <div className='grid grid-cols-2 gap-4'>
+          <TextArea
+            label='Information'
+            name='information_en'
+            formik={formik}
+          />
+          <TextArea
+            label='اطلاعات محصول'
+            name='information_fa'
+            formik={formik}
+            rtl
+          />
+        </div>
+        <div className='grid grid-cols-2 gap-4'>
+          <TextInput
+            label='Enter The Price'
+            name='price_en'
+            formik={formik}
+          />
+          <TextInput
+            label='قیمت را وارد کنید '
+            name='price_fa'
+            formik={formik}
+            rtl
+          />
+        </div>
+        <SelectInput
+          label='Category'
+          name='category'
+          options={[
+            { value: "electronics", label: "Electronics" },
+            { value: "clothing", label: "Clothing" },
+            { value: "furniture", label: "Furniture" },
+          ]}
+          formik={formik}
+        />
+        <FileInput
+          label='Product Image'
+          name='image'
+          formik={formik}
+        />
+        <div className='flex items-center justify-between mt-4'>
+          <div>
+            <input
+              type='checkbox'
+              checked={isInactive}
+              onChange={() => setIsInactive(!isInactive)}
+              className='w-5 h-5 ml-2'
+            />
+            <label className='text-sm font-medium text-dark dark:text-light'>
+              You Want This Product to be inactive?
+            </label>
+          </div>
+          <div>
+            <button
+              type='button'
+              className='bg-error text-white p-2 rounded bg-opacity-75 hover:bg-opacity-100'
+            >
+              Cancel
+            </button>
+            <button
+              type='submit'
+              className='bg-dark-green text-white p-2 rounded hover:bg-opacity-75'
+            >
+              Create Product
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );
