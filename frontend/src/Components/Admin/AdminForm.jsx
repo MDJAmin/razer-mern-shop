@@ -18,7 +18,7 @@ const TextInput = ({ label, name, formik, rtl, isPrice }) => (
     <input
       type='text'
       name={name}
-      className={`w-full border border-gray-300 p-2 rounded ${rtl ? "text-right rtl" : ""}`}
+      className={`w-full border rounded-s-xl py-2 text-lg ${rtl ? "text-right rtl" : ""}`}
       dir={rtl ? "rtl" : "ltr"}
       value={isPrice ? formatPrice(formik.values[name]) : formik.values[name]}
       onChange={(e) => {
@@ -47,7 +47,7 @@ const TextArea = ({ label, name, formik, rtl }) => (
     </label>
     <textarea
       name={name}
-      className={`w-full border border-gray-300 p-2 rounded ${rtl ? "text-right rtl" : ""}`}
+      className={`w-full border rounded-s-xl text-lg h-11 ${rtl ? "text-right rtl" : ""}`}
       dir={rtl ? "rtl" : "ltr"}
       {...formik.getFieldProps(name)}
     />
@@ -64,7 +64,7 @@ const SelectInput = ({ label, name, options, formik }) => (
     <label className='text-black dark:text-light block text-sm font-medium'>{label}</label>
     <select
       name={name}
-      className='w-full border border-gray-300 p-2 rounded'
+      className='w-full border border-gray-300 text-xl py-1 rounded-lg'
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       value={formik.values[name]}
@@ -94,7 +94,7 @@ const FileInput = ({ label, name, formik }) => (
     <input
       type='file'
       name={name}
-      className='w-full border border-gray-300 p-2 rounded bg-light'
+      className='w-full border border-gray-300 text-lg rounded-lg bg-light'
       onChange={(event) => formik.setFieldValue(name, event.currentTarget.files[0])}
       onBlur={formik.handleBlur}
     />
@@ -146,15 +146,12 @@ const AdminForm = () => {
   });
 
   return (
-    <div className='max-w-3xl mx-auto bg-light dark:bg-dark text-dark p-6 rounded-lg shadow-lg'>
-      <h2 className='text-2xl font-semibold mb-4 text-dark dark:text-light'>
-        Add New Product
-      </h2>
+    <div className='max-w-3xl mx-auto bg-light dark:bg-dark text-dark p-8 rounded-lg shadow-lg'>
       <form
         onSubmit={formik.handleSubmit}
-        className='space-y-4'
+        className='space-y-2'
       >
-        <div className='grid grid-cols-2 gap-4'>
+        <div className='grid grid-cols-2'>
           <TextInput
             label='Product Name'
             name='name_en'
@@ -167,7 +164,7 @@ const AdminForm = () => {
             rtl
           />
         </div>
-        <div className='grid grid-cols-2 gap-4'>
+        <div className='grid grid-cols-2'>
           <TextArea
             label='Description'
             name='description_en'
@@ -180,7 +177,7 @@ const AdminForm = () => {
             rtl
           />
         </div>
-        <div className='grid grid-cols-2 gap-4'>
+        <div className='grid grid-cols-2'>
           <TextArea
             label='Information'
             name='information_en'
@@ -193,7 +190,7 @@ const AdminForm = () => {
             rtl
           />
         </div>
-        <div className='grid grid-cols-2 gap-4'>
+        <div className='grid grid-cols-2'>
           <TextInput
             label='Enter The Price'
             name='price_en'
@@ -208,6 +205,11 @@ const AdminForm = () => {
             isPrice
           />
         </div>
+        <FileInput
+          label='Product Image'
+          name='image'
+          formik={formik}
+        />
         <SelectInput
           label='Category'
           name='category'
@@ -218,33 +220,39 @@ const AdminForm = () => {
           ]}
           formik={formik}
         />
-        <FileInput
-          label='Product Image'
-          name='image'
-          formik={formik}
-        />
-        <div className='flex items-center justify-between mt-4'>
-          <div>
-            <input
-              type='checkbox'
-              checked={isInactive}
-              onChange={() => setIsInactive(!isInactive)}
-              className='w-5 h-5 ml-2'
-            />
-            <label className='text-sm font-medium text-dark dark:text-light'>
-              You Want This Product to be inactive?
-            </label>
+        <div className='flex items-center justify-between gap-10'>
+          <div className='flex'>
+            <div className='pt-2'>
+              <div
+                onClick={() => setIsInactive(!isInactive)}
+                className={`text-center relative bg-dark dark:bg-light w-12 h-6 flex items-center cursor-pointer rounded-full p-1 transition-colors ${
+                  isInactive ? "bg-red-500" : "bg-green-500"
+                }`}
+              >
+                <div
+                  className={`w-4 h-4 rounded-full shadow-md transform transition-transform ${
+                    isInactive ? "translate-x-0 bg-error" : "translate-x-6 bg-light-green"
+                  }`}
+                ></div>
+              </div>
+            </div>
+            <div className='min-w-44 align-top'>
+              <label className='align-top text-[10px] font-medium text-dark dark:text-light ml-2'>
+                You Want This Product to be {isInactive ? "Inactive" : "Active"}?
+              </label>
+            </div>
           </div>
-          <div>
+
+          <div className='flex gap-2'>
             <button
               type='button'
-              className='bg-error text-white p-2 rounded bg-opacity-75 hover:bg-opacity-100'
+              className='bg-error text-white text-lg p-2 rounded bg-opacity-50 hover:bg-opacity-100'
             >
               Cancel
             </button>
             <button
               type='submit'
-              className='bg-dark-green text-white p-2 rounded hover:bg-opacity-75'
+              className='bg-dark-green text-lg text-white p-2 rounded bg-opacity-50 hover:bg-opacity-100'
             >
               Create Product
             </button>
