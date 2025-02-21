@@ -41,6 +41,38 @@ export default function AdminPanel() {
 
   const { theme } = useSelector((state) => state.theme);
 
+  const options = {
+    plugins: {
+      legend: {
+        labels: {
+          color: "#DDDDDD",
+        },
+      },
+      tooltip: {
+        titleColor: "#DDDDDD",
+        bodyColor: "#DDDDDD",
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: "#DDDDDD",
+        },
+        grid: {
+          color: "#DDDDDD", 
+        },
+      },
+      y: {
+        ticks: {
+          color: "#DDDDDD",
+        },
+        grid: {
+          color: "#DDDDDD", 
+        },
+      },
+    },
+  };
+  
   const containerClass =
     "bg-admin-gray dark:bg-admin-green text-dark dark:text-light rounded-lg";
   const gridItem1Class =
@@ -65,7 +97,8 @@ export default function AdminPanel() {
       {
         label: "Best Products Based On Sales",
         data: [9, 19, 5, 7, 15, 10, 12, 6, 8, 18],
-        backgroundColor: "#36a2eb",
+        backgroundColor: "#0099ff",
+        borderColor:"#ffffff",
         borderRadius: 5,
       },
     ],
@@ -225,7 +258,7 @@ export default function AdminPanel() {
           className={`${gridItem1Class} ${containerClass} p-4 flex flex-col justify-center items-center`}
         >
           <h2 className="text-start w-full text-xl p-2 pb-0">Top Products:</h2>
-          <Bar data={barData} />
+          <Bar data={barData} options={options} />
         </div>
         <div
           className={`${gridItem1Class} ${containerClass} p-4 flex flex-col justify-center items-center`}
@@ -233,7 +266,7 @@ export default function AdminPanel() {
           <h2 className="text-start w-full text-xl p-2 pb-0">
             Customer Fulfilment:
           </h2>
-          <Line data={lineDataSec} />
+          <Line data={lineDataSec} options={options} />
         </div>
         <div
           className={`${gridItem2Class} ${containerClass} p-2 flex flex-col justify-evenly items-center`}
@@ -246,7 +279,7 @@ export default function AdminPanel() {
         <div
           className={`${gridItem1Class} ${containerClass} p-4 flex justify-center items-center`}
         >
-          <Line data={lineData} />
+          <Line data={lineData} options={options}/>
         </div>
       </div>
     </div>

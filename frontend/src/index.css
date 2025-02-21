@@ -6,6 +6,37 @@ body {
   font-family: Impact;
 }
 
+
+:root{
+  /* // Base
+  "light":"#FFFFFF",
+  "dark":"#000000",
+  "gray":"#2C2C2C",
+  // Bg
+  "black-bg":"#131313",
+  "light-bg":"#F4F4F4",
+  // Green
+  "light-green":"#00FF00",
+  "dark-green":"#16BE0F",
+  "soft-green":"#20D668",
+  "info-green":"#5DBF28",
+  "admin-green":"#0F5229",
+  "admin-gray": "#DDDDDD",
+  // Slider
+  "green":"#16BE0F",
+  "yellow":"#D9AD0B",
+  "pink":"#E8077D",
+  "red":"#A60502",
+  "orange":"#C1391A",
+  "blue":"#063465",
+  // Details
+  "placeHolder":"#ACADAC",
+  "error":"#FF0000",
+  "stars":"F8CE00" */
+};
+
+
+
 @layer components {
   .authBtn {
     @apply text-2xl text-light dark:bg-gray bg-soft-green rounded-2xl py-2 w-full mt-2 hover:opacity-90 duration-150 active:scale-[98%] disabled:opacity-80 dark:disabled:opacity-70 disabled:pointer-events-none;
