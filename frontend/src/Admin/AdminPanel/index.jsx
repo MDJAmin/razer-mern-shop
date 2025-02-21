@@ -34,6 +34,8 @@ ChartJS.register(
   RadialLinearScale
 );
 
+ChartJS.overrides.radar.color="#FFFFFF"
+
 export default function AdminPanel() {
   const { t } = useTranslation();
   const { email, phone } = useSelector((state) => state.user.currentUser);
@@ -45,34 +47,30 @@ export default function AdminPanel() {
     plugins: {
       legend: {
         labels: {
-          color: "#DDDDDD",
+          color: theme === "dark" ? "#FFFFFF" : "#000000",
         },
-      },
-      tooltip: {
-        titleColor: "#DDDDDD",
-        bodyColor: "#DDDDDD",
       },
     },
     scales: {
       x: {
         ticks: {
-          color: "#DDDDDD",
+          color: theme === "dark" ? "#FFFFFF" : "#000000",
         },
         grid: {
-          color: "#DDDDDD", 
+          color: theme === "dark" ? "#acadac5b" : "#ACADAC",
         },
       },
       y: {
         ticks: {
-          color: "#DDDDDD",
+          color: theme === "dark" ? "#FFFFFF" : "#2C2C2C",
         },
         grid: {
-          color: "#DDDDDD", 
+          color: theme === "dark" ? "#acadac5b" : "#ACADAC",
         },
       },
     },
   };
-  
+
   const containerClass =
     "bg-admin-gray dark:bg-admin-green text-dark dark:text-light rounded-lg";
   const gridItem1Class =
@@ -98,18 +96,18 @@ export default function AdminPanel() {
         label: "Best Products Based On Sales",
         data: [9, 19, 5, 7, 15, 10, 12, 6, 8, 18],
         backgroundColor: "#0099ff",
-        borderColor:"#ffffff",
         borderRadius: 5,
       },
     ],
   };
 
   const pieData = {
-    labels: ["Income", "Expenses", "ُSale", "Profit"],
+    labels: ["Income", "Expenses", "Sale", "Profit"],
     datasets: [
       {
         data: [40, 60, 30, 20],
-        backgroundColor: ["#ffd347", "#4fd377", "#00bbd4", "#f984e5"],
+        backgroundColor: ["#219ebc", "#588157", "#0077b6", "#778da9"],
+        borderColor: theme === "dark" ? "#0F5229" : "#DDDDDD",
       },
     ],
   };
@@ -184,20 +182,18 @@ export default function AdminPanel() {
       {
         label: "Eranings",
         data: [65, 59, 90, 81, 56, 55, 40],
-        fill: true,
-        borderColor: "#64af6a",
+        borderColor: "#0a9396",
       },
       {
         label: "Tax",
         data: [28, 48, 40, 19, 96, 27, 100],
-        fill: true,
-        borderColor: "#2c4e2f",
+        borderColor: "#9d8189",
       },
     ],
   };
 
   return (
-    <div className="flex flex-col items-start justify-start gap-2 w-full px-6 py-4">
+    <div className="flex flex-col items-start justify-start gap-2 w-full px-6 py-4 pb-12">
       <div className="bg-admin-gray dark:bg-admin-green py-4 px-6 flex flex-wrap gap-x-12 justify-between w-full text-xl rounded-lg">
         <h2 className="text-xl sm:text-2xl text-dark dark:text-light">
           {t("welcomeDear")} "{email ? shortMail : phone}"
@@ -213,7 +209,7 @@ export default function AdminPanel() {
             </div>
 
             <div className="flex w-full flex-wrap gap-1 justify-between items-center">
-              <div className="flex flex-col gap-1 items-start text-light bg-black-bg rounded-xl py-4 px-6">
+              <div className="flex flex-col gap-1 items-start text-dark dark:text-light bg-light-bg dark:bg-black-bg rounded-xl py-4 px-6">
                 <p className="text-amber-400 text-4xl mb-2">
                   <FaChartLine />
                 </p>
@@ -221,7 +217,7 @@ export default function AdminPanel() {
                 <p className="text-[16px]">Total Sales</p>
                 <p className="text-amber-400 text-xs">+10% from yesterday</p>
               </div>
-              <div className="flex flex-col gap-1 items-start text-light bg-black-bg rounded-xl py-4 px-6">
+              <div className="flex flex-col gap-1 items-start text-dark dark:text-light bg-light-bg dark:bg-black-bg rounded-xl py-4 px-6">
                 <p className="text-cyan-600 text-4xl mb-2">
                   <LuClipboardCheck />
                 </p>
@@ -229,7 +225,7 @@ export default function AdminPanel() {
                 <p className="text-[16px]">Total Order</p>
                 <p className="text-cyan-600 text-xs">+8% from yesterday</p>
               </div>
-              <div className="flex flex-col gap-1 items-start text-light bg-black-bg rounded-xl py-4 px-6">
+              <div className="flex flex-col gap-1 items-start text-dark dark:text-light bg-light-bg dark:bg-black-bg rounded-xl py-4 px-6">
                 <p className="text-purple-300 text-4xl mb-2">
                   <BsBagCheck />
                 </p>
@@ -237,7 +233,7 @@ export default function AdminPanel() {
                 <p className="text-[16px]">Product Sold</p>
                 <p className="text-purple-300 text-xs">+2% from yesterday</p>
               </div>
-              <div className="flex flex-col gap-1 items-start text-light bg-black-bg rounded-xl py-4 px-6">
+              <div className="flex flex-col gap-1 items-start text-dark dark:text-light bg-light-bg dark:bg-black-bg rounded-xl py-4 px-6">
                 <p className="text-lime-400 text-4xl mb-2">
                   <FiUserPlus />
                 </p>
@@ -252,7 +248,19 @@ export default function AdminPanel() {
           className={`${gridItem2Class} ${containerClass} p-2 flex flex-col justify-evenly items-center`}
         >
           <h2 className="text-start w-full text-xl px-2">Levels:</h2>
-          <Radar data={radarData} />
+          <Radar
+            data={radarData}
+            options={{
+              plugins: {
+                legend: {
+                  labels: {
+                    color: theme === "dark" ? "#FFFFFF" : "#000000",
+                  },
+                },
+              },
+              
+            }}
+          />
         </div>
         <div
           className={`${gridItem1Class} ${containerClass} p-4 flex flex-col justify-center items-center`}
@@ -274,12 +282,24 @@ export default function AdminPanel() {
           <h2 className="text-start w-full text-xl px-2">
             Yearly Information:
           </h2>
-          <Pie data={pieData} />
+          <Pie
+            data={pieData}
+            options={{
+              plugins: {
+                legend: {
+                  labels: {
+                    color: theme === "dark" ? "#FFFFFF" : "#000000",
+                    borderColor: "#000000",
+                  },
+                },
+              },
+            }}
+          />
         </div>
         <div
           className={`${gridItem1Class} ${containerClass} p-4 flex justify-center items-center`}
         >
-          <Line data={lineData} options={options}/>
+          <Line data={lineData} options={options} />
         </div>
       </div>
     </div>
