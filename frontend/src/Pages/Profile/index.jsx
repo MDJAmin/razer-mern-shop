@@ -48,53 +48,81 @@ export default function Profile() {
           <h2 className="text-3xl dark:text-light mb-4">{t("userProfile")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex gap-1">
-              <label className="dark:text-light opacity-60">{t("userId")}:</label>
-              <p className="dark:text-light">
-                {user._id}
-              </p>
+              <label className="dark:text-light opacity-60">
+                {t("userId")}:
+              </label>
+              <p className="dark:text-light">{user?._id}</p>
             </div>
             <div className="flex gap-1">
-              <label className="dark:text-light opacity-60">{t("role")}:</label>
+              <label className=" opacity-60 dark:text-light">
+                {t("role")}:
+              </label>
               <p
-                className={`dark:text-light ${
-                  user.role === "admin" ? "text-dark-green" : ""
+                className={` ${
+                  user.role === "admin"
+                    ? "text-dark-green dark:text-light-green"
+                    : "dark:text-light"
                 }`}
               >
-                {user.role === "admin" ? t("admin") : t("user")}
+                {user?.role === "admin" ? t("admin") : t("user")}
               </p>
             </div>
             <div className="flex gap-1">
-              <label className="dark:text-light opacity-60">{t("phone")}:</label>
-              <p className="dark:text-light">{user.phone}</p>
+              <label className="dark:text-light opacity-60">
+                {t("phone")}:
+              </label>
+              <p className="dark:text-light">{user?.phone}</p>
             </div>
             <div className="flex gap-1">
-              <label className="dark:text-light opacity-60">{t("fullName")}:</label>
+              <label className="dark:text-light opacity-60">
+                {t("fullName")}:
+              </label>
               <p className="dark:text-light">
-                {user.fullNamel ? user.fullNamel : t("null")}
+                {user?.fullName ? user?.fullName : t("null")}
               </p>
             </div>
             <div className="flex gap-1">
-              <label className="dark:text-light opacity-60">{t("email")}:</label>
+              <label className="dark:text-light opacity-60">
+                {t("email")}:
+              </label>
               <p className="dark:text-light">
-                {user.email ? user.email : t("null")}
+                {user?.email ? user?.email : t("null")}
               </p>
             </div>
             <div className="flex gap-1">
-              <label className="dark:text-light opacity-60">{t("idCard")}:</label>
+              <label className="dark:text-light opacity-60">
+                {t("idCard")}:
+              </label>
               <p className="dark:text-light">
-                {user.idCard ? user.idCard : t("null")}
+                {user?.idCard ? user?.idCard : t("null")}
               </p>
             </div>
             <div className="flex gap-1">
-              <label className="dark:text-light opacity-60">{t("isActive")}:</label>
-              <p className="dark:text-light">
-                {user.isComplete? t("complete") : t("notComplete")}
+              <label className="dark:text-light opacity-60">
+                {t("isComplete")}:
+              </label>
+              <p
+                className={` ${
+                  !user?.isComplete
+                    ? "text-error dark:text-error"
+                    : "dark:text-light"
+                } `}
+              >
+                {user?.isComplete ? t("complete") : t("notComplete")}
               </p>
             </div>
             <div className="flex gap-1">
-              <label className="dark:text-light opacity-60">{t("isActive")}:</label>
-              <p className="dark:text-light">
-                {user.isActive? t("active") : t("notActive")}
+              <label className="dark:text-light opacity-60">
+                {t("isActive")}:
+              </label>
+              <p
+                className={` ${
+                  !user?.isActive
+                    ? "text-error dark:text-error"
+                    : "dark:text-light"
+                } `}
+              >
+                {user.isActive ? t("active") : t("notActive")}
               </p>
             </div>
           </div>
