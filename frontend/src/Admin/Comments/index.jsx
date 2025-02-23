@@ -129,7 +129,7 @@ export default function Comments() {
                   key={index}
                   className="border-t border-gray dark:border-light hover:opacity-80 select-none"
                 >
-                  <td className="p-3 min-w-60 text-dark dark:text-light tracking-wider cursor-pointer">
+                  <td className="p-3 min-w-60 lg:w-72 text-dark dark:text-light tracking-wider cursor-pointer">
                     {item?.content}
                   </td>
                   <td
@@ -155,7 +155,7 @@ export default function Comments() {
                   <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
                     {new Date(item?.updatedAt).toLocaleDateString()}
                   </td>
-                  <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap text-center">
+                  <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap text-start">
                     {item?.isCustomer ? t("yes") : t("no")}
                   </td>
                   <td
