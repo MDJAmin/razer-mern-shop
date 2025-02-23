@@ -92,7 +92,8 @@ const resources = {
       profit: "Profit",
       theCourseOfGrowth : "The Course Of Growth",
       clickToSeeProfile: "Click To See Profile",
-      clickToSeeProduct: "Click To See Product"
+      clickToSeeProduct: "Click To See Product",
+      userProfile:"User Profile"
     },
   },
   fa: {
@@ -185,7 +186,8 @@ const resources = {
       profit: "سود",
       theCourseOfGrowth: "دوره رشد",
       clickToSeeProfile: "برای مشاهده پروفایل کلیک کنید",
-      clickToSeeProduct: "برای مشاهده محصول کلیک کنید"
+      clickToSeeProduct: "برای مشاهده محصول کلیک کنید",
+      userProfile: "مشخصات کاربرnu"
     },
   },
 };
