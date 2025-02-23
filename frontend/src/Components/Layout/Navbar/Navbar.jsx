@@ -81,7 +81,7 @@ export default function NavBar() {
       </ul>
 
       <div
-        className={`fixed top-0 right-0 h-full w-64 z-10 bg-light dark:bg-black-bg shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-64 z-50 bg-light dark:bg-black-bg shadow-lg transform transition-transform duration-300 ease-in-out ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -132,7 +132,7 @@ export default function NavBar() {
       </div>
       {menuOpen && (
         <div
-          className="fixed inset-0 bg-dark bg-opacity-50 z-9"
+          className="fixed inset-0 bg-dark bg-opacity-50 z-40"
           onClick={() => setMenuOpen(false)}
         ></div>
       )}
