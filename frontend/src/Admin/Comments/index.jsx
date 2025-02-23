@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ConfirmationModal from "../../Components/Admin/ConfirmationModal";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import Search from "../../Components/Admin/Search";
 
 export default function Comments() {
@@ -14,6 +15,8 @@ export default function Comments() {
 
   const { token } = useSelector((state) => state.user);
   const { lang } = useSelector((state) => state.i18n);
+
+  const navigate = useNavigate();
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -76,14 +79,6 @@ export default function Comments() {
     fetchProducts();
   }, []);
 
-  const copyToClipboard = async (id) => {
-    try {
-      await navigator.clipboard.writeText(id);
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
-  };
-
   return (
     <div className="scrollbar-hide overflow-auto p-4 w-full text-[16px]">
       <Search
@@ -129,20 +124,22 @@ export default function Comments() {
                   key={index}
                   className="border-t border-gray dark:border-light hover:opacity-80 select-none"
                 >
-                  <td className="p-3 min-w-60 lg:w-72 text-dark dark:text-light tracking-wider cursor-pointer">
+                  <td className="p-3 min-w-60 lg:w-72 text-dark dark:text-light tracking-wider">
                     {item?.content}
                   </td>
                   <td
                     className="p-3 px-5 text-dark dark:text-light tracking-wider whitespace-nowrap cursor-pointer hover:underline"
-                    onClick={() => copyToClipboard(item?.productId._id)}
-                    title={t("clickToCopy")}
+                    onClick={() =>
+                      navigate(`/product-details/${item?.productId._id}`)
+                    }
+                    title={item?.productId.name[lang]}
                   >
                     {item?.productId._id.slice(0, 8)}...
                   </td>
                   <td
                     className="p-3 text-dark dark:text-light tracking-wider whitespace-nowrap cursor-pointer hover:underline"
-                    onClick={() => copyToClipboard(item?.userId._id)}
-                    title={t("clickToCopy")}
+                    title={t("clickToSeeProfile")}
+                    onClick={() => navigate(`/profile/${item?.userId._id}`)}
                   >
                     {item?.userId._id.slice(0, 8)}...
                   </td>

@@ -90,7 +90,9 @@ const resources = {
       expenses: "Expenses",
       sale: "Sale",
       profit: "Profit",
-      theCourseOfGrowth : "The Course Of Growth"
+      theCourseOfGrowth : "The Course Of Growth",
+      clickToSeeProfile: "Click To See Profile",
+      clickToSeeProduct: "Click To See Product"
     },
   },
   fa: {
@@ -181,7 +183,9 @@ const resources = {
       expenses: "هزینه ها",
       sale: "فروش",
       profit: "سود",
-      theCourseOfGrowth: "دوره رشد"
+      theCourseOfGrowth: "دوره رشد",
+      clickToSeeProfile: "برای مشاهده پروفایل کلیک کنید",
+      clickToSeeProduct: "برای مشاهده محصول کلیک کنید"
     },
   },
 };

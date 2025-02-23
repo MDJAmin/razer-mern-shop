@@ -4,6 +4,7 @@ import ConfirmationModal from "../../Components/Admin/ConfirmationModal";
 import { useTranslation } from "react-i18next";
 import Search from "../../Components/Admin/Search";
 import AddBtn from "../../Components/Admin/AddBtn";
+import { useNavigate } from "react-router-dom";
 
 export default function AddProduct() {
   const { t } = useTranslation();
@@ -17,6 +18,8 @@ export default function AddProduct() {
   const { token } = useSelector((state) => state.user);
   const { lang } = useSelector((state) => state.i18n);
 
+  const navigate = useNavigate();
+  
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const fetchProducts = async () => {
@@ -139,9 +142,11 @@ export default function AddProduct() {
                   className="border-t border-gray dark:border-light hover:opacity-80 select-none"
                 >
                   <td
-                    className={`p-3 text-dark dark:text-light tracking-wider whitespace-nowrap ${
+                    className={`p-3 text-dark dark:text-light tracking-wider whitespace-nowrap hover:underline cursor-pointer ${
                       lang == "en" ? "pr-10" : "pl-10"
                     }`}
+                    onClick={() => navigate(`/product-details/${item?._id}`)}
+                    title={t("clickToSeeProduct")}
                   >
                     {item?.name[lang]}
                   </td>

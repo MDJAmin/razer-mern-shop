@@ -51,7 +51,7 @@ export default function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/cart" element={<Cart />} />
             <Route path="/pockets" element={<Pockets />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:userId" element={<Profile />} />
             <Route path="/contact-us" element={<ContactUs />} />
           </Route>
           <Route path="/not-found" element={<NotFound />} />

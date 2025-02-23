@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import Search from "../../Components/Admin/Search";
+import { useNavigate } from "react-router-dom";
 
 export default function Users() {
   const { t } = useTranslation();
@@ -14,6 +15,8 @@ export default function Users() {
   const { token } = useSelector((state) => state.user);
   const { role } = useSelector((state) => state.user.currentUser);
   const { lang } = useSelector((state) => state.i18n);
+
+  const navigate = useNavigate();
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -57,38 +60,25 @@ export default function Users() {
     fetchUsers();
   }, [token, role]);
 
-  const copyToClipboard = async (userId) => {
-    try {
-      await navigator.clipboard.writeText(userId);
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
-  };
-
   const filteredData = data.filter(
     (user) =>
       user._id.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.role.includes(searchQuery.toLowerCase()) ||
       user.phone.includes(searchQuery.toLowerCase()) ||
-      user?.fullName
-        ?.toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
+      user?.fullName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user?.idCard?.includes(searchQuery.toLowerCase())
   );
 
   const changeRole = async (userId, newRole) => {
     try {
-      const res = await fetch(
-        `${baseUrl}user/change-role/${userId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ role: newRole }),
-        }
-      );
+      const res = await fetch(`${baseUrl}user/change-role/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ role: newRole }),
+      });
       const result = await res.json();
       if (result.success) {
         setData((prevData) =>
@@ -111,7 +101,7 @@ export default function Users() {
   };
 
   return (
-    <div className='scrollbar-hide overflow-x-auto p-4 w-full text-[16px] relative'>
+    <div className="scrollbar-hide overflow-x-auto p-4 w-full text-[16px] relative">
       <Search
         placeholder={t("searchForUser")}
         searchQuery={searchQuery}
@@ -121,40 +111,38 @@ export default function Users() {
 
       {/* Modal for role change confirmation */}
       {modalVisible && selectedUser && (
-        <div className='fixed inset-0 px-2 bg-light dark:bg-dark dark:bg-opacity-60 bg-opacity-70 flex justify-center items-center z-50'>
-          <div className='bg-light-bg dark:bg-black-bg p-5 rounded-lg drop-shadow-lg'>
-            <h3 className='text-xl dark:text-light tracking-wide flex flex-col'>
-              <span className='mb-2'>
+        <div className="fixed inset-0 px-2 bg-light dark:bg-dark dark:bg-opacity-60 bg-opacity-70 flex justify-center items-center z-50">
+          <div className="bg-light-bg dark:bg-black-bg p-5 rounded-lg drop-shadow-lg">
+            <h3 className="text-xl dark:text-light tracking-wide flex flex-col">
+              <span className="mb-2">
                 {t("changeRoleForThisUserTo")}{" "}
-                <span className='text-info-green'>
-                  {selectedUser.role === "admin"
-                    ? t("user")
-                    : t("admin")}
+                <span className="text-info-green">
+                  {selectedUser.role === "admin" ? t("user") : t("admin")}
                   {lang == "en" ? "?" : "؟"}
                 </span>
               </span>
-              <span className='opacity-70 text-[16px]'>
+              <span className="opacity-70 text-[16px]">
                 {t("id")}: {selectedUser._id}
               </span>
-              <span className='opacity-70 text-[16px]'>
+              <span className="opacity-70 text-[16px]">
                 {t("phone")}: {selectedUser?.phone}
               </span>
-              <span className='opacity-70 tracking-wider text-[16px] '>
+              <span className="opacity-70 tracking-wider text-[16px] ">
                 {t("fullName")}: {selectedUser?.fullName}
               </span>
-              <span className='opacity-70 text-[16px]'>
+              <span className="opacity-70 text-[16px]">
                 {t("idCard")}: {selectedUser?.idCard}
               </span>
             </h3>
-            <div className='mt-4 flex justify-center gap-2'>
+            <div className="mt-4 flex justify-center gap-2">
               <button
-                className='authBtn bg-error dark:bg-error'
+                className="authBtn bg-error dark:bg-error"
                 onClick={() => setModalVisible(false)}
               >
                 {t("cancel")}
               </button>
               <button
-                className='authBtn'
+                className="authBtn"
                 onClick={() =>
                   changeRole(
                     selectedUser._id,
@@ -168,42 +156,34 @@ export default function Users() {
           </div>
         </div>
       )}
-      <div className='overflow-x-auto'>
-        <table className='w-full border-collapse dark:bg-admin-green rounded-lg'>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse dark:bg-admin-green rounded-lg">
           <thead>
             <tr
               className={`${
                 lang == "en" ? "text-left" : "text-right"
               } text-dark dark:text-light text-lg border-b`}
             >
-              <td className='p-3 py-6 whitespace-nowrap'>
-                {t("userId")}
-              </td>
-              <td className='p-3 whitespace-nowrap'>{t("role")}</td>
-              <td className='p-3 whitespace-nowrap'>
-                {t("fullName")}
-              </td>
-              <td className='p-3'>{t("email")}</td>
-              <td className='p-3 whitespace-nowrap'>{t("idCard")}</td>
-              <td className='p-3 whitespace-nowrap'>{t("phone")}</td>
-              <td className='p-3 whitespace-nowrap'>
-                {t("complete")}
-              </td>
-              <td className='p-3 whitespace-nowrap'>
-                {t("isActive")}
-              </td>
+              <td className="p-3 py-6 whitespace-nowrap">{t("userId")}</td>
+              <td className="p-3 whitespace-nowrap">{t("role")}</td>
+              <td className="p-3 whitespace-nowrap">{t("fullName")}</td>
+              <td className="p-3">{t("email")}</td>
+              <td className="p-3 whitespace-nowrap">{t("idCard")}</td>
+              <td className="p-3 whitespace-nowrap">{t("phone")}</td>
+              <td className="p-3 whitespace-nowrap">{t("complete")}</td>
+              <td className="p-3 whitespace-nowrap">{t("isActive")}</td>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td className='text-start px-3 text-xl dark:text-light py-10'>
+                <td className="text-start px-3 text-xl dark:text-light py-10">
                   {t("loading")}
                 </td>
               </tr>
             ) : filteredData.length === 0 ? (
               <tr>
-                <td className='text-start px-3 text-xl dark:text-light py-10 whitespace-nowrap '>
+                <td className="text-start px-3 text-xl dark:text-light py-10 whitespace-nowrap ">
                   {t("noUserFound")}
                 </td>
               </tr>
@@ -211,12 +191,12 @@ export default function Users() {
               filteredData?.map((user, index) => (
                 <tr
                   key={index}
-                  className='border-t border-gray dark:border-light hover:opacity-80'
+                  className="border-t border-gray dark:border-light hover:opacity-80"
                 >
                   <td
-                    className='p-3 text-dark dark:text-light cursor-pointer hover:underline flex items-center gap-2 relative'
-                    onClick={() => copyToClipboard(user._id)}
-                    title={t("clickToCopy")}
+                    className="p-3 text-dark dark:text-light cursor-pointer hover:underline flex items-center gap-2 relative"
+                    onClick={() => navigate(`/profile/${user?._id}`)}
+                    title={t("clickToSeeProfile")}
                   >
                     {user._id?.slice(0, 8)}...
                   </td>
@@ -234,16 +214,16 @@ export default function Users() {
                         : t("user")
                       : t("null")}
                   </td>
-                  <td className='p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap'>
+                  <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap">
                     {user.fullName ? user.fullName : t("null")}
                   </td>
-                  <td className='p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap'>
+                  <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80 whitespace-nowrap">
                     {user.email ? user.email : t("null")}
                   </td>
-                  <td className='p-3 text-gray opacity-60 dark:text-light dark:opacity-80'>
+                  <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
                     {user.idCard ? user.idCard : t("null")}
                   </td>
-                  <td className='p-3 text-gray opacity-60 dark:text-light dark:opacity-80'>
+                  <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
                     {user.phone ? user.phone : t("null")}
                   </td>
                   <td
@@ -253,9 +233,7 @@ export default function Users() {
                         : "text-error"
                     }`}
                   >
-                    {user.isComplete
-                      ? t("complete")
-                      : t("notComplete")}
+                    {user.isComplete ? t("complete") : t("notComplete")}
                   </td>
                   <td
                     className={`p-3 tracking-wide whitespace-nowrap ${
