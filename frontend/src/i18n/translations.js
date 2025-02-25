@@ -98,6 +98,7 @@ const resources = {
       reset: "Reset",
       update: "Update",
       updateUserInfo: "Update User Infomation?",
+      superAdmin: "Super Admin"
     },
   },
   fa: {
@@ -196,6 +197,7 @@ const resources = {
       reset: "تنظیم مجدد",
       update: "بروز رسانی",
       updateUserInfo: "بروز رسانی اطلاعات کاربر؟",
+      superAdmin: "مدیر"
     },
   },
 };

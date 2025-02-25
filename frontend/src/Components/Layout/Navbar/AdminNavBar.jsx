@@ -9,10 +9,13 @@ import { RiAdminLine } from "react-icons/ri";
 import ThemeToggle from "../../Common/Button/ThemeToggle";
 import LanguageSwitcher from "../../Common/Selector/LanguageSwitcher";
 import { AiOutlineHome } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 export default function AdminNavbar({ handleShowText }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+  const { id } = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,7 +55,7 @@ export default function AdminNavbar({ handleShowText }) {
         </li>
         <li
           className="cursor-pointer hover:opacity-80 dark:hover:text-white"
-          onClick={() => navigate("/profile")}
+          onClick={() => navigate(`/profile/${id}`)}
         >
           <FiUser />
         </li>
@@ -96,7 +99,7 @@ export default function AdminNavbar({ handleShowText }) {
           </li>
           <li
             className="cursor-pointer hover:opacity-80 dark:hover:text-white"
-            onClick={() => navigate("/auth")}
+            onClick={() => navigate(`/profile/${id}`)}
           >
             <FiUser />
           </li>

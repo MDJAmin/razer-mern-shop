@@ -80,23 +80,29 @@ export default function Profile() {
                   <label className=" opacity-60 dark:text-light">
                     {t("role")}:
                   </label>
-                  <select
-                    type="text"
-                    defaultValue={user?.role}
-                    disabled={!role === "superAdmin" && !role === "admin"}
-                    className={` ${
-                      user.role === "admin"
-                        ? "text-dark-green dark:text-light-green"
-                        : "dark:text-light"
-                    } disabled:opacity-100 text-dark bg-transparent outline-none border-none`}
-                  >
-                    <option value="admin" className="text-dark">
-                      {t("admin")}
-                    </option>
-                    <option value="user" className="text-dark">
-                      {t("user")}
-                    </option>
-                  </select>
+                  {user.role === "superAdmin" ? (
+                    <p className="text-dark-green dark:text-light-green">
+                      {t("superAdmin")}
+                    </p>
+                  ) : (
+                    <select
+                      type="text"
+                      defaultValue={user?.role}
+                      disabled={!role === "superAdmin" && !role === "admin"}
+                      className={` ${
+                        user.role === "admin"
+                          ? "text-dark-green dark:text-light-green"
+                          : "dark:text-light"
+                      } disabled:opacity-100 text-dark bg-transparent outline-none border-none`}
+                    >
+                      <option value="admin" className="text-dark">
+                        {t("admin")}
+                      </option>
+                      <option value="user" className="text-dark">
+                        {t("user")}
+                      </option>
+                    </select>
+                  )}
                 </div>
                 <div className="flex flex-wrap gap-1">
                   <label className="dark:text-light opacity-60">
@@ -145,18 +151,17 @@ export default function Profile() {
                   </label>
                   <select
                     type="text"
-                    defaultValue={user.isActive ? t("active") : t("notActive")}
-                    disabled={!role === "superAdmin" && !role === "admin"}
+                    defaultValue={user?.isActive ? "true" : "false"}
                     className={`${
                       !user?.isActive
                         ? "text-error dark:text-error"
                         : "dark:text-light"
                     } disabled:opacity-100 text-dark bg-transparent outline-none border-none`}
                   >
-                    <option value="admin" className="text-dark">
+                    <option value="true" className="text-dark">
                       {t("active")}
                     </option>
-                    <option value="user" className="text-dark">
+                    <option value="false" className="text-dark">
                       {t("notActive")}
                     </option>
                   </select>
@@ -177,7 +182,10 @@ export default function Profile() {
                 </div>
               </div>
               <div className="flex gap-2 mt-16">
-                <button type="reset" className="authBtn bg-error dark:bg-error text-xl">
+                <button
+                  type="reset"
+                  className="authBtn bg-error dark:bg-error text-xl"
+                >
                   {t("reset")}
                 </button>
                 <button className="authBtn text-xl" onClick={() => openModal()}>
