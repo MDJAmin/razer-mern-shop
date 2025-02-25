@@ -54,8 +54,8 @@ export default function Profile() {
   };
 
   return (
-    <div className="flex relative items-center justify-center p-3 text-lg w-full min-h-screen bg-light-bg dark:bg-black-bg">
-      <div className="w-[800px] min-h-[550px] md:min-h-[400px] bg-light dark:bg-dark dark:text-light rounded-lg sm:-translate-y-14">
+    <div className="flex relative items-start lg:items-center justify-center p-3 text-lg w-full min-h-screen bg-light-bg dark:bg-black-bg">
+      <div className="w-[800px] min-h-[550px] md:min-h-[400px] bg-light dark:bg-dark dark:text-light rounded-lg lg:-translate-y-14">
         {loading ? (
           <p className="text-start p-4 text-2xl">{t("loading")}</p>
         ) : user ? (
@@ -176,11 +176,11 @@ export default function Profile() {
                   </p>
                 </div>
               </div>
-              <div className="flex gap-2 mt-12">
-                <button type="reset" className="authBtn bg-error dark:bg-error">
+              <div className="flex gap-2 mt-16">
+                <button type="reset" className="authBtn bg-error dark:bg-error text-xl">
                   {t("reset")}
                 </button>
-                <button className="authBtn" onClick={() => openModal()}>
+                <button className="authBtn text-xl" onClick={() => openModal()}>
                   {t("update")}
                 </button>
               </div>
