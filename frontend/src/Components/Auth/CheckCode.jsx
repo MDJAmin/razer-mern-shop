@@ -148,7 +148,7 @@ export default function CheckCode({ handlePageType }) {
             Confirm
           </button>
           <button
-            className="authBtn w-1/5 rounded-tl-none rounded-bl-none flex justify-center items-center hover:bg-error"
+            className="authBtn w-1/5 rounded-tl-none rounded-bl-none flex justify-center items-center hover:bg-error dark:hover:bg-error"
             onClick={() => handlePageType("identifier")}
           >
             <RiArrowGoBackFill />
