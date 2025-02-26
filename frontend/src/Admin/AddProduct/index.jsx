@@ -165,7 +165,7 @@ export default function AddProduct() {
                     {item?.categoryId?.title[lang]}
                   </td>
                   <td className="p-3 text-gray opacity-60 dark:text-light dark:opacity-80">
-                    {item.price ? item.price : "Null"}
+                    {item.price ? item.price : t("null")}
                   </td>
                   <td className="p-3">
                     <img
