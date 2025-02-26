@@ -62,7 +62,7 @@ export default function NavBar() {
         >
           <IoMdNotificationsOutline />
           {isNew && (
-            <div className="absolute rounded-full bg-error -top-[6px] -right-[1px] text-sm px-1 ">
+            <div className="absolute rounded-full text-light bg-error -top-[6px] -right-[1px] text-sm px-1 ">
               !
             </div>
           )}
@@ -111,8 +111,16 @@ export default function NavBar() {
           <li className="cursor-pointer hover:opacity-80">
             <TbSearch />
           </li>
-          <li className="cursor-pointer hover:opacity-80">
+          <li
+            className="cursor-pointer hover:opacity-80 relative"
+            onClick={() => navigate("/pockets")}
+          >
             <IoMdNotificationsOutline />
+            {isNew && (
+              <div className="absolute rounded-full text-light bg-error -top-[6px] -right-[1px] text-sm px-1 ">
+                !
+              </div>
+            )}
           </li>
           {role === "admin" || role === "superAdmin" ? (
             <li
