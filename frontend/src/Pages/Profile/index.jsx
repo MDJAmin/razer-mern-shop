@@ -84,6 +84,8 @@ export default function Profile() {
                     <p className="text-dark-green dark:text-light-green">
                       {t("superAdmin")}
                     </p>
+                  ) : role === "user" ? (
+                    <p>{t("user")}</p>
                   ) : (
                     <select
                       type="text"
