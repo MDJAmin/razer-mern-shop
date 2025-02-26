@@ -6,12 +6,15 @@ import {
   signInStart,
   signInSuccess,
 } from "../../Context/Slices/userSlice";
+import { useTranslation } from "react-i18next";
 
 export default function CheckPassword({ handlePageType }) {
   const { phone } = useSelector((state) => state.auth.identifier);
   const { error, loading } = useSelector((state) => state.user);
+  const { lang } = useSelector((state) => state.i18n);
 
   const [password, setPassword] = useState(null);
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,7 +45,7 @@ export default function CheckPassword({ handlePageType }) {
         navigate("/");
       } else {
         const messages = JSON.parse(data.message);
-        dispatch(signInFailure(messages.en));
+        dispatch(signInFailure(messages[lang]));
       }
     } catch (error) {
       console.log(error);
@@ -53,10 +56,10 @@ export default function CheckPassword({ handlePageType }) {
     <>
       <div className="text-center">
         <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-light">
-          Welcome Back!
+          {t("welcomeBack")}
         </h1>
         <p className="text-dark dark:text-placeHolder tracking-wide text-sm mb-4">
-          Please enter your <span className="text-info-green">Password</span>
+          {t("pleaseEnterYour")} <span className="text-info-green">{t("password")}</span>
         </p>
       </div>
       <form
@@ -66,10 +69,10 @@ export default function CheckPassword({ handlePageType }) {
         <input
           type="text"
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter Your Password"
+          placeholder={t("enterYourPassword")}
           className="authInp"
         />
-        <div className="min-h-6 text-start w-full ml-5">
+        <div className={`min-h-6 text-start w-full ${lang === "en"? "ml-5": "mr-5"}`}>
           {error && (
             <p className="text-error tracking-wide text-sm mt-1">" {error} "</p>
           )}
@@ -79,15 +82,15 @@ export default function CheckPassword({ handlePageType }) {
           type="submit"
           className="authBtn"
         >
-          Confirm
+          {t("confirm")}
         </button>
         <p className="text-dark dark:text-placeHolder mt-2">
-          Forget Your Password?{" "}
+          {t("forgetYourPassword")}{" "}
           <span
             onClick={() => handlePageType("checkCode")}
             className="text-info-green hover:opacity-80 cursor-pointer"
           >
-            Send Code
+            {t("sendCode")}
           </span>
         </p>
       </form>

@@ -20,7 +20,6 @@ export default function NavBar() {
   const { token } = useSelector((state) => state.user);
   const { isNew = null } = useSelector((state) => state.auth);
   const { id } = useSelector((state) => state.user);
-  console.log(id)
 
   const navigate = useNavigate();
 

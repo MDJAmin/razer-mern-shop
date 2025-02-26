@@ -6,10 +6,13 @@ import {
   signInStart,
   signInWaiting,
 } from "../../Context/Slices/userSlice";
+import { useTranslation } from "react-i18next";
 
 export default function Identifier({ handlePageType }) {
   const [identifier, setIdentifier] = useState("");
+  const { t } = useTranslation();
   const { error, loading } = useSelector((state) => state.user);
+  const { lang } = useSelector((state) => state.i18n);
 
   const dispatch = useDispatch();
 
@@ -38,22 +41,23 @@ export default function Identifier({ handlePageType }) {
         );
         dispatch(signInWaiting());
       } else {
-        dispatch(signInFailure(data.message.en));
+        dispatch(signInFailure(data.message[lang]));
       }
     } catch (error) {
       console.log(error);
-      dispatch(signInFailure("somthing went wrong"));
+      dispatch(signInFailure(t(someThingWentWrong)));
     }
   };
   return (
     <>
       <div className="text-center">
         <h1 className="text-3xl sm:text-4xl mb-5 font-extralight text-gray dark:text-light">
-          Welcome Back!
+          {t("welcomeBack")}
         </h1>
         <p className="text-dark dark:text-placeHolder tracking-wide text-sm mb-4">
-          Please enter your <span className="text-info-green">email</span> or{" "}
-          <span className="text-info-green">phone number</span>
+          {t("PleaseEnterYour")}
+          <span className="text-info-green"> {t("email")}</span> {t("or")}{" "}
+          <span className="text-info-green">{t("phoneNumber")}</span>
         </p>
       </div>
       <form
@@ -65,10 +69,14 @@ export default function Identifier({ handlePageType }) {
           onChange={(e) => {
             setIdentifier(e.target.value);
           }}
-          placeholder="Email or Phone number"
+          placeholder={t("emailOrPhoneNumber")}
           className="authInp"
         />
-        <div className="min-h-6 text-start w-full ml-5">
+        <div
+          className={`min-h-6 text-start w-full ${
+            lang === "en" ? "ml-5" : "mr-5"
+          }`}
+        >
           {error && (
             <p className="text-error tracking-wide text-sm mt-1">" {error} "</p>
           )}
@@ -78,7 +86,7 @@ export default function Identifier({ handlePageType }) {
           type="submit"
           className="authBtn"
         >
-          Sign In
+          {t("signIn")}
         </button>
       </form>
     </>
