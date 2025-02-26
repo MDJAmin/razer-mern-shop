@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const formatPrice = (value) => {
   return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const TextInput = ({ label, name, formik, rtl, isPrice }) => (
+const TextInput = ({ label, name, formik, rtl, isPrice, lang }) => (
   <div>
     <label
-      className={`text-black dark:text-light block text-sm font-medium ${
-        rtl ? "text-end" : ""
-      }`}
+      className={`text-black dark:text-light block text-sm font-medium ${rtl ? "text-end" : ""}`}
     >
       {label}
     </label>
     <input
       type='text'
       name={name}
-      className={`w-full border rounded-s-xl py-2 text-lg ${rtl ? "text-right rtl" : ""}`}
+      className={`w-full border py-2 text-lg ${lang === "fa" ? "rounded-e-xl" : "rounded-s-xl"}`}
       dir={rtl ? "rtl" : "ltr"}
       value={isPrice ? formatPrice(formik.values[name]) : formik.values[name]}
       onChange={(e) => {
@@ -36,7 +36,7 @@ const TextInput = ({ label, name, formik, rtl, isPrice }) => (
   </div>
 );
 
-const TextArea = ({ label, name, formik, rtl }) => (
+const TextArea = ({ label, name, formik, rtl, lang }) => (
   <div>
     <label
       className={`text-black dark:text-light block text-sm font-medium ${
@@ -46,8 +46,9 @@ const TextArea = ({ label, name, formik, rtl }) => (
       {label}
     </label>
     <textarea
+      type='text'
       name={name}
-      className={`w-full border rounded-s-xl text-lg h-11 ${rtl ? "text-right rtl" : ""}`}
+      className={`w-full border text-lg h-11 min-h-[45.5px] ${lang === "fa" ? "rounded-e-xl" : "rounded-s-xl"}`}
       dir={rtl ? "rtl" : "ltr"}
       {...formik.getFieldProps(name)}
     />
@@ -107,7 +108,9 @@ const FileInput = ({ label, name, formik }) => (
 );
 
 const AdminForm = () => {
+  const { t } = useTranslation();
   const [isInactive, setIsInactive] = useState(false);
+  const { lang } = useSelector((state) => state.i18n);
 
   const validationSchema = Yup.object().shape({
     name_en: Yup.string().required("Product name is required"),
@@ -156,11 +159,13 @@ const AdminForm = () => {
             label='Product Name'
             name='name_en'
             formik={formik}
+            lang={lang}
           />
           <TextInput
             label='نام محصول'
             name='name_fa'
             formik={formik}
+            lang={lang}
             rtl
           />
         </div>
@@ -169,11 +174,13 @@ const AdminForm = () => {
             label='Description'
             name='description_en'
             formik={formik}
+            lang={lang}
           />
           <TextArea
             label='توضیحات محصول'
             name='description_fa'
             formik={formik}
+            lang={lang}
             rtl
           />
         </div>
@@ -182,11 +189,13 @@ const AdminForm = () => {
             label='Information'
             name='information_en'
             formik={formik}
+            lang={lang}
           />
           <TextArea
             label='اطلاعات محصول'
             name='information_fa'
             formik={formik}
+            lang={lang}
             rtl
           />
         </div>
@@ -195,12 +204,14 @@ const AdminForm = () => {
             label='Enter The Price'
             name='price_en'
             formik={formik}
+            lang={lang}
             isPrice
           />
           <TextInput
             label='قیمت را وارد کنید '
             name='price_fa'
             formik={formik}
+            lang={lang}
             rtl
             isPrice
           />
@@ -225,20 +236,34 @@ const AdminForm = () => {
             <div className='pt-2'>
               <div
                 onClick={() => setIsInactive(!isInactive)}
-                className={`text-center relative bg-dark dark:bg-light w-12 h-6 flex items-center cursor-pointer rounded-full p-1 transition-colors ${
-                  isInactive ? "bg-red-500" : "bg-green-500"
-                }`}
+                className={`text-center relative bg-dark dark:bg-light w-12 h-6 flex items-center cursor-pointer rounded-full p-1 transition-colors 
+                  ${isInactive ? "bg-red-500" : "bg-green-500"}`}
               >
                 <div
-                  className={`w-4 h-4 rounded-full shadow-md transform transition-transform ${
-                    isInactive ? "translate-x-0 bg-error" : "translate-x-6 bg-light-green"
-                  }`}
-                ></div>
+                  onClick={() => setIsInactive(!isInactive)}
+                  className={`text-center relative w-12 h-6 flex items-center cursor-pointer rounded-full p-1 transition-colors 
+    ${isInactive ? "bg-red-500" : "bg-green-500"}`}
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full shadow-md transform transition-transform 
+      ${
+        isInactive
+          ? lang === "fa"
+            ? "-translate-x-5"
+            : "-translate-x-1"
+          : lang === "fa"
+          ? "translate-x-1"
+          : "translate-x-5"
+      } 
+      ${isInactive ? "bg-error" : "bg-light-green"}`}
+                  ></div>
+                </div>
               </div>
             </div>
-            <div className='min-w-44 align-top'>
-              <label className='align-top text-[10px] font-medium text-dark dark:text-light ml-2'>
-                You Want This Product to be {isInactive ? "Inactive" : "Active"}?
+            <div className='min-w-44 mt-[5px]'>
+              <label className='ps-3 text-[10px] font-medium text-dark dark:text-light ml-2'>
+                {t("YouWantThisProductToBe")} {isInactive ? t("notActive") : t("active")}
+                {lang === "fa" ? "  باشه؟  " : "?"}
               </label>
             </div>
           </div>
@@ -248,13 +273,13 @@ const AdminForm = () => {
               type='button'
               className='bg-error text-white text-lg p-2 rounded bg-opacity-50 hover:bg-opacity-100'
             >
-              Cancel
+              {t("cancel")}
             </button>
             <button
               type='submit'
               className='bg-dark-green text-lg text-white p-2 rounded bg-opacity-50 hover:bg-opacity-100'
             >
-              Create Product
+              {t("createProduct")}
             </button>
           </div>
         </div>
