@@ -36,6 +36,7 @@ export default function CheckPassword({ handlePageType }) {
             token: data.data.token,
             currentUser: data.data.user,
             role: data.data.user.role,
+            id: data.data.user.id,
           })
         );
         navigate("/");

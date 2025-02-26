@@ -98,7 +98,13 @@ const resources = {
       reset: "Reset",
       update: "Update",
       updateUserInfo: "Update User Infomation?",
-      superAdmin: "Super Admin"
+      superAdmin: "Super Admin",
+      welcome: "Wellcome To Razer Website",
+      welcomeContent:
+        "Welcome to Razer Store – the ultimate destination for power, speed, and innovation in gaming gear! We’re here to take your gaming experience to the next level with cutting-edge laptops, mice, keyboards, headsets, and accessories designed for true professionals. Superior quality, stunning design, and unmatched performance — all in one place to help you dominate the game! Explore your favorite gear now and step into the world of professional gaming. Are you ready to conquer the game?",
+        NoNotification: "There isn't any notification",
+        makeAsRead: "Make As Read",
+        exploreOurWebsite: "Explore Our Website"
     },
   },
   fa: {
@@ -197,7 +203,13 @@ const resources = {
       reset: "تنظیم مجدد",
       update: "بروز رسانی",
       updateUserInfo: "بروز رسانی اطلاعات کاربر؟",
-      superAdmin: "مدیر"
+      superAdmin: "مدیر",
+      welcome: "به فروشگاه ریزر خوش آمدید",
+      welcomeContent:
+        "به فروشگاه ریزر خوش آمدید – دنیایی از قدرت، سرعت و نوآوری در تجهیزات گیمینگ! ما اینجاییم تا تجربه بازی شما را به سطحی جدید برسانیم، با پیشرفته‌ترین لپ‌تاپ‌ها، موس‌ها، کیبوردها، هدست‌ها و لوازم جانبی که برای حرفه‌ای‌ها طراحی شده‌اند. کیفیت برتر، طراحی بی‌نظیر و عملکرد بی‌رقیب، همه در یکجا جمع شده‌اند تا شما را به پیروزی برسانند! همین حالا تجهیزات مورد علاقه خود را کشف کنید و به دنیای گیمینگ حرفه‌ای قدم بگذارید. آیا آماده‌اید تا بازی را تسخیر کنید؟",
+        NoNotification: "اطلاعیه ای یافت نشد",
+        makeAsRead: "خوانده شد",
+        exploreOurWebsite: "گشت و گذار در وبسایت ما"
     },
   },
 };

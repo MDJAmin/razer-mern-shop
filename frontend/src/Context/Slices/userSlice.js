@@ -5,6 +5,7 @@ const initialState = {
   role: null,
   token: null,
   error: null,
+  id: null,
   loading: false,
 };
 
@@ -23,6 +24,7 @@ const userSlice = createSlice({
       state.currentUser = action.payload.currentUser;
       state.token = action.payload.token;
       state.role = action.payload.role;
+      state.id = action.payload.id
       state.loading = false;
       state.error = null;
     },

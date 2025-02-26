@@ -16,8 +16,11 @@ import { useSelector } from "react-redux";
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { role } = useSelector((state) => state.user.currentUser);
+  const { role } = useSelector((state) => state.user);
   const { token } = useSelector((state) => state.user);
+  const { isNew = null } = useSelector((state) => state.auth);
+  const { id } = useSelector((state) => state.user);
+  console.log(id)
 
   const navigate = useNavigate();
 
@@ -54,8 +57,16 @@ export default function NavBar() {
         <li className="cursor-pointer hover:opacity-80">
           <TbSearch />
         </li>
-        <li className="cursor-pointer hover:opacity-80">
+        <li
+          className="cursor-pointer hover:opacity-80 relative"
+          onClick={() => navigate("/pockets")}
+        >
           <IoMdNotificationsOutline />
+          {isNew && (
+            <div className="absolute rounded-full bg-error -top-[6px] -right-[1px] text-sm px-1 ">
+              !
+            </div>
+          )}
         </li>
         {role === "admin" || role === "superAdmin" ? (
           <li
@@ -67,7 +78,7 @@ export default function NavBar() {
         ) : (
           <li
             className="cursor-pointer hover:opacity-80"
-            onClick={() => navigate("/profile")}
+            onClick={() => navigate(token ? `/profile/${id}` : "/auth")}
           >
             <FiUser />
           </li>
@@ -114,7 +125,7 @@ export default function NavBar() {
           ) : (
             <li
               className="cursor-pointer hover:opacity-80"
-              onClick={() => navigate(token ? "/profile" : "/auth")}
+              onClick={() => navigate(token ? `/profile/${id}` : "/auth")}
             >
               <FiUser />
             </li>

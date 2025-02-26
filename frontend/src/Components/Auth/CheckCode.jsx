@@ -53,8 +53,10 @@ export default function CheckCode({ handlePageType }) {
             token: data.data.token,
             currentUser: data.data.user,
             role: data.data.user.role,
+            id: data.data.user.id,
           })
         );
+        console.log(data.data)
         navigate("/");
       } else {
         const messages = JSON.parse(data.message);
