@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+
+[lang="en"] body {
   font-family: Impact;
+}
+
+[lang="fa"] body {
+  font-family: "Vazirmatn", sans-serif; 
 }
 
 

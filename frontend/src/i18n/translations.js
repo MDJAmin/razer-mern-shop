@@ -32,6 +32,7 @@ const resources = {
       createProduct: "Create Product",
       category: "Category",
       images: "Images",
+      productImage:"Product Image",
       isActive: "Is Active",
       active: "Active",
       notActive: "Not Active",
@@ -43,6 +44,7 @@ const resources = {
       searchForProduct: "Search For Product:",
       bestProductsBasedOnSales: "Best Products Based On Sales",
       YouWantThisProductToBe: "You want this product to be",
+      select:"Select",
 
       // Category
       categoryName: "Name",
@@ -133,6 +135,7 @@ const resources = {
       createProduct: "ساخت محصول",
       category: "دسته بندی",
       images: "عکس ها",
+      productImage:"عکس محصول",
       isActive: "وضعیت",
       active: " فعال ",
       notActive: " غیرفعال" ,
@@ -144,7 +147,8 @@ const resources = {
       searchForProduct: "محصول را جستوجو کنید:",
       bestProductsBasedOnSales: "بهترین محصولات بر اساس فروش",
       YouWantThisProductToBe: "شما می خواهید این محصول",
-      
+      select:"انتخواب",
+
       // User
       userId: "شناسه کابر",
       role: "نقش",
