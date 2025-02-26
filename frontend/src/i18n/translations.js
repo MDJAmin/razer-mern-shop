@@ -291,6 +291,7 @@ const resources = {
       searchForProduct: "محصول را جستوجو کنید:",
       bestProductsBasedOnSales: "بهترین محصولات بر اساس فروش",
       YouWantThisProductToBe: "شما می خواهید این محصول",
+      select:"انتخواب",
       
       // User
       userId: "شناسه کابر",
