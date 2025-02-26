@@ -60,34 +60,34 @@ const TextArea = ({ label, name, formik, rtl, lang }) => (
   </div>
 );
 
-const SelectInput = ({ label, name, options, formik }) => (
-  <div>
-    <label className='text-black dark:text-light block text-sm font-medium'>{label}</label>
-    <select
-      name={name}
-      className='w-full border border-gray-300 text-xl py-1 rounded-lg'
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      value={formik.values[name]}
-      {...formik.getFieldProps(name)}
-    >
-      <option value=''>Select {label}</option>
-      {options.map((option) => (
-        <option
-          key={option.value}
-          value={option.value}
-        >
-          {option.label}
-        </option>
-      ))}
-    </select>
-    <div className='min-h-5'>
-      {formik.touched[name] && formik.errors[name] && (
-        <p className='text-error text-sm'>{formik.errors[name]}</p>
-      )}
+const SelectInput = ({ label, name, options, formik }) => {
+  const { t } = useTranslation();
+  return (
+    <div>
+      <label className='text-black dark:text-light block text-sm font-medium'>{label}</label>
+      <select
+        name={name}
+        className='w-full border border-gray-300 text-xl py-1 rounded-lg'
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values[name]}
+        {...formik.getFieldProps(name)}
+      >
+        <option value=''>{t("select")} {label}</option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      <div className='min-h-5'>
+        {formik.touched[name] && formik.errors[name] && (
+          <p className='text-error text-sm'>{formik.errors[name]}</p>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const FileInput = ({ label, name, formik }) => (
   <div>
@@ -149,7 +149,7 @@ const AdminForm = () => {
   });
 
   return (
-    <div className='max-w-3xl mx-auto bg-light dark:bg-dark text-dark p-8 rounded-lg shadow-lg'>
+    <div className='max-w-3xl mx-auto bg-light dark:bg-dark text-dark p-8'>
       <form
         onSubmit={formik.handleSubmit}
         className='space-y-2'
@@ -162,7 +162,7 @@ const AdminForm = () => {
             lang={lang}
           />
           <TextInput
-            label='نام محصول'
+            label='Product Name in (Pr)'
             name='name_fa'
             formik={formik}
             lang={lang}
@@ -177,7 +177,7 @@ const AdminForm = () => {
             lang={lang}
           />
           <TextArea
-            label='توضیحات محصول'
+            label='Description in (Pr)'
             name='description_fa'
             formik={formik}
             lang={lang}
@@ -192,7 +192,7 @@ const AdminForm = () => {
             lang={lang}
           />
           <TextArea
-            label='اطلاعات محصول'
+            label='Information in (Pr)'
             name='information_fa'
             formik={formik}
             lang={lang}
@@ -208,7 +208,7 @@ const AdminForm = () => {
             isPrice
           />
           <TextInput
-            label='قیمت را وارد کنید '
+            label='Enter The Price in (Pr)'
             name='price_fa'
             formik={formik}
             lang={lang}
@@ -217,12 +217,12 @@ const AdminForm = () => {
           />
         </div>
         <FileInput
-          label='Product Image'
+          label={t("productImage")}
           name='image'
           formik={formik}
         />
         <SelectInput
-          label='Category'
+          label={t("category")}
           name='category'
           options={[
             { value: "electronics", label: "Electronics" },
