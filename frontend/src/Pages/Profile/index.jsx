@@ -88,7 +88,7 @@ export default function Profile() {
                     <select
                       type="text"
                       defaultValue={user?.role}
-                      disabled={!role === "superAdmin" && !role === "admin"}
+                      disabled={role === "user"}
                       className={` ${
                         user.role === "admin"
                           ? "text-dark-green dark:text-light-green"
