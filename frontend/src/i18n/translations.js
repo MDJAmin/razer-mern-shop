@@ -15,7 +15,7 @@ const resources = {
       null: "Null",
       yes: "Yes",
       no: "No",
-
+      
       // Navigation
       dashboard: "Dashboard",
       categories: "Categories",
@@ -24,7 +24,7 @@ const resources = {
       users: "Users",
       comments: "Comments",
       discounts: "Discounts",
-
+      
       // Product
       name: "Name",
       date: "Date",
@@ -42,6 +42,7 @@ const resources = {
       noProductFound: "No Product Found!",
       searchForProduct: "Search For Product:",
       bestProductsBasedOnSales: "Best Products Based On Sales",
+      YouWantThisProductToBe: "You want this product to be",
 
       // Category
       categoryName: "Name",
@@ -133,8 +134,8 @@ const resources = {
       category: "دسته بندی",
       images: "عکس ها",
       isActive: "وضعیت",
-      active: "فعال",
-      notActive: "غیرفعال",
+      active: " فعال ",
+      notActive: " غیرفعال" ,
       changStatusTo: "تغییر وضعیت به",
       change: "تغییر",
       cancel: "لغو",
@@ -142,7 +143,8 @@ const resources = {
       noProductFound: "محصولی یافت نشد",
       searchForProduct: "محصول را جستوجو کنید:",
       bestProductsBasedOnSales: "بهترین محصولات بر اساس فروش",
-
+      YouWantThisProductToBe: "شما می خواهید این محصول",
+      
       // User
       userId: "شناسه کابر",
       role: "نقش",
